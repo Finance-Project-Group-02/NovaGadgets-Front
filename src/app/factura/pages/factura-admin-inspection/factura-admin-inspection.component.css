@@ -1,0 +1,34 @@
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.container{
+    color: black;
+    background-color: white;
+    align-items: center;
+}
+
+.data-factura{
+    background-color: red;
+}
+
+.rates-factura{
+    background-color: skyblue;
+}
+
+.cost-factura{
+    background-color: greenyellow;
+}
+
+.simular{
+    background-color: orange;
+}
+
+.opciones{
+    background-color: blue;
+}
+
+.opciones button{
+    background-color: blue;
+    gap: 10px;
+}

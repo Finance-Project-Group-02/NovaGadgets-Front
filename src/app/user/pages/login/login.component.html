@@ -1,0 +1,30 @@
+<div id="carouselContainer" class="login-container">
+  <!-- Carrusel de fondo -->
+  <div id="backgroundCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="4000">
+        <img src="assets/images/background1.png" class="d-block w-100" alt="Imagen 1">
+      </div>
+      <div class="carousel-item" data-bs-interval="4000">
+        <img src="assets/images/background2.png" class="d-block w-100" alt="Imagen 2">
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulario de inicio de sesión -->
+  <div class="login-form linea">
+    <img src="assets/images/logoNovaGadgets.jpg" class="img-fluid" alt="Logo" class="logo">
+    <form (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <input type="text" [(ngModel)]="login.username" name="username" class="form-control" placeholder="Usuario" required>
+      </div>
+      <div class="mb-3">
+        <input type="password" [(ngModel)]="login.password" name="password" class="form-control" placeholder="Contraseña" required>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+      <div class="text-center mt-3">
+        <a routerLink="/register" class="text-muted">Crear una cuenta</a>
+      </div>
+    </form>
+  </div>
+</div>

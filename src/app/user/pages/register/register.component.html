@@ -1,0 +1,73 @@
+<div id="carouselContainer" class="register-container">
+  <!-- Carrusel de fondo -->
+  <div id="backgroundCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="4000">
+        <img src="assets/images/background1.png" class="d-block w-100" alt="Imagen 1">
+      </div>
+      <div class="carousel-item" data-bs-interval="4000">
+        <img src="assets/images/background2.png" class="d-block w-100" alt="Imagen 2">
+      </div>
+    </div>
+  </div>
+
+    <!-- Formulario de registro -->
+    <div class="register-form linea">
+      <img src="assets/images/logoNovaGadgets.jpg" class="img-fluid logo" alt="Logo">
+      <form (ngSubmit)="onSubmit()">
+        <div class="row">
+          <!-- Primera columna -->
+          <div class="col-md-6 mb-3">
+            <input type="text" [(ngModel)]="user.firstName" name="nombres" class="form-control" placeholder="Nombres" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <input type="text" [(ngModel)]="user.lastName" name="apellidos" class="form-control" placeholder="Apellidos" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <input type="text" [(ngModel)]="user.username" name="username" class="form-control" placeholder="Username" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <input type="password" [(ngModel)]="user.password" name="password" class="form-control" placeholder="Contraseña" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <input type="email" [(ngModel)]="user.email" name="email" class="form-control" placeholder="Email" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <input type="date" [(ngModel)]="user.birthday" name="fechaNacimiento" class="form-control" placeholder="Fecha de Nacimiento" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <input type="tel" [(ngModel)]="user.phoneNumber" name="telefono" class="form-control" placeholder="Teléfono" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <input type="text" [(ngModel)]="user.dni" name="dni" class="form-control" placeholder="DNI" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <select [(ngModel)]="user.gender" name="genero" class="form-control" required>
+              <option value="" disabled selected>Género</option>
+              <option value="masculino">Masculino</option>
+              <option value="femenino">Femenino</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <input type="text" [(ngModel)]="user.ruc" name="ruc" class="form-control" placeholder="RUC" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <select [(ngModel)]="user.currencyType" name="currencyType" class="form-control" required>
+              <option value="" disabled selected>Tipo de moneda</option>
+              <option value="PEN">PEN - Sol</option>
+              <option value="USD">USD - Dólar</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <select [(ngModel)]="user.roles[0].nameRole" name="rol" class="form-control" required>
+              <option value="" disabled selected>Rol</option>
+              <option value="CLIENT">Cliente</option>
+              <option value="ADMIN">Administrador</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Registrar</button>
+      </form>
+    </div>  
+  </div>

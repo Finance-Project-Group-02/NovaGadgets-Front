@@ -1,0 +1,75 @@
+
+<div class="container">
+   
+    <div class="billing-details" >
+        <h2>Billing Details</h2>
+        <label for="address">Dirección*</label>
+        <input type="text" id="address" placeholder="Dirección">
+        
+        <label for="district">Distrito*</label>
+        <select id="district">
+            <option value="Ancon">Ancón</option>
+            <option value="Barranco">Barranco</option>
+            <option value="Breña">Breña</option>
+            <option value="Carabayllo">Carabayllo</option>
+            <option value="Chaclacayo">Chaclacayo</option>
+            <option value="Chorrillos">Chorrillos</option>
+            <option value="Cieneguilla">Cieneguilla</option>
+            <option value="Comas">Comas</option>
+            <option value="El Agustino">El Agustino</option>
+            <option value="Independencia">Independencia</option>
+            <option value="Jesus Maria">Jesús María</option>
+            <option value="La Molina">La Molina</option>
+            <option value="La Victoria">La Victoria</option>
+            <option value="Lima">Lima</option>
+            <option value="Lince">Lince</option>
+            <option value="Los Olivos">Los Olivos</option>
+            <option value="Lurigancho">Lurigancho</option>
+            <option value="Lurin">Lurín</option>
+            <option value="Magdalena del Mar">Magdalena del Mar</option>
+            <option value="Miraflores">Miraflores</option>
+            <option value="Pachacamac">Pachacamac</option>
+            <option value="Pucusana">Pucusana</option>
+            <option value="Pueblo Libre">Pueblo Libre</option>
+            <option value="Puente Piedra">Puente Piedra</option>
+            <option value="Punta Hermosa">Punta Hermosa</option>
+            <option value="Punta Negra">Punta Negra</option>
+            <option value="Rimac">Rímac</option>
+            <option value="San Bartolo">San Bartolo</option>
+            <option value="San Borja">San Borja</option>
+            <option value="San Isidro">San Isidro</option>
+            <option value="San Juan de Lurigancho">San Juan de Lurigancho</option>
+            <option value="San Juan de Miraflores">San Juan de Miraflores</option>
+            <option value="San Luis">San Luis</option>
+        </select>
+        
+        <label for="reference">Referencias*</label>
+        <input type="text" id="reference" placeholder="Referencias">
+    </div>
+
+   
+    <div class="order-summary" *ngFor="let ProductStore of dsProductStore">
+        <h2>Your Order</h2>
+        <ul>
+            <li><span>Producto</span><span>Subtotal</span></li>
+            <li><span>AULA F3261 Type-C Hot Swappable RGB Mechanical Gaming Keyboard - White Gray</span><span>{{ ProductStore.price }}</span></li>
+            <li><span>Subtotal</span><span>{{ ProductStore.price }}</span></li>
+            <li><span>Envío</span><span>Currier: s/.10.00</span></li>
+            <li class="total"><span>Total</span><span>{{ ProductStore.price }}</span></li>
+        </ul>
+
+        <div class="invoice-option">
+            <input type="radio" id="invoice" name="invoice" checked>
+            <label for="invoice">Compra con factura</label>
+            <p class="invoice-info">Al generar una factura mediante este medio, el usuario acepta los términos y condiciones tributarios asociados a dicha factura. Es importante revisar cuidadosamente estos términos para asegurar el cumplimiento de todas las obligaciones fiscales correspondientes.</p>
+        </div>
+
+        <div class="policy">
+            <input type="checkbox" id="policy">
+            <label for="policy">I have read and agree to the website privacy policy, terms and conditions and Return Policy*</label>
+        </div>
+
+        <button class="submit-btn">GENERAR FACTURA DE COMPRA</button>
+    </div>
+</div>
+

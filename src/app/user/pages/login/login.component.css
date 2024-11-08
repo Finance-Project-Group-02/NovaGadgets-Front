@@ -1,0 +1,59 @@
+.login-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .carousel {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .login-form {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    z-index: 1;
+  }
+  
+  .logo {
+    display: block;
+    margin: 0 auto 20px;
+    max-width: 110px;
+    border-radius: 15px;
+  }
+  
+  .carousel-inner img {
+    width: 100%;
+    height: 50vw;
+    object-fit: cover;
+  }
+  
+  #carouselContainer {
+    background-color: #e1e2e3;
+    transition: background-color 0.5s ease;
+  }
+  
+  .linea{
+    border-top: 10px solid #01034e;
+    padding-top: 1rem;
+}
+
+@media (max-width: 768px) {
+    .login-form {
+      width: 80%;
+      padding: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
