@@ -1,0 +1,105 @@
+.container {
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
+    margin: 0 auto;
+    gap: 10px;
+}
+
+.title{
+    margin: 0;
+}
+
+.factura-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 30px;
+}
+
+.icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+
+.estado-aceptado {
+    background-color: green;
+}
+
+.estado-pendiente {
+    background-color: yellow;
+}
+
+.estado-rechazado {
+    background-color: red;
+}
+
+.button-inspection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 8px 12px;
+    background-color: orange;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+}
+
+.button-inspection:hover {
+    background-color: skyblue; 
+}
+
+.button-inspection .name {
+    margin: 0;
+}
+
+.button-inspection mat-icon {
+    font-size: 20px;
+}
+
+.button-inspection mat-icon {
+    font-size: 20px;
+    font-weight: bold;
+    vertical-align: middle;
+    display: inline-flex;
+    align-items: center;
+}
+
+mat-card {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    padding: 16px;
+    margin: 8px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+}
+
+@media (min-width: 800px) {
+    mat-card {
+        max-width: 700px;
+    }
+}
+
+@media (min-width: 900px) {
+    mat-card {
+        max-width: 800px;
+    }
+}

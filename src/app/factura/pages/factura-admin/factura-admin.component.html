@@ -1,3 +1,26 @@
-<p>
-  factura-admin works!
-</p>
+<div class="container">
+  <div>
+      <h4 class="title">Lista de Facturas</h4>
+  </div>
+
+  <mat-card appearance="outlined" *ngFor="let factura of dsFacturas">
+      <mat-card-content class="factura-panel">
+          <div class="factura-container">
+              <div class="icon" [ngClass]="getStateClass(factura.state)"></div>
+              
+              <div class="factura-details">
+                <p>Número de factura: N°{{factura.id}}</p>
+                <p>Username: {{ factura.username }}</p>
+                <p>Monto: {{ factura.totalInvoiced }}</p>
+                <p>Fecha de Creacion de orden: {{ factura.orderDate }}</p>
+              </div>
+
+              <div class="button-inspection" *ngIf="factura.state == 'PENDIENTE'" routerLink="/factura-admin-inspection/{{factura.id}}">
+                  <p class="name">Inspeccionar</p>
+                  <mat-icon>search</mat-icon>
+              </div>
+          </div>
+      </mat-card-content>
+  </mat-card>
+    
+</div>
