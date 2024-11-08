@@ -11,6 +11,7 @@
                 <p>QUANTITY: {{ productstore.quantity }}</p>
                 <p>PRICE: {{ productstore.price }}</p>
                 <p>{{ productstore.product.category.name }}</p>
+                <button class="btn btn-primary" [routerLink]="['/product-detail', productstore.id]">Ver Detalles</button>
             </div>
         </div>
         <button class="scroll-button right" (click)="scrollRight()">&#10095;</button>

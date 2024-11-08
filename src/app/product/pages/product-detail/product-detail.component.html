@@ -1,53 +1,7 @@
-<div class="product-view">
-    
-    <div class="breadcrumb">
-        Home / Keyboard / {{ product.store[0].name }} / {{ product.name }}
-    </div>
-
-    <div class="product-detail-container">
-        
-        <div class="product-images">
-            <div class="thumbnail-images">
-                <img *ngFor="let img of product.images" [src]="img" [alt]="product.name" class="thumbnail">
-            </div>
-            <div class="main-image">
-                <img [src]="product.mainImage" [alt]="product.name">
-            </div>
-        </div>
-
-       
-        <div class="product-info">
-            
-            
-            
-            <h1>{{ product.name }}</h1>
-            <p class="product-price">s/.{{ product.price }}</p>
-            
-            
-            <ul class="product-details">
-                <li>Model: {{ product.model }}</li>
-                <li>Switch Type: {{ product.switchType }}</li>
-                <li>Number of Keys: {{ product.keysCount }}</li>
-                <li>Light: {{ product.rgbEffects }}</li>
-                <li>Connector Type: {{ product.connectorType }}</li>
-            </ul>
-            
-          
-            <label for="color">Color:</label>
-            <select id="color">
-                <option *ngFor="let color of product.colors" [value]="color">{{ color }}</option>
-            </select>
-            
-            <div class="quantity-cart">
-                <input type="number" min="1" value="1">
-                <button class="add-to-cart">ADD TO CART</button>
-            </div>
-
-           
-            <div class="product-actions">
-                <a href="#" class="share">Share</a>
-                <a href="#" class="like">Añadir a me gusta</a>
-            </div>
-        </div>
-    </div>
+<div class="product-detail-container">
+    <h1>{{ productstore.product.name }}</h1>
+    <p>QUANTITY: {{ productstore.quantity }}</p>
+    <p>PRICE: {{ productstore.price }}</p>
+    <p>RUC STORE: {{ productstore.product.category.name }}</p>
+    <!-- Aquí puedes agregar más detalles del producto -->
 </div>

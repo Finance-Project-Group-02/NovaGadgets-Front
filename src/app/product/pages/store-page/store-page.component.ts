@@ -5,18 +5,21 @@ import { NgFor } from '@angular/common';
 import { ProductService } from '../../services/product/product.service';
 import { ProductStore } from '../../models/productStore';
 import { ProductstoreserviceService } from '../../services/product/productstoreservice.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-store-page',
   standalone: true,
-  imports: [NgFor],
+  imports: [NgFor, RouterLink],
   templateUrl: './store-page.component.html',
   styleUrl: './store-page.component.css'
 })
 export class StorePageComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<ProductStore> = new MatTableDataSource();
+  dataSourcePr: MatTableDataSource<Product> = new MatTableDataSource();
 
-  constructor(private psS: ProductstoreserviceService) {}
+
+  constructor(private psS: ProductstoreserviceService, private prS: ProductService) {}
 
   ngOnInit(): void {
     this.psS.list().subscribe(data => {
@@ -24,6 +27,12 @@ export class StorePageComponent implements OnInit, AfterViewInit {
     });
     this.psS.getList().subscribe(data => {
       this.dataSource.data = data;
+    });
+    this.prS.list().subscribe(data => {
+      this.dataSourcePr.data = data;
+    });
+    this.prS.getList().subscribe(data => {
+      this.dataSourcePr.data = data;
     });
   }
 

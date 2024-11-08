@@ -21,4 +21,7 @@ export class ProductstoreserviceService {
   getList(){
     return this.listaCambio.asObservable();
   }
+  getProductById(id: string | null){
+    return this.http.get<ProductStore>(`${base_url}/productStore/id/${id}`);
+  }
 }

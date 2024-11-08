@@ -13,5 +13,6 @@ export const routes: Routes = [
     { path: "factura-admin", component: FacturaAdminComponent},
     { path: "factura-admin-inspection/:id", component: FacturaAdminInspectionComponent},
     { path: "store-page", component: StorePageComponent},
+    { path: "product-detail/:id", component: ProductDetailComponent }, // Nueva ruta
     { path: '**', redirectTo: 'login' },
 ];
