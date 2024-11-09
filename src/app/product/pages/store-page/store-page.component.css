@@ -12,7 +12,7 @@
 }
 
 .card {
-    min-width: 200px;
+    min-width: 220px; /* Ajusta el tamaño mínimo de la tarjeta según sea necesario */
     margin: 10px;
     padding: 20px;
     background: #fff;
@@ -20,6 +20,18 @@
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     flex-shrink: 0;
+    text-align: center; /* Centrar el contenido de la tarjeta */
+}
+
+.product-image {
+    width: 180px; /* Aumenta el ancho de la imagen */
+    height: 120px; /* Aumenta la altura de la imagen */
+    object-fit: cover; /* Asegura que la imagen mantenga su relación de aspecto y se recorte si es necesario */
+    border-radius: 4px; /* Bordes redondeados para la imagen */
+    margin-bottom: 10px; /* Espacio entre la imagen y el texto */
+    display: block; /* Asegura que la imagen se trate como un bloque */
+    margin-left: auto; /* Centra la imagen horizontalmente */
+    margin-right: auto; /* Centra la imagen horizontalmente */
 }
 
 .scroll-button {

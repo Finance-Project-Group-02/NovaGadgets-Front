@@ -5,6 +5,7 @@ import { FacturaAdminComponent } from './factura/pages/factura-admin/factura-adm
 import { FacturaAdminInspectionComponent } from './factura/pages/factura-admin-inspection/factura-admin-inspection.component';
 import { ProductDetailComponent } from './product/pages/product-detail/product-detail.component';
 import { StorePageComponent } from './product/pages/store-page/store-page.component';
+import { ProductOrderComponent } from './product/pages/product-order/product-order.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -14,5 +15,6 @@ export const routes: Routes = [
     { path: "factura-admin-inspection/:id", component: FacturaAdminInspectionComponent},
     { path: "store-page", component: StorePageComponent},
     { path: "product-detail/:id", component: ProductDetailComponent }, // Nueva ruta
+    { path: 'product-order/:id', component: ProductOrderComponent }, // Nueva ruta con ID
     { path: '**', redirectTo: 'login' },
 ];

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProductService } from '../../services/product/product.service';
 import { ProductstoreserviceService } from '../../services/product/productstoreservice.service';
 import { ProductStore } from '../../models/productStore';
@@ -8,7 +8,7 @@ import { Product } from '../../models/Product';
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.css'
 })

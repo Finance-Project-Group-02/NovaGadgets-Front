@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Product } from '../../models/Product';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgFor } from '@angular/common';
@@ -18,8 +18,7 @@ export class StorePageComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<ProductStore> = new MatTableDataSource();
   dataSourcePr: MatTableDataSource<Product> = new MatTableDataSource();
 
-
-  constructor(private psS: ProductstoreserviceService, private prS: ProductService) {}
+  constructor(private psS: ProductstoreserviceService, private prS: ProductService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.psS.list().subscribe(data => {

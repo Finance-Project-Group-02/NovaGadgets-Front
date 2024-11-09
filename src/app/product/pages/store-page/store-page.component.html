@@ -6,6 +6,7 @@
         <button class="scroll-button left" (click)="scrollLeft()">&#10094;</button>
         <div class="card-container">
             <div class="card" *ngFor="let productstore of dataSource.data">
+                <img class="product-image" [src]="productstore.product.image" alt="{{ productstore.product.name }}">
                 <h2>{{ productstore.product.name }}</h2>
                 <p>RUC STORE: {{ productstore.store.ruc }}</p>
                 <p>QUANTITY: {{ productstore.quantity }}</p>
