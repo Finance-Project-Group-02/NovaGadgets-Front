@@ -1,6 +1,19 @@
 <div class="container">
-  <div *ngIf="!evaular" class="form-container">
+  <div class="form-container" *ngIf="!evaular">
       <form class="form" [formGroup]="formDescuento">
+        <div class="type">
+            <div class="form-field">
+                <label>Tipo</label>
+                <mat-form-field appearance="outline">
+                <mat-label>Selecciona el tipo de tasa</mat-label>
+                    <mat-select formControlName="type" class="form-control" (selectionChange)="actualizarTipo($event)">
+                        <mat-option value="E">Efectiva</mat-option>
+                        <mat-option value="N">Nominal</mat-option>
+                    </mat-select>
+                <mat-error app-field-error-messages controlName="type">El tipo de tasa es <strong>requerido</strong></mat-error>
+                </mat-form-field>
+            </div>
+        </div>
           <div class="row">
               <div class="data-factura">
                   <h4>Datos de la Factura</h4>
@@ -71,12 +84,37 @@
                       </mat-form-field>
                   </div>
 
-                  <div class="form-field">
+                  <div class="form-field" *ngIf="tasaValue == 'E'">
                       <label>(TE) Tasa Efectiva</label>
                       <mat-form-field appearance="outline">
-                          <input type="number" matInput formControlName="effectiveRate" placeholder="Ingresa el tasa efectiva" class="form-control">
+                          <input type="number" matInput formControlName="effectiveRate" placeholder="Ingresa el tasa" class="form-control">
                           <mat-error app-field-error-messages controlName="effectiveRate">La tasa es <strong>requerida</strong></mat-error>
                       </mat-form-field>
+                  </div>
+
+                  <div class="form-field" *ngIf="tasaValue == 'N'">
+                        <label>(TN) Tasa Nominal</label>
+                        <mat-form-field appearance="outline">
+                            <input type="number" matInput formControlName="effectiveRate" placeholder="Ingresa el tasa" class="form-control">
+                            <mat-error app-field-error-messages controlName="effectiveRate">La tasa es <strong>requerida</strong></mat-error>
+                        </mat-form-field>
+                  </div>
+
+                  <div class="form-field" *ngIf="tasaValue == 'N'">
+                    <label>(PC) Periodo de Capitalizacion</label>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Selecciona una opción</mat-label>
+                        <mat-select formControlName="capitalization" class="form-control" (selectionChange)="selectionChangeNominal($event)">
+                        <mat-option *ngFor="let option of options" [value]="option.value">{{ option.label }}</mat-option>
+                        </mat-select>
+                        <mat-error app-field-error-messages controlName="capitalization">La capitalizacion es <strong>requerida</strong></mat-error>
+                    </mat-form-field>
+                    
+
+                    <mat-form-field appearance="outline" *ngIf="selectedOptionNominal === 'especial'">
+                        <mat-label>Especificar valor</mat-label>
+                        <input matInput formControlName="especialRateCapitalization" [readonly]="selectedOptionNominal !== 'especial'" placeholder="Valor especial">
+                    </mat-form-field>
                   </div>
 
                   <div class="form-field">

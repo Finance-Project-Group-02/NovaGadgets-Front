@@ -10,15 +10,16 @@
     gap: 10px;
 }
 
-.title{
+.title {
     margin: 0;
+    text-align: center;
 }
 
 .factura-container {
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    gap: 30px;
+    justify-content: space-between;
+    gap: 20px;
 }
 
 .icon {
@@ -28,12 +29,12 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
+    background-color: yellow; /* color del estado pendiente */
     color: white;
     font-size: 12px;
     font-weight: bold;
     text-transform: uppercase;
 }
-
 
 .estado-aceptado {
     background-color: green;
@@ -45,6 +46,10 @@
 
 .estado-rechazado {
     background-color: red;
+}
+
+.factura-details {
+    flex: 1;
 }
 
 .button-inspection {
@@ -60,6 +65,7 @@
     transition: background-color 0.3s;
     font-weight: bold;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+    text-transform: uppercase;
 }
 
 .button-inspection:hover {
@@ -72,11 +78,6 @@
 
 .button-inspection mat-icon {
     font-size: 20px;
-}
-
-.button-inspection mat-icon {
-    font-size: 20px;
-    font-weight: bold;
     vertical-align: middle;
     display: inline-flex;
     align-items: center;
@@ -84,12 +85,22 @@
 
 mat-card {
     width: 100%;
-    max-width: 400px;
+    max-width: 700px; /* Ajusta el ancho máximo según el mockup */
     height: auto;
     padding: 16px;
     margin: 8px auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease-in-out;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.factura-panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }
 
 @media (min-width: 800px) {
