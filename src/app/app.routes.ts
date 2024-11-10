@@ -9,12 +9,14 @@ import { ProductOrderComponent } from './product/pages/product-order/product-ord
 import { HomeComponent } from './public/pages/home/home.component';
 import { loginGuard } from './guards/login/login.guard';
 import { authGuard } from './guards/auth/auth.guard';
+import { PerfilComponent } from './user/pages/perfil/perfil.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'login', component: LoginComponent, canActivate: [loginGuard] },
     { path: 'register', component: RegisterComponent, canActivate: [authGuard] },
     { path: 'home', component: HomeComponent, canActivate: [authGuard] },
+    { path: 'perfil', component: PerfilComponent, canActivate: [authGuard] },
     { path: "factura-admin", component: FacturaAdminComponent, canActivate: [authGuard]},
     { path: "factura-admin-inspection/:id", component: FacturaAdminInspectionComponent, canActivate: [authGuard]},
     { path: "store-page", component: StorePageComponent, canActivate: [authGuard]},

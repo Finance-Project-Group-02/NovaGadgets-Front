@@ -1,11 +1,46 @@
+/* Estilo para el logo */
 .navbar-brand .logo {
-    height: 50px;
-    width: 50px;
-    object-fit: cover;
-  }
-  
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+}
 
-  /* Centrar elementos en el menú hamburguesa */
+/* Estilos generales de los botones de navegación */
+.navbar-nav .nav-link.nav-btn {
+  color: #333;
+  padding: 10px 15px;
+  margin-right: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navbar-nav .nav-link.nav-btn:hover {
+  background-color: #007bff; /* Fondo azul al pasar el cursor */
+  color: #fff;
+}
+
+/* Estilo activo para los enlaces de navegación */
+.navbar-nav .nav-link.active {
+  background-color: #bbd4ef; /* Fondo azul para el enlace activo */
+  color: #fff; /* Color blanco para el texto activo */
+  font-weight: bold; /* Negrita para el enlace activo */
+}
+
+/* Estilo específico para el botón de logout */
+.navbar-nav .nav-link.logout-btn {
+  color: #dc3545;
+  padding: 10px 15px;
+  border: 1px solid #dc3545;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navbar-nav .nav-link.logout-btn:hover {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+/* Centrar elementos en el menú hamburguesa */
 @media (max-width: 991.98px) {
   .navbar-collapse {
     text-align: center;

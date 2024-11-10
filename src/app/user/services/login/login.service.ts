@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment.development';
-import { BehaviorSubject, catchError, Observable, retry, throwError, tap} from 'rxjs';
+import { BehaviorSubject, catchError, Observable, retry, throwError, tap, of} from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 
 import { User } from '../../models/user.model';
@@ -28,6 +28,10 @@ export class LoginService {
 
     if (!cookieLoginExists || !cookieUserExists) {
       this.cookieService.set('login', 'unlogged');
+    }
+    else {
+      this.user = JSON.parse(this.cookieService.get('user'));
+      console.log('Usuario cargado:', this.user);
     }
   }
 
@@ -74,9 +78,10 @@ export class LoginService {
     console.log('Usuario cargado:', this.user);
 
     // Guardar en cookie
-    this.cookieService.set('login', 'logged');
-    this.cookieService.set('user', JSON.stringify(usuario));
+    this.cookieService.set('login', 'logged', 1);
+    this.cookieService.set('user', JSON.stringify(usuario), 1);
 
+    console.log("Usuario logeado");
     console.log('Cookie user:', this.cookieService.get('user'));
 
     // Redirigir a home
@@ -90,25 +95,17 @@ export class LoginService {
   logout() {
     this.cookieService.set('login', 'unlogged');
     this.cookieService.delete('user');
+    this.isUserLogin.next(false);
     this.router.navigate(['/login']);
   }
 
   //Validar////////////////////////
-  getUser(): User | null {
-    const userData = this.cookieService.get('user');
-
-    if (userData) {
-      try {
-        return JSON.parse(userData) as User;
-      } catch (error) {
-        console.log('Holaas');
-        console.error('Error parsing JSON in getUser:', error);
-        return null;
-      }
+  getUser(): Observable<User | null> {
+    if (this.cookieService.check('user')) {
+        const user = JSON.parse(this.cookieService.get('user')) as User;
+        return of(user);
     } else {
-      console.log('Holaas123');
-      console.warn('No user data found in cookies');
-      return null;
+        return of(null);
     }
-  }
+}
 }
