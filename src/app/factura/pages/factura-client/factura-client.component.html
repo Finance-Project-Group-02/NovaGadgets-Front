@@ -1,3 +1,17 @@
-<p>
-  factura-client works!
-</p>
+<div class="container">
+  <mat-card appearance="outlined" *ngFor="let factura of dsFacturas">
+    <mat-card-content class="factura-panel">
+      <div class="factura-container">
+        <div class="icon estado-pendiente"></div>
+
+        <div class="factura-details">
+          <p>Bill: {{ factura.id }}</p>
+          <p>User: {{ factura.username }}</p>
+          <p>Order Date: {{ factura.orderDate }}</p>
+          <p>State: {{ factura.state }}</p>
+          <p></p>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

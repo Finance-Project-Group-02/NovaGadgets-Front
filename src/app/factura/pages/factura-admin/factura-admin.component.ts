@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCardModule} from '@angular/material/card';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule} from '@angular/material/icon';
 import { FacturaSummary } from '../../models/facturaSummary';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';

@@ -6,6 +6,7 @@ import { FacturaAdminInspectionComponent } from './factura/pages/factura-admin-i
 import { ProductDetailComponent } from './product/pages/product-detail/product-detail.component';
 import { StorePageComponent } from './product/pages/store-page/store-page.component';
 import { ProductOrderComponent } from './product/pages/product-order/product-order.component';
+
 import { HomeComponent } from './public/pages/home/home.component';
 import { loginGuard } from './guards/login/login.guard';
 import { authGuard } from './guards/auth/auth.guard';
