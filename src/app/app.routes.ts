@@ -6,6 +6,7 @@ import { FacturaAdminInspectionComponent } from './factura/pages/factura-admin-i
 import { ProductDetailComponent } from './product/pages/product-detail/product-detail.component';
 import { StorePageComponent } from './product/pages/store-page/store-page.component';
 import { ProductOrderComponent } from './product/pages/product-order/product-order.component';
+import {FacturaClientComponent} from './factura/pages/factura-client/factura-client.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -13,6 +14,7 @@ export const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: "factura-admin", component: FacturaAdminComponent},
     { path: "factura-admin-inspection/:id", component: FacturaAdminInspectionComponent},
+    { path: "factura-client/:id", component: FacturaClientComponent},
     { path: "store-page", component: StorePageComponent},
     { path: "product-detail/:id", component: ProductDetailComponent }, // Nueva ruta
     { path: 'product-order/:id', component: ProductOrderComponent }, // Nueva ruta con ID

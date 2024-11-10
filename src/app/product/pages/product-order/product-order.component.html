@@ -21,7 +21,7 @@
         <ul>
             <li><span>Producto</span><span>Subtotal</span></li>
             <li *ngIf="selectedProduct">
-                <span>{{ selectedProduct.product.name }}</span> <!-- Nombre del producto -->
+                <span>{{ selectedProduct.product?.name }}</span> <!-- Nombre del producto -->
                 <span>{{ selectedProduct.price | currency }}</span> <!-- Precio del producto -->
             </li>
             <li><span>Subtotal</span><span>{{ totalPrice | currency }}</span></li>
