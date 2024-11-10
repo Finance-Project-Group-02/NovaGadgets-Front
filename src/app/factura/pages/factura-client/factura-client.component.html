@@ -1,5 +1,16 @@
 <div class="container">
-  <mat-card appearance="outlined" *ngFor="let factura of dsFacturas">
+  <div>
+    <h4 class="title">Mis Facturas</h4>
+  </div>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Filtrar por Estado</mat-label>
+    <mat-select [(value)]="selectedState" (selectionChange)="filtrarFacturas()">
+      <mat-option *ngFor="let estado of estados" [value]="estado">{{ estado }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-card appearance="outlined" *ngFor="let factura of facturasFiltradas">
     <mat-card-content class="factura-panel">
       <div class="factura-container">
         <div class="icon estado-pendiente"></div>
