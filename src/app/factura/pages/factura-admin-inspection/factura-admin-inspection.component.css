@@ -2,33 +2,141 @@ input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
 
-.container{
+/* Estilos generales */
+.container {
     color: black;
-    background-color: white;
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    padding: 20px;
 }
 
-.data-factura{
-    background-color: red;
+.form-container {
+    width: 100%;
+    max-width: 1200px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.rates-factura{
-    background-color: skyblue;
+/* Encabezado */
+h4 {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 10px;
+    margin: 0;
+    text-align: center;
 }
 
-.cost-factura{
-    background-color: greenyellow;
+/* Sección Datos de Factura */
+.data-factura {
+    background-color: #ff5722;
+    padding: 20px;
+    border-radius: 8px;
+    flex: 1;
+    margin: 10px;
 }
 
-.simular{
-    background-color: orange;
+.data-factura h4 {
+    background-color: #ff5722;
 }
 
-.opciones{
-    background-color: blue;
+/* Sección Tasa y Plazo */
+.rates-factura {
+    background-color: #ff5722;
+    padding: 20px;
+    border-radius: 8px;
+    flex: 1;
+    margin: 10px;
 }
 
-.opciones button{
-    background-color: blue;
+.rates-factura h4 {
+    background-color: #ff5722;
+}
+
+/* Sección Costes / Gastos Iniciales y Finales */
+.cost-factura {
+    background-color: #ff5722;
+    padding: 20px;
+    border-radius: 8px;
+    flex: 1;
+    margin: 10px;
+}
+
+.cost-factura h4 {
+    background-color: #ff5722;
+}
+
+/* Botones y Opciones */
+.simular button {
+    background-color: #757575;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.simular button:hover {
+    background-color: #9e9e9e;
+}
+
+.opciones {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #1976d2;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.opciones button {
+    background-color: #1976d2;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.opciones button:hover {
+    background-color: #1565c0;
+}
+
+/* Campos de formulario */
+.form-field {
+    margin-bottom: 15px;
+}
+
+.mat-form-field {
+    width: 100%;
+}
+
+.value-container {
+    display: flex;
     gap: 10px;
+}
+
+/* Ajustes para móvil */
+@media (max-width: 768px) {
+    .form-container {
+        padding: 10px;
+    }
+
+    .data-factura, .rates-factura, .cost-factura {
+        flex: 1 1 100%;
+        margin: 10px 0;
+    }
+
+    .opciones {
+        flex-direction: column;
+    }
 }
