@@ -2,9 +2,12 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Renderer2 } fr
 import { RouterLink } from '@angular/router';
 
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 import { Login } from '../../models/login.model';
+import { LoginService } from '../../services/login/login.service';
+import { User } from '../../models/user.model';
 
 
 @Component({
@@ -12,15 +15,15 @@ import { Login } from '../../models/login.model';
   standalone: true,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  imports: [CommonModule, FormsModule, RouterLink]
+  imports: [CommonModule, FormsModule]
 })
 export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   login: Login = {
-    username: '',
+    email: '',
     password: ''
   }
 
-  constructor( private renderer: Renderer2, private el: ElementRef) {}
+  constructor( private loginService: LoginService, private renderer: Renderer2, private el: ElementRef, private toastr: ToastrService) {}
 
   ngOnInit() {
   }
@@ -28,11 +31,31 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  onSubmit() {
-    console.log('Loginform submitted');
+  onSubmit(loginForm: NgForm) {
+    if (loginForm.invalid) {
+      loginForm.controls['email'].markAsTouched();
+      loginForm.controls['password'].markAsTouched();
+      this.toastr.clear();
+      this.toastr.warning('Por favor, complete los campos requeridos', 'Formulario Inválido');
+      return;
+    }
+  
+    this.loginService.login(this.login).subscribe({
+      next: (response: User) => {
+        console.log('Inicio de sesión exitoso:', response);
+        this.loginService.loadUser(response);
+  
+        this.toastr.clear();
+        this.toastr.success(`Inicio de sesión exitoso`, `¡Bienvenido ${response.firstName}!`);
+      },
+      error: (err) => {
+        const mensajeError = err.error?.message || 'Error desconocido';
+  
+        this.toastr.clear();
+        this.toastr.error(mensajeError, 'Error de Autenticación');
+      }
+    });
   }
-
-
 
   ngAfterViewInit(): void {
     const carouselContainer = this.el.nativeElement.querySelector("#carouselContainer");

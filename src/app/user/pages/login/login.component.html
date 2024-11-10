@@ -14,17 +14,41 @@
   <!-- Formulario de inicio de sesión -->
   <div class="login-form linea">
     <img src="assets/images/logoNovaGadgets.jpg" class="img-fluid" alt="Logo" class="logo">
-    <form (ngSubmit)="onSubmit()">
+    <form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
       <div class="mb-3">
-        <input type="text" [(ngModel)]="login.username" name="username" class="form-control" placeholder="Usuario" required>
+        <input
+          type="text"
+          [(ngModel)]="login.email"
+          name="email"
+          #email="ngModel"
+          class="form-control"
+          placeholder="Usuario"
+          required
+        />
+        <!-- Mensaje de error para el campo 'email' -->
+        <div *ngIf="email.invalid && (email.touched || loginForm.submitted)" class="error-message">
+          Usuario es requerido.
+        </div>
       </div>
+    
       <div class="mb-3">
-        <input type="password" [(ngModel)]="login.password" name="password" class="form-control" placeholder="Contraseña" required>
+        <input
+          type="password"
+          [(ngModel)]="login.password"
+          name="password"
+          #password="ngModel"
+          class="form-control"
+          placeholder="Contraseña"
+          required
+        />
+        <!-- Mensaje de error para el campo 'password' -->
+        <div *ngIf="password.invalid && (password.touched || loginForm.submitted)" class="error-message">
+          Contraseña es requerida.
+        </div>
       </div>
+    
       <button type="submit" class="btn btn-primary w-100">Ingresar</button>
-      <div class="text-center mt-3">
-        <a routerLink="/register" class="text-muted">Crear una cuenta</a>
-      </div>
     </form>
+    
   </div>
 </div>

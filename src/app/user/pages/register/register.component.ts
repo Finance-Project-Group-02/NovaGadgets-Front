@@ -6,23 +6,28 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule} from '@angular/forms';
 
 import { UserModel } from '../../models/user.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
-  imports: [MatSelectModule, FormsModule, MatInputModule, MatFormFieldModule]
+  imports: [MatSelectModule, FormsModule, MatInputModule, MatFormFieldModule, CommonModule]
 })
 export class RegisterComponent{
   user: UserModel = new UserModel();
 
   constructor( private renderer: Renderer2, private el: ElementRef) {}
 
-  onSubmit() {
-    console.log('Registerform submitted');
+  onSubmit(registerForm: any) {
+    if (registerForm.valid) {
+      // Lógica para registrar al usuario
+      console.log('Formulario válido:', this.user);
+    } else {
+      console.log('Formulario inválido');
+    }
   }
-
 
   ngAfterViewInit(): void {
     const carouselContainer = this.el.nativeElement.querySelector("#carouselContainer");

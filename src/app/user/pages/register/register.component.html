@@ -14,60 +14,125 @@
     <!-- Formulario de registro -->
     <div class="register-form linea">
       <img src="assets/images/logoNovaGadgets.jpg" class="img-fluid logo" alt="Logo">
-      <form (ngSubmit)="onSubmit()">
+      <form (ngSubmit)="onSubmit(registerForm)" #registerForm="ngForm">
         <div class="row">
-          <!-- Primera columna -->
+          <!-- Nombres -->
           <div class="col-md-6 mb-3">
-            <input type="text" [(ngModel)]="user.firstName" name="nombres" class="form-control" placeholder="Nombres" required>
+            <input type="text" [(ngModel)]="user.firstName" name="nombres" #nombres="ngModel" class="form-control" placeholder="Nombres" required>
+            <div *ngIf="nombres.invalid && (nombres.touched || registerForm.submitted)" class="error-message">
+              Nombres es requerido.
+            </div>
           </div>
+      
+          <!-- Apellidos -->
           <div class="col-md-6 mb-3">
-            <input type="text" [(ngModel)]="user.lastName" name="apellidos" class="form-control" placeholder="Apellidos" required>
+            <input type="text" [(ngModel)]="user.lastName" name="apellidos" #apellidos="ngModel" class="form-control" placeholder="Apellidos" required>
+            <div *ngIf="apellidos.invalid && (apellidos.touched || registerForm.submitted)" class="error-message">
+              Apellidos es requerido.
+            </div>
           </div>
+      
+          <!-- Username -->
           <div class="col-md-6 mb-3">
-            <input type="text" [(ngModel)]="user.username" name="username" class="form-control" placeholder="Username" required>
+            <input type="text" [(ngModel)]="user.username" name="username" #username="ngModel" class="form-control" placeholder="Username" required minlength="4">
+            <div *ngIf="username.invalid && (username.touched || registerForm.submitted)" class="error-message">
+              <div *ngIf="username.errors?.['required']">Username es requerido.</div>
+              <div *ngIf="username.errors?.['minlength']">Username debe tener al menos 4 caracteres.</div>
+            </div>
           </div>
+      
+          <!-- Contraseña -->
           <div class="col-md-6 mb-3">
-            <input type="password" [(ngModel)]="user.password" name="password" class="form-control" placeholder="Contraseña" required>
+            <input type="password" [(ngModel)]="user.password" name="password" #password="ngModel" class="form-control" placeholder="Contraseña" required minlength="6">
+            <div *ngIf="password.invalid && (password.touched || registerForm.submitted)" class="error-message">
+              <div *ngIf="password.errors?.['required']">Contraseña es requerida.</div>
+              <div *ngIf="password.errors?.['minlength']">Contraseña debe tener al menos 6 caracteres.</div>
+            </div>
           </div>
+      
+          <!-- Email -->
           <div class="col-md-6 mb-3">
-            <input type="email" [(ngModel)]="user.email" name="email" class="form-control" placeholder="Email" required>
+            <input type="email" [(ngModel)]="user.email" name="email" #email="ngModel" class="form-control" placeholder="Email" required email>
+            <div *ngIf="email.invalid && (email.touched || registerForm.submitted)" class="error-message">
+              <div *ngIf="email.errors?.['required']">Email es requerido.</div>
+              <div *ngIf="email.errors?.['email']">Debe ser un email válido.</div>
+            </div>
           </div>
+      
+          <!-- Fecha de Nacimiento -->
           <div class="col-md-6 mb-3">
-            <input type="date" [(ngModel)]="user.birthday" name="fechaNacimiento" class="form-control" placeholder="Fecha de Nacimiento" required>
+            <input type="date" [(ngModel)]="user.birthday" name="fechaNacimiento" #fechaNacimiento="ngModel" class="form-control" placeholder="Fecha de Nacimiento" required>
+            <div *ngIf="fechaNacimiento.invalid && (fechaNacimiento.touched || registerForm.submitted)" class="error-message">
+              Fecha de nacimiento es requerida.
+            </div>
           </div>
+      
+          <!-- Teléfono -->
           <div class="col-md-6 mb-3">
-            <input type="tel" [(ngModel)]="user.phoneNumber" name="telefono" class="form-control" placeholder="Teléfono" required>
+            <input type="tel" [(ngModel)]="user.phoneNumber" name="telefono" #telefono="ngModel" class="form-control" placeholder="Teléfono" required pattern="^[0-9]{9}$">
+            <div *ngIf="telefono.invalid && (telefono.touched || registerForm.submitted)" class="error-message">
+              <div *ngIf="telefono.errors?.['required']">Teléfono es requerido.</div>
+              <div *ngIf="telefono.errors?.['pattern']">Teléfono debe tener 9 dígitos.</div>
+            </div>
           </div>
+      
+          <!-- DNI -->
           <div class="col-md-6 mb-3">
-            <input type="text" [(ngModel)]="user.dni" name="dni" class="form-control" placeholder="DNI" required>
+            <input type="text" [(ngModel)]="user.dni" name="dni" #dni="ngModel" class="form-control" placeholder="DNI" required pattern="^[0-9]{8}$">
+            <div *ngIf="dni.invalid && (dni.touched || registerForm.submitted)" class="error-message">
+              <div *ngIf="dni.errors?.['required']">DNI es requerido.</div>
+              <div *ngIf="dni.errors?.['pattern']">DNI debe tener 8 dígitos.</div>
+            </div>
           </div>
+      
+          <!-- Género -->
           <div class="col-md-6 mb-3">
-            <select [(ngModel)]="user.gender" name="genero" class="form-control" required>
+            <select [(ngModel)]="user.gender" name="genero" #genero="ngModel" class="form-control" required>
               <option value="" disabled selected>Género</option>
               <option value="masculino">Masculino</option>
               <option value="femenino">Femenino</option>
               <option value="otro">Otro</option>
             </select>
+            <div *ngIf="genero.invalid && (genero.touched || registerForm.submitted)" class="error-message">
+              Género es requerido.
+            </div>
           </div>
+      
+          <!-- RUC -->
           <div class="col-md-6 mb-3">
-            <input type="text" [(ngModel)]="user.ruc" name="ruc" class="form-control" placeholder="RUC" required>
+            <input type="text" [(ngModel)]="user.ruc" name="ruc" #ruc="ngModel" class="form-control" placeholder="RUC" required pattern="^[0-9]{11}$">
+            <div *ngIf="ruc.invalid && (ruc.touched || registerForm.submitted)" class="error-message">
+              <div *ngIf="ruc.errors?.['required']">RUC es requerido.</div>
+              <div *ngIf="ruc.errors?.['pattern']">RUC debe tener 11 dígitos.</div>
+            </div>
           </div>
+      
+          <!-- Tipo de Moneda -->
           <div class="col-md-6 mb-3">
-            <select [(ngModel)]="user.currencyType" name="currencyType" class="form-control" required>
+            <select [(ngModel)]="user.currencyType" name="currencyType" #currencyType="ngModel" class="form-control" required>
               <option value="" disabled selected>Tipo de moneda</option>
               <option value="PEN">PEN - Sol</option>
               <option value="USD">USD - Dólar</option>
             </select>
+            <div *ngIf="currencyType.invalid && (currencyType.touched || registerForm.submitted)" class="error-message">
+              Tipo de moneda es requerido.
+            </div>
           </div>
+      
+          <!-- Rol -->
           <div class="col-md-6 mb-3">
-            <select [(ngModel)]="user.roles[0].nameRole" name="rol" class="form-control" required>
+            <select [(ngModel)]="user.roles[0].nameRole" name="rol" #rol="ngModel" class="form-control" required>
               <option value="" disabled selected>Rol</option>
               <option value="CLIENT">Cliente</option>
               <option value="ADMIN">Administrador</option>
             </select>
+            <div *ngIf="rol.invalid && (rol.touched || registerForm.submitted)" class="error-message">
+              Rol es requerido.
+            </div>
           </div>
         </div>
         <button type="submit" class="btn btn-primary w-100">Registrar</button>
       </form>
+      
     </div>  
   </div>

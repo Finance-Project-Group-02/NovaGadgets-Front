@@ -1,2 +1,5 @@
-<app-toolbar></app-toolbar>
-<router-outlet></router-outlet>
+<div *ngIf="isLoggedIn">
+    <app-toolbar></app-toolbar>
+</div>
+  <router-outlet></router-outlet>
+  
