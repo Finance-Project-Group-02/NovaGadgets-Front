@@ -1,12 +1,66 @@
-<p> {{ user?.firstName}}
-</p>
+<div class="profile-container">
+  <!-- Imagen del usuario -->
+  <mat-icon class="profile-image">person</mat-icon>
 
+  <h2>{{ user?.firstName }} {{ user?.lastName }}</h2>
 
-<p>
-  {{ user?.lastName}}
-</p>
-
-
-<p>
-  {{ user?.email}}
-</p>
+  <!-- Información Básica -->
+  <div class="basic-info">
+    <table>
+      <tr>
+        <td><strong>Full Name:</strong></td>
+        <td>{{ user?.firstName }} {{ user?.lastName }}</td>
+      </tr>
+      <tr>
+        <td><strong>Email Address:</strong></td>
+        <td>{{ user?.email }}</td>
+      </tr>
+      <tr>
+        <td><strong>Address:</strong></td>
+        <td>{{ user?.address }}</td>
+      </tr>
+      <tr>
+        <td><strong>DNI:</strong></td>
+        <td>{{ user?.dni }}</td>
+      </tr>
+      <tr>
+        <td><strong>RUC:</strong></td>
+        <td>{{ user?.ruc }}</td>
+      </tr>
+      <tr>
+        <td><strong>Birthday:</strong></td>
+        <td>{{ user?.birthday }}</td>
+      </tr>
+      <tr>
+        <td><strong>Gender:</strong></td>
+        <td>{{ user?.gender }}</td>
+      </tr>
+      <tr>
+        <td><strong>Phone Number:</strong></td>
+        <td>{{ user?.phoneNumber }}</td>
+      </tr>
+      <tr>
+        <td><strong>Role:</strong></td>
+        <td>{{ user?.roles }}</td>
+      </tr>
+      <tr>
+        <td><strong>Username:</strong></td>
+        <td>{{ user?.username }}</td>
+      </tr>
+      <tr>
+        <td><strong>Currency Type:</strong></td>
+        <td>
+          <!-- Desplegable para seleccionar la moneda -->
+          <mat-form-field appearance="fill">
+            <mat-select [value]="user?.currencyType">
+              <mat-option value="PEN">PEN</mat-option>
+              <mat-option value="USD">USD</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <!-- Botón para actualizar -->
+          <button mat-button color="primary">Update</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
