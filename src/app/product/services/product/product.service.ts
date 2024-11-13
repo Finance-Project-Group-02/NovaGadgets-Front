@@ -22,7 +22,7 @@ export class ProductService {
     return this.listaCambio.asObservable();
   }
   getProductById(id: string | null){
-    return this.http.get<Product>(`${base_url}/products/id/${id}`);
+    return this.http.get<Product>(`${base_url}/products/response/id/${id}`);
   }
 
 }

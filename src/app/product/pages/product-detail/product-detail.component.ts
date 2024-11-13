@@ -13,14 +13,14 @@ import { Product } from '../../models/Product';
   styleUrl: './product-detail.component.css'
 })
 export class ProductDetailComponent implements OnInit{
-  productstore: ProductStore = new ProductStore(); // Cambia el tipo según tu modelo
+  product: Product = new Product(); // Cambia el tipo según tu modelo
 
-  constructor(private route: ActivatedRoute, private psS: ProductstoreserviceService, private router: Router) {}
+  constructor(private route: ActivatedRoute, private psS: ProductService, private router: Router) {}
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     this.psS.getProductById(id).subscribe(data => {
-      this.productstore = data;
+      this.product = data;
     });
   }
   goBack(): void {
