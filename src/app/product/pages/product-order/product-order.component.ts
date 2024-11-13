@@ -11,6 +11,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Product } from '../../models/Product';
 import { ProductstoreserviceService } from '../../services/product/productstoreservice.service';
 import { ProductService } from '../../services/product/product.service';
+import { OrderDetail } from '../../models/OrderDetail';
 
 @Component({
   selector: 'app-product-order',
@@ -20,11 +21,10 @@ import { ProductService } from '../../services/product/product.service';
   styleUrls: ['./product-order.component.css']
 })
 export class ProductOrderComponent implements OnInit {
-  selectedProduct: ProductStore | null = null;  // Producto seleccionado
+  selectedProduct: Product | null = null;  // Producto seleccionado
   totalPrice: number = 0;  // Total de la compra
 
   constructor(
-    private productStoreService: ProductstoreserviceService, 
     private productService: ProductService, 
     private http: HttpClient,
     private route: ActivatedRoute  // Inyectamos ActivatedRoute para leer parámetros de la URL
@@ -35,9 +35,9 @@ export class ProductOrderComponent implements OnInit {
     const productId = this.route.snapshot.paramMap.get('id');  // 'id' es el parámetro de la URL
 
     if (productId) {
-      this.productStoreService.getProductById(productId).subscribe((productStore: ProductStore) => {
-        this.selectedProduct = productStore;  // Asignamos el ProductStore obtenido
-        this.totalPrice = productStore.price + 10;  // Calculamos el precio total con el costo de envío
+      this.productService.getProductById(productId).subscribe((productselect: Product) => {
+        this.selectedProduct = productselect;  // Asignamos el ProductStore obtenido
+        this.totalPrice = productselect.price + 10;  // Calculamos el precio total con el costo de envío
       });
     }
   }
@@ -52,9 +52,28 @@ export class ProductOrderComponent implements OnInit {
   
       // Realizamos la petición para guardar la orden en la base de datos
       this.http.post('http://localhost:8080/api/v1/order', order).subscribe({
-        next: (response) => {
+        next: (response: any) => {
           alert('Pedido realizado con éxito');
           console.log('Order saved successfully', response);
+  
+          // Verificamos que selectedProduct no sea null antes de continuar
+          if (this.selectedProduct) {
+            const orderDetail = new OrderDetail();
+            orderDetail.quantity = 1;  // Cantidad predeterminada de productos
+            
+            // Accede al product_id directamente desde selectedProduct.product.id
+            orderDetail.productId = this.selectedProduct.id;  // Usamos el productId
+  
+            // Realizamos el POST para guardar el OrderDetail
+            this.http.post(`http://localhost:8080/api/v1/orderDetail/orderId/${response.id}`, orderDetail).subscribe({
+              next: (orderDetailResponse) => {
+                console.log('OrderDetail created successfully', orderDetailResponse);
+              },
+              error: (error) => {
+                console.error('Error al crear el OrderDetail', error);
+              }
+            });
+          }
         },
         error: (error) => {
           // Mostrar más detalles sobre el error
