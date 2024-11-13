@@ -6,6 +6,7 @@ import { FacturaAdminInspectionComponent } from './factura/pages/factura-admin-i
 import { ProductDetailComponent } from './product/pages/product-detail/product-detail.component';
 import { StorePageComponent } from './product/pages/store-page/store-page.component';
 import { ProductOrderComponent } from './product/pages/product-order/product-order.component';
+import { FacturaClientComponent } from './factura/pages/factura-client/factura-client.component';
 
 import { HomeComponent } from './public/pages/home/home.component';
 import { loginGuard } from './guards/login/login.guard';
@@ -19,6 +20,7 @@ export const routes: Routes = [
     { path: 'home', component: HomeComponent, canActivate: [authGuard] },
     { path: 'perfil', component: PerfilComponent, canActivate: [authGuard] },
     { path: "factura-admin", component: FacturaAdminComponent, canActivate: [authGuard]},
+    { path: "factura-client", component: FacturaClientComponent, canActivate: [authGuard]},
     { path: "factura-admin-inspection/:id", component: FacturaAdminInspectionComponent, canActivate: [authGuard]},
     { path: "store-page", component: StorePageComponent, canActivate: [authGuard]},
     { path: "product-detail/:id", component: ProductDetailComponent, canActivate: [authGuard] },

@@ -6,6 +6,7 @@ import { ProductService } from '../../services/product/product.service';
 import { ProductStore } from '../../models/productStore';
 import { ProductstoreserviceService } from '../../services/product/productstoreservice.service';
 import { RouterLink } from '@angular/router';
+import { ProductStorageService } from '../../../shopping_cart/services/product-storage/product-storage.service';
 
 @Component({
   selector: 'app-store-page',
@@ -17,10 +18,9 @@ import { RouterLink } from '@angular/router';
 export class StorePageComponent implements OnInit, AfterViewInit {
   dataSourcePr: MatTableDataSource<Product> = new MatTableDataSource();
 
-  constructor(private prS: ProductService, private cdr: ChangeDetectorRef) {}
-
-  ngOnInit(): void {
-    
+  constructor(private prS: ProductService, private cdr: ChangeDetectorRef, private productStorage: ProductStorageService) {}
+  
+  ngOnInit(): void {    
     this.prS.list().subscribe(data => {
       this.dataSourcePr.data = data;
     });
@@ -39,5 +39,12 @@ export class StorePageComponent implements OnInit, AfterViewInit {
   scrollRight(): void {
     const container = document.querySelector('.card-container') as HTMLElement;
     container.scrollBy({ left: 200, behavior: 'smooth' });
+  }
+
+  addProductShoppingCart(product: Product): void{
+    this.productStorage.addProduct(product);
+
+    console.log('Product added to shopping cart');
+    console.log(this.productStorage.getProducts());
   }
 }

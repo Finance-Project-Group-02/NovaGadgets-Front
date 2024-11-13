@@ -12,7 +12,8 @@
           <p>QUANTITY: {{ product.quantity }}</p>
           <p>PRICE: {{ product.price }}</p>
           <p>CATEGORY: {{ product.categoryName }}</p>
-          <button class="btn btn-primary" [routerLink]="['/product-detail', product.id]">Ver Detalles</button>
+          <button class="btn btn-primary" [routerLink]="['/product-detail', product.id]">Ver Detalle</button>
+          <button class="btn btn-primary" (click)="addProductShoppingCart(product)">Añadir Carrito</button>
         </div>
       </div>
       <button class="scroll-button right" (click)="scrollRight()">&#10095;</button>
