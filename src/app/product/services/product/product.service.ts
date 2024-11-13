@@ -13,7 +13,7 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   list(){
-    return this.http.get<Product[]>(`${base_url}/products`);
+    return this.http.get<Product[]>(`${base_url}/products/response`);
   }
   setList(listaNueva: Product[]){
     this.listaCambio.next(listaNueva);

@@ -15,18 +15,12 @@ import { RouterLink } from '@angular/router';
   styleUrl: './store-page.component.css'
 })
 export class StorePageComponent implements OnInit, AfterViewInit {
-  dataSource: MatTableDataSource<ProductStore> = new MatTableDataSource();
   dataSourcePr: MatTableDataSource<Product> = new MatTableDataSource();
 
-  constructor(private psS: ProductstoreserviceService, private prS: ProductService, private cdr: ChangeDetectorRef) {}
+  constructor(private prS: ProductService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.psS.list().subscribe(data => {
-      this.dataSource.data = data;
-    });
-    this.psS.getList().subscribe(data => {
-      this.dataSource.data = data;
-    });
+    
     this.prS.list().subscribe(data => {
       this.dataSourcePr.data = data;
     });
