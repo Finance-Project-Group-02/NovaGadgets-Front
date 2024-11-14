@@ -13,6 +13,7 @@ import { loginGuard } from './guards/login/login.guard';
 import { authGuard } from './guards/auth/auth.guard';
 import { PerfilComponent } from './user/pages/perfil/perfil.component';
 import { ShoppingProductCartComponent } from './product/pages/shopping-product-cart/shopping-product-cart.component';
+import { ShoppingCartPayComponent } from './product/pages/shopping-cart-pay/shopping-cart-pay.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -27,5 +28,6 @@ export const routes: Routes = [
     { path: "product-detail/:id", component: ProductDetailComponent, canActivate: [authGuard] },
     { path: 'product-order/:id', component: ProductOrderComponent, canActivate: [authGuard] },
     { path: 'carrito', component: ShoppingProductCartComponent, canActivate: [authGuard] },
+    { path: 'carrito-compra', component: ShoppingCartPayComponent, canActivate: [authGuard] },
     { path: '**', redirectTo: 'home' },
 ];

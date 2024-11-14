@@ -32,8 +32,21 @@ export class ShoppingProductCartComponent implements OnInit {
     this.productStorageService.saveProducts(this.cartProducts);
   }
 
+  increaseQuantity(product: Product): void {
+    if (product.quantity < 99) {
+      product.quantity += 1;
+      this.productStorageService.saveProducts(this.cartProducts);
+    }
+  }
+
+  decreaseQuantity(product: Product): void {
+    if (product.quantity > 1) {
+      product.quantity -= 1;
+      this.productStorageService.saveProducts(this.cartProducts);
+    }
+  }
+
   proceedToCheckout(): void {
-    // Aquí podrías manejar la lógica de la compra, como redirigir al usuario a una página de pago.
     alert('Redirigiendo al proceso de compra...');
   }
 }

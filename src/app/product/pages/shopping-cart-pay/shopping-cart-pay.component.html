@@ -1,0 +1,57 @@
+<div class="container">
+    <h1>Resumen de Compra</h1>
+  
+    <div *ngIf="cartProducts.length > 0; else emptyCart">
+      <!-- Tabla de productos en el carrito -->
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th>Precio Unitario</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of cartProducts">
+            <td><img class="product-image" [src]="product.image" alt="{{ product.name }}" /></td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.quantity }}</td>
+            <td>{{ product.price  }}</td>
+            <td>{{ product.price * product.quantity  }}</td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <!-- Total y Subtotal de Envío -->
+      <div class="total-section">
+        <p>Subtotal: {{ calculateSubtotal()  }}</p>
+        <p>Costo de Envío: {{ shippingCost  }}</p>
+        <h3>Total a Pagar: {{ calculateTotalWithShipping()  }}</h3>
+      </div>
+  
+      <!-- Formulario de Datos de la Orden -->
+      <form (ngSubmit)="placeOrder()">
+        <div class="form-group">
+          <label for="address">Dirección de Envío:</label>
+          <input type="text" id="address" class="form-control" [(ngModel)]="order.address" name="address" required />
+        </div>
+  
+        <div class="form-group">
+          <label for="paymentMethod">Método de Pago:</label>
+          <select id="paymentMethod" class="form-control" [(ngModel)]="order.paymentMethod" name="paymentMethod" required>
+            <option value="creditCard">Tarjeta de Crédito</option>
+            <option value="paypal">PayPal</option>
+          </select>
+        </div>
+  
+        <button type="submit" class="btn btn-success">Realizar Pedido</button>
+      </form>
+    </div>
+  
+    <ng-template #emptyCart>
+      <p>El carrito está vacío.</p>
+    </ng-template>
+  </div>
+  

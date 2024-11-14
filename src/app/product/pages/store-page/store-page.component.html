@@ -2,6 +2,10 @@
     <div class="title-container">
       <h1>Lista de Productos</h1>
     </div>
+    <!--<div class="totals">
+      <p>Cantidad total de productos: {{ totalQuantity }}</p>
+      <p>Total: S/. {{ totalPrice }}</p>
+    </div>-->
     <div class="scroll-container">
       <button class="scroll-button left" (click)="scrollLeft()">&#10094;</button>
       <div class="card-container">
@@ -9,7 +13,6 @@
           <img class="product-image" [src]="product.image" alt="{{ product.name }}">
           <h2>{{ product.name }}</h2>
           <p>RUC STORE: {{ product.storeName }}</p>
-          <p>QUANTITY: {{ product.quantity }}</p>
           <p>PRICE: {{ product.price }}</p>
           <p>CATEGORY: {{ product.categoryName }}</p>
           <button class="btn btn-primary" [routerLink]="['/product-detail', product.id]">Ver Detalle</button>

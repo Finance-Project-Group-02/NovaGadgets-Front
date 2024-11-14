@@ -1,48 +1,58 @@
 <div class="container">
-    <h1>Carrito de Compras</h1>
-  
-    <div *ngIf="cartProducts.length > 0; else emptyCart">
-      <!-- Tabla de productos en el carrito -->
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Imagen</th>
-            <th>Nombre</th>
-            <th>Cantidad</th>
-            <th>Precio Unitario</th>
-            <th>Subtotal</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let product of cartProducts">
-            <td><img class="product-image" [src]="product.image" alt="{{ product.name }}" /></td>
-            <td>{{ product.name }}</td>
-            <td>{{ product.quantity }}</td>
-            <td>{{ product.price }}</td>
-            <td>{{ (product.price * product.quantity) }}</td>
-            <td>
-              <button class="btn btn-danger" (click)="removeProductFromCart(product.id)">Eliminar</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-  
-      <!-- Total y botón de compra -->
-      <div class="total-section">
-        <h3>Total: {{ calculateTotal() }}</h3>
-        <button class="btn btn-success" (click)="proceedToCheckout()">Proceder con la Compra</button>
-      </div>
-    </div>
-  
-    <!-- Mensaje cuando el carrito está vacío -->
-    <ng-template #emptyCart>
-      <p>El carrito está vacío.</p>
-    </ng-template>
-  
-    <!-- Botón para regresar a la lista de productos -->
-    <div class="back-button">
-      <button class="btn btn-primary" [routerLink]="['/store-page']">Regresar a Lista de Productos</button>
+  <h1>Carrito de Compras</h1>
+
+  <div *ngIf="cartProducts.length > 0; else emptyCart">
+    <!-- Tabla de productos en el carrito -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Imagen</th>
+          <th>Nombre</th>
+          <th>Cantidad</th>
+          <th>Precio Unitario</th>
+          <th>Subtotal</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of cartProducts">
+          <td><img class="product-image" [src]="product.image" alt="{{ product.name }}" /></td>
+          <td>{{ product.name }}</td>
+          <td>
+            <!-- Contador de cantidad -->
+            <div class="quantity-controls">
+              <button class="btn btn-secondary" (click)="decreaseQuantity(product)">-</button>
+              <span>{{ product.quantity }}</span>
+              <button class="btn btn-secondary" (click)="increaseQuantity(product)">+</button>
+            </div>
+          </td>
+          <td>{{ product.price }}</td>
+          <td>{{ (product.price * product.quantity) }}</td>
+          <td>
+            <button class="btn btn-danger" (click)="removeProductFromCart(product.id)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Total y botón de compra -->
+    <div class="total-section">
+      <h3>Total: {{ calculateTotal() }}</h3>
+      <button class="btn btn-success" (click)="proceedToCheckout()">Proceder con la Compra</button>
     </div>
   </div>
-  
+
+  <!-- Mensaje cuando el carrito está vacío -->
+  <ng-template #emptyCart>
+    <p>El carrito está vacío.</p>
+  </ng-template>
+
+  <div class="back-button">
+    <button class="btn btn-primary" [routerLink]="['/carrito-compra']">Pagar los productos Seleccionados</button>
+  </div>
+
+  <!-- Botón para regresar a la lista de productos -->
+  <div class="back-button">
+    <button class="btn btn-primary" [routerLink]="['/store-page']">Regresar a Lista de Productos</button>
+  </div>
+</div>

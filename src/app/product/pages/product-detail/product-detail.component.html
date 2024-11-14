@@ -1,7 +1,6 @@
 <div class="product-detail-container">
     <div class="product-info">
         <h1>{{ product.name }}</h1>
-        <p><strong>QUANTITY:</strong> {{ product.quantity }}</p>
         <p><strong>PRICE:</strong> {{ product.price }}</p>
         <p><strong>DETAIL:</strong> {{ product.details }}</p>
         <p><strong>RUC STORE:</strong> {{ product.storeName }}</p>
@@ -9,5 +8,10 @@
     <div class="product-image-container">
         <img class="product-image" [src]="product.image" alt="{{ product.name }}">
     </div>
+    <div class="cart-button-container">
+        <button class="btn btn-secondary" [routerLink]="['/carrito']">Ir al Carrito de Compras</button>
+    </div>
     <button class="btn btn-secondary" [routerLink]="['/product-order', product.id]">Realizar Pedido</button>
+    <button class="btn btn-primary" (click)="addProductShoppingCart(product)">Añadir Carrito</button>
+
 </div>
