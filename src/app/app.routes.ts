@@ -24,10 +24,10 @@ export const routes: Routes = [
     { path: "factura-admin", component: FacturaAdminComponent, canActivate: [authGuard]},
     { path: "factura-client", component: FacturaClientComponent, canActivate: [authGuard]},
     { path: "factura-admin-inspection/:id", component: FacturaAdminInspectionComponent, canActivate: [authGuard]},
-    { path: "store-page", component: StorePageComponent, canActivate: [authGuard]},
+    { path: "store-page", component: StorePageComponent,canActivate: [authGuard] },
     { path: "product-detail/:id", component: ProductDetailComponent, canActivate: [authGuard] },
     { path: 'product-order/:id', component: ProductOrderComponent, canActivate: [authGuard] },
     { path: 'carrito', component: ShoppingProductCartComponent, canActivate: [authGuard] },
-    { path: 'carrito-compra', component: ShoppingCartPayComponent, canActivate: [authGuard] },
+    { path: 'carrito-compra', component: ShoppingCartPayComponent, canActivate: [authGuard]},
     { path: '**', redirectTo: 'home' },
 ];

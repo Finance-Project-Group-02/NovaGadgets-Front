@@ -1,17 +1,22 @@
 <div class="product-detail-container">
-    <div class="product-info">
-        <h1>{{ product.name }}</h1>
-        <p><strong>PRICE:</strong> {{ product.price }}</p>
-        <p><strong>DETAIL:</strong> {{ product.details }}</p>
-        <p><strong>RUC STORE:</strong> {{ product.storeName }}</p>
-    </div>
-    <div class="product-image-container">
+    <h1 class="page-title">DETALLE DEL PRODUCTO</h1>
+    
+    <div class="product-content">
+      <div class="product-image-container">
         <img class="product-image" [src]="product.image" alt="{{ product.name }}">
+      </div>
+      <div class="product-info">
+        <h2>{{ product.name }}</h2>
+        <p><strong>Precio:</strong> {{ product.price | currency:'S/.':'symbol':'1.2-2' }}</p>
+        <p><strong>Detalle:</strong> {{ product.details }}</p>
+        <p><strong>Tienda:</strong> {{ product.storeName }}</p>
+      </div>
     </div>
-    <div class="cart-button-container">
-        <button class="btn btn-secondary" [routerLink]="['/carrito']">Ir al Carrito de Compras</button>
+  
+    <div class="action-buttons">
+      <button class="btn btn-primary" (click)="addProductShoppingCart(product)">Añadir al Carrito</button>
+      <button class="btn btn-secondary" [routerLink]="['/carrito']">Ir al Carrito de Compras</button>
+      <button class="btn btn-secondary" [routerLink]="['/product-order', product.id]">Realizar Pedido</button>
     </div>
-    <button class="btn btn-secondary" [routerLink]="['/product-order', product.id]">Realizar Pedido</button>
-    <button class="btn btn-primary" (click)="addProductShoppingCart(product)">Añadir Carrito</button>
-
-</div>
+  </div>
+  

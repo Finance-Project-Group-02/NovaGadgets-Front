@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../models/Product';
 import { ProductStorageService } from '../../../shopping_cart/services/product-storage/product-storage.service';
-import { FormsModule, NgModel } from '@angular/forms';
-import { IMAGE_CONFIG, NgFor, NgIf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { NgFor, NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router'; // Importar Router
+import { forkJoin } from 'rxjs'; // Importar forkJoin
+import Swal from 'sweetalert2'; // Importar SweetAlert2
 
 @Component({
   selector: 'app-shopping-cart-pay',
@@ -22,7 +25,8 @@ export class ShoppingCartPayComponent implements OnInit {
 
   constructor(
     private productStorageService: ProductStorageService,
-    private http: HttpClient // Inyectar HttpClient
+    private http: HttpClient,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -30,7 +34,10 @@ export class ShoppingCartPayComponent implements OnInit {
   }
 
   calculateSubtotal(): number {
-    return this.cartProducts.reduce((total, product) => total + product.price * product.quantity, 0);
+    return this.cartProducts.reduce(
+      (total, product) => total + product.price * product.quantity,
+      0
+    );
   }
 
   calculateTotalWithShipping(): number {
@@ -39,7 +46,7 @@ export class ShoppingCartPayComponent implements OnInit {
 
   placeOrder(): void {
     const order = {
-      idUser: 1,  // ID de usuario, este puede variar según tu implementación
+      idUser: 1, // ID de usuario, este puede variar según tu implementación
       orderDate: new Date().toISOString(), // Fecha actual
       totalInvoiced: this.calculateTotalWithShipping(), // Total incluyendo envío
       address: this.order.address,
@@ -52,33 +59,66 @@ export class ShoppingCartPayComponent implements OnInit {
         console.log('Order created successfully', response);
 
         // Crear los detalles de la orden para cada producto en el carrito
-        this.cartProducts.forEach(product => {
+        const orderDetailRequests = this.cartProducts.map(product => {
           const orderDetail = {
             quantity: product.quantity,
             productId: product.id
           };
 
-          this.http.post(`http://localhost:8080/api/v1/orderDetail/orderId/${response.id}`, orderDetail).subscribe({
-            next: (orderDetailResponse) => {
-              console.log('OrderDetail created successfully', orderDetailResponse);
-            },
-            error: (error) => {
-              console.error('Error creating OrderDetail', error);
-            }
-          });
+          return this.http.post(
+            `http://localhost:8080/api/v1/orderDetail/orderId/${response.id}`,
+            orderDetail
+          );
         });
 
-        // Limpiar el carrito después de realizar el pedido
-        alert('Pedido realizado con éxito!');
-        this.clearCart();
+        // Esperar a que se completen todas las solicitudes de creación de detalles de orden
+        forkJoin(orderDetailRequests).subscribe({
+          next: () => {
+            // Limpiar el carrito después de realizar el pedido
+            this.clearCart();
+
+            // Mostrar mensaje de éxito con SweetAlert2
+            Swal.fire({
+              icon: 'success',
+              title: '¡Pedido realizado con éxito!',
+              text: 'Gracias por su compra.',
+              showConfirmButton: true,
+              confirmButtonText: 'Aceptar'
+            }).then(() => {
+              // Navegar a la página de la tienda después de cerrar el mensaje
+              this.router.navigate(['store-page']);
+            });
+          },
+          error: error => {
+            console.error('Error creating OrderDetails', error);
+            // Mostrar mensaje de error con SweetAlert2
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Ocurrió un error al crear los detalles de la orden.',
+              showConfirmButton: true,
+              confirmButtonText: 'Aceptar'
+            });
+          }
+        });
       },
-      error: (error) => {
+      error: error => {
         console.error('Error creating order', error);
+        let errorMessage = '';
         if (error.status === 0) {
-          alert('No se pudo conectar al servidor');
+          errorMessage = 'No se pudo conectar al servidor.';
         } else {
-          alert(`Error: ${error.status} - ${error.message}`);
+          errorMessage = `Error: ${error.status} - ${error.message}`;
         }
+
+        // Mostrar mensaje de error con SweetAlert2
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al realizar el pedido',
+          text: errorMessage,
+          showConfirmButton: true,
+          confirmButtonText: 'Aceptar'
+        });
       }
     });
   }

@@ -1,32 +1,138 @@
 .container {
-    padding: 20px;
-    max-width: 800px;
-    margin: auto;
+  padding: 20px;
+  max-width: 1000px;
+  margin: auto;
+  font-family: 'Roboto', sans-serif;
+}
+
+.titulo {
+  font-weight: bold;
+  font-size: 32px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 15px;
+}
+
+.table thead th {
+  background-color: #f4f4f4;
+  color: #555;
+  padding: 15px;
+  text-align: left;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.table tbody tr {
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.table tbody td {
+  padding: 15px;
+  vertical-align: middle;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.product-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+}
+
+.quantity-controls button {
+  background-color: #ff6f61;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.quantity-controls span {
+  margin: 0 10px;
+  font-size: 16px;
+}
+
+.quantity-controls button:hover {
+  background-color: #ff4a3d;
+}
+
+.btn-danger {
+  background-color: #e53935;
+  border: none;
+  color: #fff;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.btn-danger:hover {
+  background-color: #d32f2f;
+}
+
+.back-button {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.back-button .btn {
+  background-color: #1976d2;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.back-button .btn:hover {
+  background-color: #1565c0;
+}
+
+.total-section {
+  margin-top: 20px;
+  text-align: right;
+  font-size: 20px;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .table thead {
+    display: none;
   }
-  
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .table th, .table td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: center;
-  }
-  
-  .product-image {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-  }
-  
-  .total-section {
-    margin-top: 20px;
+
+  .table tbody td {
+    display: block;
     text-align: right;
+    padding: 10px;
+    border-bottom: none;
   }
-  
-  .btn {
-    margin: 5px;
+
+  .table tbody td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    color: #555;
   }
-  
+
+  .product-image {
+    margin: 0 auto 10px;
+  }
+
+  .quantity-controls {
+    justify-content: flex-end;
+  }
+}

@@ -25,11 +25,12 @@
       </table>
   
       <!-- Total y Subtotal de Envío -->
-      <div class="total-section">
-        <p>Subtotal: {{ calculateSubtotal()  }}</p>
-        <p>Costo de Envío: {{ shippingCost  }}</p>
-        <h3>Total a Pagar: {{ calculateTotalWithShipping()  }}</h3>
-      </div>
+<div class="total-section">
+  <p><span>Subtotal:</span> <span>{{ calculateSubtotal() }}</span></p>
+  <p><span>Costo de Envío:</span> <span>{{ shippingCost }}</span></p>
+  <h3><span>Total a Pagar:</span> <span>{{ calculateTotalWithShipping() }}</span></h3>
+</div>
+
   
       <!-- Formulario de Datos de la Orden -->
       <form (ngSubmit)="placeOrder()">
@@ -47,6 +48,8 @@
         </div>
   
         <button type="submit" class="btn btn-success">Realizar Pedido</button>
+
+        
       </form>
     </div>
   

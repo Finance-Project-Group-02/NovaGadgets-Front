@@ -46,7 +46,5 @@ export class ShoppingProductCartComponent implements OnInit {
     }
   }
 
-  proceedToCheckout(): void {
-    alert('Redirigiendo al proceso de compra...');
-  }
+  
 }
