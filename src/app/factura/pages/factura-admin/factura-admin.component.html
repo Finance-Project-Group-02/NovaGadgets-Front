@@ -3,6 +3,8 @@
       <h4 class="title">Lista de Facturas</h4>
   </div>
 
+  <button mat-button class="primary-button" routerLink="/factura-tcea">Generar TCEA</button>
+
   <mat-card appearance="outlined" *ngFor="let factura of dsFacturas">
       <mat-card-content class="factura-panel">
           <div class="factura-container">
@@ -11,9 +13,30 @@
               <div class="factura-details">
                 <p>Número de factura: N°{{factura.id}}</p>
                 <p>Username: {{ factura.username }}</p>
-                <p>Monto: {{ factura.totalInvoiced }}</p>
+                <p>Total Facturado: {{ factura.totalInvoiced }}</p>
                 <p>Fecha de Creacion de orden: {{ factura.orderDate }}</p>
               </div>
+
+              <div class="information-column" *ngIf="factura.state =='ACEPTADO'">
+                <p>Fecha de Giro: {{factura.orderDate}}</p>
+                <p>Fecha de Descuento: {{factura.discountDate}}</p>
+                <p>Valor Nominal: {{factura.nominalValue}}</p>
+                <p>Fecha de Vencimiento: {{factura.paymentDate}}</p>
+                <p>Dias: {{factura.days}}</p>
+                <p>Retencion: {{factura.retention}}</p>
+                <p>TE%: {{factura.newEffectiveRate}}%</p>
+            </div>
+
+            <div class="information-column" *ngIf="factura.state =='ACEPTADO'">
+                <p>d%: {{factura.discountedRate}}%</p>
+                <p>Descuento: {{factura.discount}}</p>
+                <p>Costes Iniciales: {{factura.initialCosts}}</p>
+                <p>Costes Finales: {{factura.finalCosts}}</p>
+                <p>Valor Neto: {{factura.netWorth}}</p>
+                <p>Valor Recibido: {{factura.valueReceived}}</p>
+                <p>Valor Entregado: {{factura.valueDelivered}}</p>
+                <p>tcea: {{factura.tcea}}%</p>
+            </div>
 
               <div class="button-inspection" *ngIf="factura.state == 'PENDIENTE'" routerLink="/factura-admin-inspection/{{factura.id}}">
                   <p class="name">Inspeccionar</p>
@@ -22,5 +45,5 @@
           </div>
       </mat-card-content>
   </mat-card>
-    
+  <br>
 </div>

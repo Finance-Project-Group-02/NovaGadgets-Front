@@ -35,7 +35,7 @@ export class FacturaAdminInspectionComponent implements OnInit {
   facturaResponse!: FacturaResponseDTO;
   facturaSummary!: FacturaSummary;
   evaular = false;
-  tasaValue!: String
+  tasaValue: String = "E";
   facturaId: number = 0;
 
   //Fechas
@@ -54,7 +54,7 @@ export class FacturaAdminInspectionComponent implements OnInit {
     { value: 90, label: 'Trimestral' },
     { value: 120, label: 'Cuatrimestral' },
     { value: 180, label: 'Semestral' },
-    { value: 365, label: 'Anual' },
+    { value: 360, label: 'Anual' },
     { value: 'especial', label: 'Especial' },
   ];
 
@@ -92,9 +92,8 @@ export class FacturaAdminInspectionComponent implements OnInit {
 
   cargarFormulario(){
     this.facturaId = this.activatedRoute.snapshot.params["id"];
-
     this.formDescuento = this.formBuilder.group({
-      type:[[Validators.required]],
+      type:["E", [Validators.required]],
       startDate:[[Validators.required]],
       paymentDate:["", [Validators.required]],
       totalInvoiced:["", [Validators.required]],
@@ -123,7 +122,7 @@ export class FacturaAdminInspectionComponent implements OnInit {
 
         let fechaDate: Date = new Date(data.orderDate + 'T00:00:00');
         this.formDescuento.get("startDate")?.setValue(fechaDate),
-        this.formDescuento.get("totalInvoiced")?.setValue(data.totalInvoiced),
+        this.formDescuento.get("totalInvoiced")?.setValue(data.nominalValue),
         this.formDescuento.get('startDate')?.disable(),
         this.formDescuento.get('totalInvoiced')?.disable()
       },
@@ -254,13 +253,13 @@ export class FacturaAdminInspectionComponent implements OnInit {
     
     gastosInicialesTemporal.forEach(item => {
       if (item.valorTipo === 'P') {
-        item.valor = item.valor / 100 * this.facturaSummary.totalInvoiced;
+        item.valor = item.valor / 100 * this.facturaSummary.nominalValue;;
       }
     });
     
     gastosFinalesTemporal.forEach(item => {
       if (item.valorTipo === 'P') {
-        item.valor = item.valor / 100 * this.facturaSummary.totalInvoiced;
+        item.valor = item.valor / 100 * this.facturaSummary.nominalValue;;
       }
     });
     
@@ -333,7 +332,7 @@ export class FacturaAdminInspectionComponent implements OnInit {
       selectedValue = this.options.find(option => option.value === rateTermValue)?.value;
     }
 
-    const rateTermNominal = this.formDescuento.get("capitalizationa")?.value;
+    const rateTermNominal = this.formDescuento.get("capitalization")?.value;
     if (rateTermNominal === 'especial') {
       selectedOptionNominal = this.formDescuento.get("especialRateCapitalization")?.value;
     } else {
@@ -345,13 +344,13 @@ export class FacturaAdminInspectionComponent implements OnInit {
     
     gastosInicialesTemporal.forEach(item => {
       if (item.valorTipo === 'P') {
-        item.valor = item.valor / 100 * this.facturaSummary.totalInvoiced;
+        item.valor = item.valor / 100 * this.facturaSummary.nominalValue;
       }
     });
     
     gastosFinalesTemporal.forEach(item => {
       if (item.valorTipo === 'P') {
-        item.valor = item.valor / 100 * this.facturaSummary.totalInvoiced;
+        item.valor = item.valor / 100 * this.facturaSummary.nominalValue;
       }
     });
     

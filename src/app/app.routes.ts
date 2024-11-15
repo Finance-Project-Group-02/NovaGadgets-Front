@@ -14,6 +14,8 @@ import { authGuard } from './guards/auth/auth.guard';
 import { PerfilComponent } from './user/pages/perfil/perfil.component';
 import { ShoppingProductCartComponent } from './product/pages/shopping-product-cart/shopping-product-cart.component';
 import { ShoppingCartPayComponent } from './product/pages/shopping-cart-pay/shopping-cart-pay.component';
+import { FacturaTceaComponent } from './factura/pages/factura-tcea/factura-tcea.component';
+import { FacturaTceaValidationComponent } from './factura/pages/factura-tcea-validation/factura-tcea-validation.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -22,6 +24,8 @@ export const routes: Routes = [
     { path: 'home', component: HomeComponent, canActivate: [authGuard] },
     { path: 'perfil', component: PerfilComponent, canActivate: [authGuard] },
     { path: "factura-admin", component: FacturaAdminComponent, canActivate: [authGuard]},
+    { path: "factura-tcea", component: FacturaTceaComponent, canActivate: [authGuard]},
+    { path: "factura-tcea-validation/:id", component: FacturaTceaValidationComponent, canActivate: [authGuard]},
     { path: "factura-client", component: FacturaClientComponent, canActivate: [authGuard]},
     { path: "factura-admin-inspection/:id", component: FacturaAdminInspectionComponent, canActivate: [authGuard]},
     { path: "store-page", component: StorePageComponent,canActivate: [authGuard] },

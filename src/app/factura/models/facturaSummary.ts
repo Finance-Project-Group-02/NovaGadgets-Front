@@ -2,6 +2,20 @@ export interface FacturaSummary{
     id: number,
     state: String,
     username: String,
+    discountDate: String,
     orderDate: String,
-    totalInvoiced: number
+    nominalValue: number,
+    totalInvoiced: number,
+    paymentDate: String,
+    days: number,
+    retention: number,
+    newEffectiveRate: number,
+    discountedRate: number,
+    discount: number,
+    initialCosts: number,
+    finalCosts: number,
+    netWorth: number,
+    valueDelivered: number,
+    valueReceived: number,
+    tcea: number
 }

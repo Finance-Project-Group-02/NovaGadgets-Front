@@ -38,7 +38,7 @@
                   </div>
 
                   <div class="form-field">
-                      <label>Total Facturado</label>
+                      <label>Valor Nominal</label>
                       <mat-form-field appearance="outline">
                       <input type="number" matInput formControlName="totalInvoiced" placeholder="Ingresa el total facturado" class="form-control">
                       <mat-error app-field-error-messages controlName="totalInvoiced">El total facturado es <strong>requerido</strong></mat-error>
@@ -176,7 +176,7 @@
               </div>
 
               <div class="cost-factura">
-                  <h4>Costes / Gastos Iniciales</h4>
+                  <h4>Costes / Gastos Finales</h4>
   
                   <div class="form-field">
                       <label>Motivo</label>
@@ -227,28 +227,32 @@
   </div>
 
   <div *ngIf="evaular">
-      <div class="opciones">
-          <button (click)="EmitirFactura()">Emitir Factura</button>
-          <span>/</span>
-          <button (click)="Regresar()">Regresar</button>
-      </div>
+    <div class="opciones">
+        <button (click)="EmitirFactura()">Emitir Factura</button>
+        <button (click)="Regresar()">Regresar</button>
+    </div>
 
-      <div class="information">
-          <p>Fecha de Giro: {{facturaResponse.startDate}}</p>
-          <p>Valor Nominal: {{facturaResponse.totalInvoiced}}</p>
-          <p>Fecha de Vencimiento: {{facturaResponse.paymentDate}}</p>
-          <p>Dias: {{facturaResponse.days}}</p>
-          <p>Retencion: {{facturaResponse.retention}}</p>
-          <p>TE%: {{facturaResponse.newEffectiveRate}}%</p>
-          <p>d%: {{facturaResponse.discountedRate}}%</p>
-          <p>Descuento: {{facturaResponse.discount}}</p>
-          <p>Costes Iniciales: {{facturaResponse.initialCosts}}</p>
-          <p>Costes Finales: {{facturaResponse.finalCosts}}</p>
-          <p>Valor Neto: {{facturaResponse.netWorth}}</p>
-          <p>Valor Recibido: {{facturaResponse.valueReceived}}</p>
-          <p>Valor Entregado: {{facturaResponse.valueDelivered}}</p>
-          <p>tcea: {{facturaResponse.tcea}}%</p>
-      </div>
-  </div>
-
+    <div class="factura-details">
+        <div class="information-column">
+            <p>Fecha de Giro: {{facturaResponse.startDate}}</p>
+            <p>Total Facturado: {{facturaResponse.totalInvoiced}}</p>
+            <p>Valor Nominal: {{facturaResponse.nominalValue}}</p>
+            <p>Fecha de Vencimiento: {{facturaResponse.paymentDate}}</p>
+            <p>Dias: {{facturaResponse.days}}</p>
+            <p>Retencion: {{facturaResponse.retention}}</p>
+            <p>TE%: {{facturaResponse.newEffectiveRate}}%</p>
+        </div>
+    
+        <div class="information-column">
+            <p>d%: {{facturaResponse.discountedRate}}%</p>
+            <p>Descuento: {{facturaResponse.discount}}</p>
+            <p>Costes Iniciales: {{facturaResponse.initialCosts}}</p>
+            <p>Costes Finales: {{facturaResponse.finalCosts}}</p>
+            <p>Valor Neto: {{facturaResponse.netWorth}}</p>
+            <p>Valor Recibido: {{facturaResponse.valueReceived}}</p>
+            <p>Valor Entregado: {{facturaResponse.valueDelivered}}</p>
+            <p>tcea: {{facturaResponse.tcea}}%</p>
+        </div>
+    </div>
+ </div>
 </div>

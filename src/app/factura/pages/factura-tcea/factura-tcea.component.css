@@ -11,7 +11,7 @@
 }
 
 .title {
-    margin-top: 1rem;
+    margin: 0;
     text-align: center;
 }
 
@@ -94,6 +94,17 @@ mat-card {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
+}
+
+mat-card:hover {
+    background-color: skyblue;
+    transform: scale(1.05);
+}
+
+.message{
+    color: red;
+    margin-top: 1rem;
 }
 
 .factura-panel {

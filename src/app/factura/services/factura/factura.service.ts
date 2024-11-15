@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { FacturaSummary } from '../../models/facturaSummary';
 import { FacturaRequestDTO } from '../../models/facturaRequestDTO';
 import { FacturaResponseDTO } from '../../models/facturaResponseDTO';
+import { TCEACarteraDTO } from '../../models/TCEACarteraDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -30,4 +31,15 @@ export class FacturaService {
     return this.http.put<FacturaResponseDTO>(this.apiUrl+"/"+this.recurso+"/"+id.toString(), factura);
   }
 
+  getFacturaState(state: String){
+    return this.http.get<FacturaSummary[]>(this.apiUrl+"/"+this.recurso+"/state/"+ state);
+  }
+
+  getFacturaValidas(id: number){
+    return this.http.get<FacturaSummary[]>(this.apiUrl+"/"+this.recurso+"/cartera/"+ id.toString());
+  }
+
+  getTCEAcartera(id: number[]){
+    return this.http.post<TCEACarteraDTO>(this.apiUrl+"/"+this.recurso+"/TCEACartera",id);
+  }
 }

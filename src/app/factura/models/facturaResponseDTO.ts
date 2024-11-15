@@ -1,6 +1,7 @@
 export interface FacturaResponseDTO{
     startDate: String,
     totalInvoiced: number,
+    nominalValue: number,
     paymentDate: String,
     days: number,
     retention: number,

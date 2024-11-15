@@ -11,8 +11,9 @@
 }
 
 .title {
-    margin-top: 1rem;
+    margin-top: 1.2rem;
     text-align: center;
+    font-size: 3rem;
 }
 
 .factura-container {
@@ -52,37 +53,6 @@
     flex: 1;
 }
 
-.button-inspection {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    padding: 8px 12px;
-    background-color: orange;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    font-weight: bold;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
-    text-transform: uppercase;
-}
-
-.button-inspection:hover {
-    background-color: skyblue; 
-}
-
-.button-inspection .name {
-    margin: 0;
-}
-
-.button-inspection mat-icon {
-    font-size: 20px;
-    vertical-align: middle;
-    display: inline-flex;
-    align-items: center;
-}
-
 mat-card {
     width: 100%;
     max-width: 700px;
@@ -94,14 +64,37 @@ mat-card {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
+}
+
+.selected{
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    padding: 16px;
+    margin: 8px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.options:hover {
+    background-color: skyblue;
+    transform: scale(1.05);
 }
 
 .factura-panel {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     width: 100%;
 }
+
+.selected {
+    background-color: skyblue;
+}
+
 
 @media (min-width: 800px) {
     mat-card {

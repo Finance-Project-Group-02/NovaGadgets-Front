@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="message" *ngIf="!selectFirst">
+        <p>Selecciona una factura</p>
+    </div>
+    <mat-card appearance="outlined" *ngFor="let factura of dsFacturas" routerLink="/factura-tcea-validation/{{factura.id}}">
+        <mat-card-content class="factura-panel">
+            <div class="factura-container">
+                <div class="icon" [ngClass]="getStateClass(factura.state)"></div>
+                
+                <div class="factura-details">
+                    <p>Número de factura: N°{{factura.id}}</p>
+                    <p>Username: {{ factura.username }}</p>
+                    <p>Total Facturado: {{ factura.totalInvoiced }}</p>
+                    <p>Fecha de Creacion de orden: {{ factura.orderDate }}</p>
+                  </div>
+    
+                  <div class="information-column" *ngIf="factura.state =='ACEPTADO'">
+                    <p>Fecha de Giro: {{factura.orderDate}}</p>
+                    <p>Fecha de Descuento: {{factura.discountDate}}</p>
+                    <p>Valor Nominal: {{factura.nominalValue}}</p>
+                    <p>Fecha de Vencimiento: {{factura.paymentDate}}</p>
+                    <p>Dias: {{factura.days}}</p>
+                    <p>Retencion: {{factura.retention}}</p>
+                    <p>TE%: {{factura.newEffectiveRate}}%</p>
+                </div>
+    
+                <div class="information-column" *ngIf="factura.state =='ACEPTADO'">
+                    <p>d%: {{factura.discountedRate}}%</p>
+                    <p>Descuento: {{factura.discount}}</p>
+                    <p>Costes Iniciales: {{factura.initialCosts}}</p>
+                    <p>Costes Finales: {{factura.finalCosts}}</p>
+                    <p>Valor Neto: {{factura.netWorth}}</p>
+                    <p>Valor Recibido: {{factura.valueReceived}}</p>
+                    <p>Valor Entregado: {{factura.valueDelivered}}</p>
+                    <p>tcea: {{factura.tcea}}%</p>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <br>
+</div>
