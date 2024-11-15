@@ -7,5 +7,4 @@ export class ProductStore{
     store: Store = new Store()
     quantity: number = 0
     price: number = 0
-
 }

@@ -17,7 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrls: ['./perfil.component.css']
 })
 export class PerfilComponent implements OnInit {
-  user?: User | null;
+  user!: User | null;
   constructor(private loginService: LoginService) {
   }
 

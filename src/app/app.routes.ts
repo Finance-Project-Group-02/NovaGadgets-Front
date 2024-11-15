@@ -18,20 +18,21 @@ import { FacturaTceaComponent } from './factura/pages/factura-tcea/factura-tcea.
 import { FacturaTceaValidationComponent } from './factura/pages/factura-tcea-validation/factura-tcea-validation.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
-    { path: 'login', component: LoginComponent, canActivate: [loginGuard] },
-    { path: 'register', component: RegisterComponent, canActivate: [authGuard] },
-    { path: 'home', component: HomeComponent, canActivate: [authGuard] },
-    { path: 'perfil', component: PerfilComponent, canActivate: [authGuard] },
-    { path: "factura-admin", component: FacturaAdminComponent, canActivate: [authGuard]},
-    { path: "factura-tcea", component: FacturaTceaComponent, canActivate: [authGuard]},
-    { path: "factura-tcea-validation/:id", component: FacturaTceaValidationComponent, canActivate: [authGuard]},
-    { path: "factura-client", component: FacturaClientComponent, canActivate: [authGuard]},
-    { path: "factura-admin-inspection/:id", component: FacturaAdminInspectionComponent, canActivate: [authGuard]},
-    { path: "store-page", component: StorePageComponent,canActivate: [authGuard] },
-    { path: "product-detail/:id", component: ProductDetailComponent, canActivate: [authGuard] },
-    { path: 'product-order/:id', component: ProductOrderComponent, canActivate: [authGuard] },
-    { path: 'carrito', component: ShoppingProductCartComponent, canActivate: [authGuard] },
-    { path: 'carrito-compra', component: ShoppingCartPayComponent, canActivate: [authGuard]},
+    { path: '', redirectTo: 'home', pathMatch: 'full' },//TODOS
+    { path: 'login', component: LoginComponent, canActivate: [loginGuard] },//TODOS
+    { path: 'register', component: RegisterComponent, canActivate: [authGuard] },//TODOS
+    { path: 'home', component: HomeComponent, canActivate: [authGuard] }, //TODOS
+    { path: 'perfil', component: PerfilComponent, canActivate: [authGuard] },//TODOS
+    { path: "factura-admin", component: FacturaAdminComponent, canActivate: [authGuard], data: { role: 'ADMIN' } },//ADMIN
+    { path: "factura-client", component: FacturaClientComponent, canActivate: [authGuard], data: { role: 'CLIENT' } },//CLIENTE
+    { path: "factura-tcea", component: FacturaTceaComponent, canActivate: [authGuard], data: { role: 'ADMIN' }},
+    { path: "factura-tcea-validation/:id", component: FacturaTceaValidationComponent, canActivate: [authGuard], data: { role: 'ADMIN' }},
+    { path: "factura-admin-inspection/:id", component: FacturaAdminInspectionComponent, canActivate: [authGuard], data: { role: 'ADMIN' }},//ADMIN
+    { path: "store-page", component: StorePageComponent,canActivate: [authGuard], data: { role: 'CLIENT' } },//CLIENTE
+    { path: "product-detail/:id", component: ProductDetailComponent, canActivate: [authGuard], data: { role: 'CLIENT' } },//CLIENTE
+    { path: 'product-order/:id', component: ProductOrderComponent, canActivate: [authGuard], data: { role: 'CLIENT' } },//CLIENTE
+    { path: 'carrito', component: ShoppingProductCartComponent, canActivate: [authGuard], data: { role: 'CLIENT' } },//CLIENTE
+    { path: 'carrito-compra', component: ShoppingCartPayComponent, canActivate: [authGuard], data: { role: 'CLIENT' }},//CLIENTE
+    { path: 'detalle-compra', component: ProductOrderComponent, canActivate: [authGuard], data: { role: 'CLIENT' } },//CLIENTE
     { path: '**', redirectTo: 'home' },
 ];

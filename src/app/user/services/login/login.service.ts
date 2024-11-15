@@ -88,6 +88,11 @@ export class LoginService {
     this.router.navigate(['/home']);
   }
 
+  hasRole(role: string): boolean {
+    const userRoles = this.user.roles.map((role) => role.nameRole);
+    return userRoles.includes(role);
+  }
+
   isUserLogged() {
     return this.cookieService.get('login') === 'logged';
   }
