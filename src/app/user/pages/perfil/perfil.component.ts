@@ -18,14 +18,29 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class PerfilComponent implements OnInit {
   user!: User | null;
+  selectedCurrency: string = ''; 
+
   constructor(private loginService: LoginService) {
   }
 
   ngOnInit() {
     this.loginService.getUser().subscribe( user => {
       this.user = user;
+      this.selectedCurrency = this.user?.currencyType || 'PEN'; 
       console.log('Usuario:', this.user);
     }
     );
+  }
+
+  //changeCurrencyTypeUser
+  changeCurrencyTypeUser() {
+    if (this.user) {
+       this.loginService.changeCurrencyTypeUser(this.user.id, this.selectedCurrency);
+       this.user.currencyType = this.selectedCurrency;
+       console.log('Usuario:', this.user);
+       console.log('Moneda:', this.selectedCurrency);
+       console.log('Moneda Usuario:', this.user.currencyType);
+       console.log('Usuario Login:', this.loginService.getUser());
+    }
   }
 }

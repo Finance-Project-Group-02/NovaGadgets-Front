@@ -113,4 +113,26 @@ export class LoginService {
         return of(null);
     }
 }
+
+//Change Currency Money
+  ///users/{id}/currency-type/{currencyType}
+
+  changeCurrencyType(id: number, currencyType: string): Observable<User> {
+    return this.http
+      .put<User>(
+        `${environment.baseUrl}/users/${id}/currency-type/${currencyType}`,
+        this.httpOptions
+      )
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  //Change currency money in the user and cookie
+  changeCurrencyTypeUser(id: number, currencyType: string): User {
+    this.changeCurrencyType(id, currencyType).subscribe((user) => {
+      this.user = user;
+      this.cookieService.set('user', JSON.stringify(user));
+    });
+    return this.user;
+  }
+  
 }
