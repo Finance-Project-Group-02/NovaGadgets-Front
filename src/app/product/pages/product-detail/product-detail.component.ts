@@ -15,7 +15,7 @@ import { LoginService } from '../../../user/services/login/login.service';
 })
 export class ProductDetailComponent implements OnInit {
   product: Product = new Product();
-
+  cartProducts: Product[] = [];
   constructor(
     private route: ActivatedRoute,
     private psS: ProductService,

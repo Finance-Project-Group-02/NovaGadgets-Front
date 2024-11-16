@@ -1,46 +1,82 @@
 <div class="container">
-    <div class="billing-details">
-        <h2>Billing Details</h2>
-        <label for="address">Dirección*</label>
-        <input type="text" id="address" placeholder="Dirección">
+  <!-- Detalles de Facturación -->
+  <div class="billing-details">
+    <h2>Billing Details</h2>
+    <label for="address">Dirección*</label>
+    <input type="text" id="address" placeholder="Dirección">
 
-        <label for="district">Distrito*</label>
-        <select id="district">
-            <!-- Opciones de distritos -->
-            <option value="Ancon">Ancón</option>
-            <option value="Barranco">Barranco</option>
-            <!-- ...otros distritos... -->
-        </select>
+    <label for="district">Distrito*</label>
+    <select id="district">
+        <option value="San Isidro">San Isidro</option>
+        <option value="Miraflores">Miraflores</option>
+        <option value="Barranco">Barranco</option>
+        <option value="Surco">Surco</option>
+        <option value="San Borja">San Borja</option>
+        <option value="Pueblo Libre">Pueblo Libre</option>
+        <option value="La Molina">La Molina</option>
+        <option value="Magdalena">Magdalena</option>
+        <option value="Lince">Lince</option>
+        <option value="Jesús María">Jesús María</option>
+    </select>
 
-        <label for="reference">Referencias*</label>
-        <input type="text" id="reference" placeholder="Referencias">
+    <label for="reference">Referencias*</label>
+    <input type="text" id="reference" placeholder="Referencias">
+  </div>
+
+  <!-- Resumen de Compra -->
+  <div class="main-section">
+    <!-- Tabla de Productos -->
+    <div class="left-section">
+      <h2>Resumen de Compra</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th>Precio Unitario</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr >
+            <td><img class="product-image" [src]="selectedProduct?.image" alt="{{ selectedProduct?.name }}" /></td>
+            <td>{{ selectedProduct?.name }}</td>
+            <td>{{ selectedProduct?.quantity }}</td>
+            <td>{{ cambiarMoneda(selectedProduct!.price) }}</td>
+            <td>{{ cambiarMoneda(selectedProduct!.price * selectedProduct!.quantity) }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
-    <div class="order-summary">
-        <h2>Your Order</h2>
-        <ul>
-            <li><span>Producto</span><span>Subtotal</span></li>
-            <li *ngIf="selectedProduct">
-                <span>{{ selectedProduct.name }}</span> <!-- Nombre del producto -->
-                <span>{{ selectedProduct.price | currency }}</span> <!-- Precio del producto -->
-            </li>
-            <li><span>Subtotal</span><span>{{ totalPrice | currency }}</span></li>
-            <li><span>Envío</span><span>Currier: s/.10.00</span></li>
-            <li class="total"><span>Total</span><span>{{ totalPrice | currency }}</span></li>
-        </ul>
+    <!-- Resumen del Pedido -->
+    <div class="right-section">
+      <h2>Your Order</h2>
+      <ul>
+        <li><span>Subtotal</span><span>{{ cambiarMoneda(totalPrice)  }}</span></li>
+        <li><span>Envío</span><span>Currier: {{ cambiarMoneda(curriermoney)  }}</span></li>
+        <li class="total"><span>Total</span><span>{{ cambiarMoneda(totalPrice + curriermoney) }}</span></li>
+      </ul>
 
-        <div class="invoice-option">
-            <input type="radio" id="invoice" name="invoice" checked>
-            <label for="invoice">Compra con factura</label>
-            <p class="invoice-info">Al generar una factura mediante este medio, el usuario acepta los términos y condiciones tributarios asociados a dicha factura.</p>
-        </div>
+      <div class="invoice-option">
+        
+        <label for="invoice">Compra con factura</label>
+        <p class="invoice-info">Al generar una factura mediante este medio, el usuario acepta los términos y condiciones tributarios asociados a dicha factura.</p>
+      </div>
 
-        <div class="policy">
-            <input type="checkbox" id="policy">
-            <label for="policy">I have read and agree to the website privacy policy, terms and conditions and Return Policy*</label>
-        </div>
+      <div class="policy">
+        <input type="checkbox" id="policy">
+        <label for="policy">I have read and agree to the website privacy policy, terms and conditions and Return Policy*</label>
+      </div>
 
-        <!-- Botón para generar la orden -->
-        <button class="submit-btn" (click)="createOrder()">GENERAR FACTURA DE COMPRA</button>
+      <!-- Botón para generar la orden -->
+      <button class="submit-btn" (click)="createOrder()">GENERAR FACTURA DE COMPRA</button>
     </div>
+  </div>
+
+  <ng-template #emptyCart>
+    <p>El carrito está vacío.</p>
+  </ng-template>
 </div>
+

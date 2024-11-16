@@ -1,60 +1,75 @@
 <div class="container">
-    <h1>Resumen de Compra</h1>
+  <h1>Resumen de Compra</h1>
   
-    <div *ngIf="cartProducts.length > 0; else emptyCart">
-      <!-- Tabla de productos en el carrito -->
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Imagen</th>
-            <th>Nombre</th>
-            <th>Cantidad</th>
-            <th>Precio Unitario</th>
-            <th>Subtotal</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let product of cartProducts">
-            <td><img class="product-image" [src]="product.image" alt="{{ product.name }}" /></td>
-            <td>{{ product.name }}</td>
-            <td>{{ product.quantity }}</td>
-            <td>{{ cambiarMoneda(product.price)  }}</td>
-            <td>{{ cambiarMoneda(product.price * product.quantity)  }}</td>
-          </tr>
-        </tbody>
-      </table>
-  
-      <!-- Total y Subtotal de Envío -->
-<div class="total-section">
-  <p><span>Subtotal:</span> <span>{{ cambiarMoneda(calculateSubtotal()) }}</span></p>
-  <p><span>Costo de Envío:</span> <span>{{ cambiarMoneda(shippingCost) }}</span></p>
-  <h3><span>Total a Pagar:</span> <span>{{ cambiarMoneda(calculateTotalWithShipping()) }}</span></h3>
-</div>
+  <div *ngIf="cartProducts.length > 0; else emptyCart">
+    <!-- Tabla de productos en el carrito -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Imagen</th>
+          <th>Nombre</th>
+          <th>Cantidad</th>
+          <th>Precio Unitario</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of cartProducts">
+          <td><img class="product-image" [src]="product.image" alt="{{ product.name }}" /></td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.quantity }}</td>
+          <td>{{ cambiarMoneda(product.price) }}</td>
+          <td>{{ cambiarMoneda(product.price * product.quantity) }}</td>
+        </tr>
+      </tbody>
+    </table>
 
-  
-      <!-- Formulario de Datos de la Orden -->
+    <!-- Detalles de Facturación -->
+    <div class="billing-details">
+      <h2>Billing Details</h2>
       <form (ngSubmit)="placeOrder()">
-        <div class="form-group">
-          <label for="address">Dirección de Envío:</label>
-          <input type="text" id="address" class="form-control" [(ngModel)]="order.address" name="address" required />
-        </div>
-  
-        <div class="form-group">
-          <label for="paymentMethod">Método de Pago:</label>
-          <select id="paymentMethod" class="form-control" [(ngModel)]="order.paymentMethod" name="paymentMethod" required>
-            <option value="creditCard">Tarjeta de Crédito</option>
-            <option value="paypal">PayPal</option>
-          </select>
-        </div>
-  
-        <button type="submit" class="btn btn-success">Realizar Pedido</button>
-
+        <label for="address">Dirección*</label>
+        <input type="text" id="address" class="form-control" [(ngModel)]="order.address" name="address" required />
         
+        <label for="district">Distrito*</label>
+        <select id="district" class="form-control"  name="district" required>
+          <option value="San Isidro">San Isidro</option>
+          <option value="Miraflores">Miraflores</option>
+          <option value="Barranco">Barranco</option>
+          <option value="Surco">Surco</option>
+          <option value="San Borja">San Borja</option>
+          <option value="Pueblo Libre">Pueblo Libre</option>
+          <option value="La Molina">La Molina</option>
+          <option value="Magdalena">Magdalena</option>
+          <option value="Lince">Lince</option>
+          <option value="Jesús María">Jesús María</option>
+          <option value="Jesús María">otros...</option>
+          
+        </select>
+        
+        <label for="references">Referencias*</label>
+        <input type="text" id="references" class="form-control"  name="references" required />
       </form>
     </div>
-  
-    <ng-template #emptyCart>
-      <p>El carrito está vacío.</p>
-    </ng-template>
+
+    <!-- Resumen del Pedido -->
+    <div class="order-summary">
+      <h2>Your Order</h2>
+      <p><span>Subtotal:</span> <span>{{ cambiarMoneda(calculateSubtotal()) }}</span></p>
+      <p><span>Envío:</span> <span>{{ cambiarMoneda(shippingCost) }}</span></p>
+      <h3><span>Total:</span> <span>{{ cambiarMoneda(calculateTotalWithShipping()) }}</span></h3>
+      
+      <div class="policy">
+        <input type="checkbox" id="policy"  name="agree" />
+        <label for="policy">I have read and agree to the website privacy policy, terms and conditions and Return Policy*</label>
+      </div>
+
+      <button type="button" class="btn btn-primary" (click)="placeOrder()">Generar Factura de Compra</button>
+
+    </div>
   </div>
-  
+
+  <ng-template #emptyCart>
+    <p>El carrito está vacío.</p>
+  </ng-template>
+</div>
