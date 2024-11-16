@@ -11,15 +11,15 @@
     <div class="basic-info">
       <table class="info-table">
         <tr>
-          <td><strong>Full Name:</strong></td>
+          <td><strong>Nombres Completos:</strong></td>
           <td>{{ user?.firstName }} {{ user?.lastName }}</td>
         </tr>
         <tr>
-          <td><strong>Email Address:</strong></td>
+          <td><strong>Correo Electronico:</strong></td>
           <td>{{ user?.email }}</td>
         </tr>
         <tr>
-          <td><strong>Address:</strong></td>
+          <td><strong>Dirreccion:</strong></td>
           <td>{{ user?.address }}</td>
         </tr>
         <tr>
@@ -31,27 +31,33 @@
           <td>{{ user?.ruc }}</td>
         </tr>
         <tr>
-          <td><strong>Birthday:</strong></td>
+          <td><strong>Fecha de Nacimiento:</strong></td>
           <td>{{ user?.birthday | date }}</td>
         </tr>
         <tr>
-          <td><strong>Gender:</strong></td>
-          <td>{{ user?.gender }}</td>
+          <td><strong>Género:</strong></td>
+          <td>
+            <span *ngIf="user?.gender === 'M'">Masculino</span>
+            <span *ngIf="user?.gender === 'F'">Femenino</span>
+          </td>
         </tr>
         <tr>
-          <td><strong>Phone Number:</strong></td>
+          <td><strong>Numero de Celular:</strong></td>
           <td>{{ user?.phoneNumber }}</td>
         </tr>
         <tr>
-          <td><strong>Role:</strong></td>
-          <td>{{ user?.roles?.[0]?.nameRole }}</td>
+          <td><strong>Rol:</strong></td>
+          <td>
+            <span *ngIf="user?.roles?.[0]?.nameRole === 'CLIENT'">Cliente</span>
+            <span *ngIf="user?.roles?.[0]?.nameRole === 'ADMIN'">Administrador</span>
+          </td>
         </tr>
         <tr>
           <td><strong>Username:</strong></td>
           <td>{{ user?.username }}</td>
         </tr>
         <tr>
-          <td><strong>Currency Type:</strong></td>
+          <td><strong>Divisa:</strong></td>
           <td>
             <!-- Desplegable para seleccionar la moneda -->
             <mat-form-field appearance="outline" class="currency-selector">
@@ -61,7 +67,7 @@
               </mat-select>
             </mat-form-field>
             <!-- Botón para cambiar la moneda -->
-            <button mat-raised-button color="primary" class="update-button" (click)="changeCurrencyTypeUser()">Update</button>
+            <button mat-raised-button color="primary" class="update-button" (click)="changeCurrencyTypeUser()">Actualizar</button>
           </td>
         </tr>
       </table>

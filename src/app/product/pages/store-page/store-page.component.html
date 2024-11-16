@@ -1,28 +1,36 @@
 <div class="container">
-    <div class="title-container">
-      <h1>Lista de Productos</h1>
-    </div>
-    <div class="totals">
-      <p>Cantidad total de productos: {{ totalQuantity }}</p>
-      <p>Total: S/. {{ totalPrice }}</p>
-    </div>
-    <div class="scroll-container">
-      <button class="scroll-button left" (click)="scrollLeft()">&#10094;</button>
-      <div class="card-container">
-        <div class="card" *ngFor="let product of dataSourcePr.data">
+  <div class="title-container">
+    <h1>Lista de Productos</h1>
+  </div>
+
+  <div class="totals">
+    <p><strong>Cantidad total de productos:</strong> {{ totalQuantity }}</p>
+    <p><strong>Total:</strong> {{ cambiarMoneda(totalPrice) }}</p>
+  </div>
+
+  <div class="scroll-container">
+    <button class="scroll-button left" (click)="scrollLeft()">&#10094;</button>
+    <div class="card-container">
+      <div class="card" *ngFor="let product of dataSourcePr.data">
+        <div class="card-image">
           <img class="product-image" [src]="product.image" alt="{{ product.name }}">
+        </div>
+        <div class="product-info">
           <h2>{{ product.name }}</h2>
-          <p>RUC STORE: {{ product.storeName }}</p>
-          <p>PRICE: {{ product.price }}</p>
-          <p>CATEGORY: {{ product.categoryName }}</p>
+          <p><strong>RUC Store:</strong> {{ product.storeName }}</p>
+          <p><strong>Precio:</strong> {{ cambiarMoneda(product.price) }}</p>
+          <p><strong>Categoría:</strong> {{ product.categoryName }}</p>
+        </div>
+        <div class="card-actions">
           <button class="btn btn-primary" [routerLink]="['/product-detail', product.id]">Ver Detalle</button>
-          <button class="btn btn-primary" (click)="addProductShoppingCart(product)">Añadir Carrito</button>
+          <button class="btn btn-secondary" (click)="addProductShoppingCart(product)">Añadir al Carrito</button>
         </div>
       </div>
-      <button class="scroll-button right" (click)="scrollRight()">&#10095;</button>
     </div>
-    <div class="cart-button-container">
-      <button class="btn btn-secondary" [routerLink]="['/carrito']">Ir al Carrito de Compras</button>
-    </div>
+    <button class="scroll-button right" (click)="scrollRight()">&#10095;</button>
   </div>
-  
+
+  <div class="cart-button-container">
+    <button class="btn btn-secondary" [routerLink]="['/carrito']">Ir al Carrito de Compras</button>
+  </div>
+</div>

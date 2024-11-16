@@ -4,6 +4,7 @@ import { ProductService } from '../../services/product/product.service';
 import { Product } from '../../models/Product';
 import { ProductStorageService } from '../../../shopping_cart/services/product-storage/product-storage.service';
 import { CommonModule } from '@angular/common'; // Importar CommonModule
+import { LoginService } from '../../../user/services/login/login.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -19,7 +20,8 @@ export class ProductDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private psS: ProductService,
     private router: Router,
-    private productStorage: ProductStorageService
+    private productStorage: ProductStorageService,
+    private loginService: LoginService
   ) {}
 
   ngOnInit(): void {
@@ -48,6 +50,10 @@ export class ProductDetailComponent implements OnInit {
 
     console.log('Product added to shopping cart');
     console.log(this.productStorage.getProducts());
+  }
+
+  cambiarMoneda(money: number): string {
+    return this.loginService.cambiarDivisaPrecio(money);
   }
 }
 

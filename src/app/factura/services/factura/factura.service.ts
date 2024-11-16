@@ -23,6 +23,10 @@ export class FacturaService {
     return this.http.get<FacturaSummary>(this.apiUrl+"/"+this.recurso+"/summary/"+id.toString());
   }
 
+  getFacturasByClient(id: number){
+    return this.http.get<FacturaSummary[]>(this.apiUrl+"/"+this.recurso+"/user/"+id.toString());
+  }
+
   getSimularFactura(factura: FacturaRequestDTO, id: number){
     return this.http.put<FacturaResponseDTO>(this.apiUrl+"/"+this.recurso+"/simular/"+id.toString(), factura);
   }

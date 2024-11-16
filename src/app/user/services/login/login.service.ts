@@ -134,5 +134,16 @@ export class LoginService {
     });
     return this.user;
   }
+
+  cambiarDivisaPrecio(precio: number): string {
+    const moneda = this.user.currencyType || 'PEN'; 
+    if (moneda === 'USD') {
+      precio = precio / 3.81;
+      return `$ ${precio.toFixed(2)}`;
+    } else if (moneda === 'PEN') {
+      return `S/ ${precio.toFixed(2)}`;
+    }
+    return `${precio.toFixed(2)}`;
+  }
   
 }

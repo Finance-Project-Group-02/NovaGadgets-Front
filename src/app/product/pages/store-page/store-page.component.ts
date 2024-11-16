@@ -3,10 +3,9 @@ import { Product } from '../../models/Product';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgFor } from '@angular/common';
 import { ProductService } from '../../services/product/product.service';
-import { ProductStore } from '../../models/productStore';
-import { ProductstoreserviceService } from '../../services/product/productstoreservice.service';
 import { RouterLink } from '@angular/router';
 import { ProductStorageService } from '../../../shopping_cart/services/product-storage/product-storage.service';
+import { LoginService } from '../../../user/services/login/login.service';
 
 @Component({
   selector: 'app-store-page',
@@ -24,7 +23,8 @@ export class StorePageComponent implements OnInit, AfterViewInit {
   constructor(
     private prS: ProductService,
     private cdr: ChangeDetectorRef,
-    private productStorage: ProductStorageService
+    private productStorage: ProductStorageService,
+    private loginService: LoginService
   ) {}
   
   ngOnInit(): void {    
@@ -82,6 +82,10 @@ export class StorePageComponent implements OnInit, AfterViewInit {
     const cartProducts = this.productStorage.getProducts();
     this.totalQuantity = cartProducts.reduce((sum, product) => sum + product.quantity, 0);
     this.totalPrice = cartProducts.reduce((sum, product) => sum + (product.price * product.quantity), 0);
+  }
+
+  cambiarMoneda(money: number): string {
+    return this.loginService.cambiarDivisaPrecio(money);
   }
 
 

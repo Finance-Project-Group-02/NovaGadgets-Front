@@ -4,64 +4,193 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 0 1rem;
+  max-width: 1200px;
+  padding: 20px;
   box-sizing: border-box;
   margin: 0 auto;
+  gap: 20px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  min-height: 80vh;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
   gap: 10px;
 }
 
-.factura-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  gap: 20px;
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #3f51b5;
 }
 
-.icon {
-  width: 40px;
-  height: 40px;
+.filter-field {
+  width: 300px;
+  background: white;
+}
+
+.facturas-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  width: 100%;
+}
+
+@media (min-width: 800px) {
+  .facturas-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .facturas-container {
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 20px;
+  }
+}
+
+.factura-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 600px; /* Controla el ancho máximo */
+  margin: 0 auto; /* Centra la tarjeta si es única */
+}
+
+.factura-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.factura-header {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.estado-icon {
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  color: white;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
   text-transform: uppercase;
-  background-color: #ffd966;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.icon-aceptado {
+  background-color: #4caf50;
+  color: white;
+}
+
+.icon-pendiente {
+  background-color: #ffeb3b;
+  color: black;
+}
+
+.icon-rechazado {
+  background-color: #f44336;
+  color: white;
+}
+
+.factura-info {
+  flex-grow: 1;
+  margin-left: 16px;
+}
+
+.no-facturas-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin-top: 20px;
+  min-height: 150px;
+}
+
+.no-facturas-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #3f51b5;
+  margin-bottom: 10px;
+}
+
+.no-facturas-description {
+  font-size: 1rem;
+  color: #757575;
+  margin: 0;
+}
+
+mat-card-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin: 0;
+  color: #3f51b5;
+}
+
+mat-card-subtitle {
+  font-size: 1rem;
+  color: #757575;
+}
+
+mat-card-content {
+  padding: 20px;
 }
 
 .factura-details {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 8px;
 }
 
 .factura-details p {
   margin: 0;
-  font-size: 14px;
+  font-size: 1rem;
   color: #333;
 }
 
-mat-card {
-  width: 100%;
-  max-width: 600px;
+mat-form-field {
+  background: white;
+  border-radius: 4px;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
   padding: 16px;
-  margin: 8px auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease-in-out;
-  border-radius: 8px;
 }
 
-@media (min-width: 800px) {
-  mat-card {
-    max-width: 700px;
-  }
+button[mat-button] {
+  text-transform: uppercase;
+  font-weight: bold;
+  color: white;
+  background-color: #3f51b5;
+  border-radius: 6px;
+  padding: 10px 20px;
 }
 
-@media (min-width: 900px) {
-  mat-card {
-    max-width: 800px;
-  }
+button[mat-button]:hover {
+  background-color: #303f9f;
+  opacity: 0.9;
 }

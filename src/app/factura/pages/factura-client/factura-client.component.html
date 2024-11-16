@@ -1,28 +1,45 @@
-<div class="container">
-  <div>
-    <h4 class="title">Mis Facturas</h4>
+<div class="container" style="margin-top: 35px;">
+  <h4 class="title">Mis Facturas</h4>
+  
+  <div class="filter-container">
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>Filtrar por Estado</mat-label>
+      <mat-select [(value)]="selectedState" (selectionChange)="filtrarFacturas()">
+        <mat-option [value]="" class="filter-option">Ver Todos</mat-option>
+        <mat-option *ngFor="let estado of estados" [value]="estado" class="filter-option">{{ estado }}</mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Filtrar por Estado</mat-label>
-    <mat-select [(value)]="selectedState" (selectionChange)="filtrarFacturas()">
-      <mat-option *ngFor="let estado of estados" [value]="estado">{{ estado }}</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-card appearance="outlined" *ngFor="let factura of facturasFiltradas">
-    <mat-card-content class="factura-panel">
-      <div class="factura-container">
-        <div class="icon estado-pendiente"></div>
-
-        <div class="factura-details">
-          <p>Bill: {{ factura.id }}</p>
-          <p>User: {{ factura.username }}</p>
-          <p>Order Date: {{ factura.orderDate }}</p>
-          <p>State: {{ factura.state }}</p>
-          <p></p>
+  <!-- Verificar si no hay facturas -->
+  <div class="facturas-container" *ngIf="facturasFiltradas.length > 0; else noFacturas">
+    <mat-card class="factura-card" *ngFor="let factura of facturasFiltradas">
+      <mat-card-header>
+        <div class="factura-header">
+          <div 
+            class="estado-icon" 
+            [ngClass]="{'icon-aceptado': factura.state === 'ACEPTADO', 
+                        'icon-pendiente': factura.state === 'PENDIENTE',
+                        'icon-rechazado': factura.state === 'RECHAZADO'}">
+          </div>
+          <div class="factura-info">
+            <mat-card-title>Número de Orden: {{ factura.id }}</mat-card-title>
+            <mat-card-subtitle>{{ factura.state }}</mat-card-subtitle>
+          </div>
         </div>
-      </div>
-    </mat-card-content>
-  </mat-card>
+      </mat-card-header>
+      <mat-card-content>
+        <p><strong>Total Facturado:</strong> {{ cambiarDivisaPrecio(factura.totalInvoiced)}}</p>
+        <p><strong>Valor Nominal:</strong> {{ cambiarDivisaPrecio(factura.nominalValue)}}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Mensaje de que no hay facturas -->
+  <ng-template #noFacturas>
+    <div class="no-facturas-card">
+      <h5 class="no-facturas-title">No se encontraron facturas</h5>
+      <p class="no-facturas-description">Actualmente no tienes facturas disponibles. Por favor, verifica nuevamente más tarde.</p>
+    </div>
+  </ng-template>
 </div>

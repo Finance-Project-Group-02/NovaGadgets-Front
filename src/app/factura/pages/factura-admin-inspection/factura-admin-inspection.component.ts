@@ -120,7 +120,7 @@ export class FacturaAdminInspectionComponent implements OnInit {
       next: (data: FacturaSummary) => {
         this.facturaSummary = data;
 
-        let fechaDate: Date = new Date(data.orderDate + 'T00:00:00');
+        let fechaDate: Date = new Date(data.startDate + 'T00:00:00');
         this.formDescuento.get("startDate")?.setValue(fechaDate),
         this.formDescuento.get("totalInvoiced")?.setValue(data.nominalValue),
         this.formDescuento.get('startDate')?.disable(),

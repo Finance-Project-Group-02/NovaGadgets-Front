@@ -18,17 +18,17 @@
             <td><img class="product-image" [src]="product.image" alt="{{ product.name }}" /></td>
             <td>{{ product.name }}</td>
             <td>{{ product.quantity }}</td>
-            <td>{{ product.price  }}</td>
-            <td>{{ product.price * product.quantity  }}</td>
+            <td>{{ cambiarMoneda(product.price)  }}</td>
+            <td>{{ cambiarMoneda(product.price * product.quantity)  }}</td>
           </tr>
         </tbody>
       </table>
   
       <!-- Total y Subtotal de Envío -->
 <div class="total-section">
-  <p><span>Subtotal:</span> <span>{{ calculateSubtotal() }}</span></p>
-  <p><span>Costo de Envío:</span> <span>{{ shippingCost }}</span></p>
-  <h3><span>Total a Pagar:</span> <span>{{ calculateTotalWithShipping() }}</span></h3>
+  <p><span>Subtotal:</span> <span>{{ cambiarMoneda(calculateSubtotal()) }}</span></p>
+  <p><span>Costo de Envío:</span> <span>{{ cambiarMoneda(shippingCost) }}</span></p>
+  <h3><span>Total a Pagar:</span> <span>{{ cambiarMoneda(calculateTotalWithShipping()) }}</span></h3>
 </div>
 
   

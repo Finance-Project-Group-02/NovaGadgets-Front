@@ -153,4 +153,9 @@ export class ShoppingCartPayComponent implements OnInit {
     this.productStorageService.saveProducts([]);
     this.cartProducts = [];
   }
+
+  cambiarMoneda(money: number): string {
+    return this.loginService.cambiarDivisaPrecio(money);
+  }
+
 }

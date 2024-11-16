@@ -3,6 +3,7 @@ import { Product } from '../../models/Product';
 import { ProductStorageService } from '../../../shopping_cart/services/product-storage/product-storage.service';
 import { Router, RouterLink } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
+import { LoginService } from '../../../user/services/login/login.service';
 
 @Component({
   selector: 'app-shopping-product-cart',
@@ -16,7 +17,8 @@ export class ShoppingProductCartComponent implements OnInit {
 
   constructor(
     private productStorageService: ProductStorageService,
-    private router: Router
+    private router: Router,
+    private loginService: LoginService
   ) {}
 
   ngOnInit(): void {
@@ -44,6 +46,10 @@ export class ShoppingProductCartComponent implements OnInit {
       product.quantity -= 1;
       this.productStorageService.saveProducts(this.cartProducts);
     }
+  }
+
+  cambiarMoneda(money: number): string {
+    return this.loginService.cambiarDivisaPrecio(money);
   }
 
   
