@@ -7,6 +7,7 @@ import {  MatCardModule} from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { TCEACarteraDTO } from '../../models/TCEACarteraDTO';
+import { LoginService } from '../../../user/services/login/login.service';
 
 @Component({
   selector: 'app-factura-tcea-validation',
@@ -22,7 +23,7 @@ export class FacturaTceaValidationComponent {
   tceaCartera!: TCEACarteraDTO;
   facturasArray: number[] =[];
 
-  constructor(private facturaService: FacturaService, private snackbar: MatSnackBar, private activatedRoute: ActivatedRoute) { }
+  constructor(private facturaService: FacturaService, private snackbar: MatSnackBar, private activatedRoute: ActivatedRoute, private loginService: LoginService) { }
 
   ngOnInit() {
     this.facturaId = parseInt(this.activatedRoute.snapshot.params["id"]);
@@ -91,5 +92,9 @@ export class FacturaTceaValidationComponent {
 
   isFacturaSelected(facturaId: number): boolean {
       return this.facturasArray.includes(facturaId);
+  }
+
+  cambiarDivisaPrecio(monto: number) : String{
+    return this.loginService.cambiarDivisaPrecio(monto);
   }
 }

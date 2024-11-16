@@ -1,3 +1,5 @@
+import { CostDTO } from "./costDTO";
+
 export interface FacturaRequestDTO{
     state: String,
     startDate: String,
@@ -9,6 +11,6 @@ export interface FacturaRequestDTO{
     capitalization: number,
     rateTerm: number,
     dayByYear: String,
-    initialCosts: number[],
-    finalCosts: number[]
+    initialCosts: CostDTO[],
+    finalCosts: CostDTO[]
 }

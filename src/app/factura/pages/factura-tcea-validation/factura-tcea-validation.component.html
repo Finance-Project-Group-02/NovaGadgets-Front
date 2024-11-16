@@ -1,97 +1,113 @@
-<div class="container">
-    <!-- Título y resumen -->
+<div class="container" style="margin-top: 55px;">
+    <!-- Sección: Título y Resumen -->
     <section class="summary-section">
         <h4 class="title">Resultado</h4>
-        <p class="summary"><strong>(VR):</strong> Valor Total a Recibir por la cartera: {{tceaCartera.totalValueReceived}}</p>
-        <p class="summary"><strong>(TCEA):</strong> Tasa de Coste Efectiva Anual de la cartera: {{tceaCartera.tceaCartera}}%</p>
+        <p class="summary">
+            <strong>(VR):</strong> Valor Total a Recibir por la cartera: {{tceaCartera.totalValueReceived}}
+        </p>
+        <p class="summary">
+            <strong>(TCEA):</strong> Tasa de Coste Efectiva Anual de la cartera: {{tceaCartera.tceaCartera}}%
+        </p>
     </section>
 
-    <!-- Factura seleccionada -->
+    <!-- Sección: Factura Seleccionada -->
     <mat-card class="selected-card highlighted" appearance="outlined">
         <mat-card-content class="factura-panel">
             <div class="factura-container">
                 <!-- Icono -->
                 <div class="icon" [ngClass]="getStateClass(facturaSeleccionada.state)"></div>
 
-                <!-- Detalles -->
+                <!-- Detalles de la Factura -->
                 <div class="factura-details">
                     <p><strong>Número de factura:</strong> N°{{facturaSeleccionada.id}}</p>
                     <p><strong>Username:</strong> {{facturaSeleccionada.username}}</p>
-                    <p><strong>Total Facturado:</strong> {{facturaSeleccionada.totalInvoiced}}</p>
+                    <p><strong>Total Facturado:</strong> {{cambiarDivisaPrecio(facturaSeleccionada.totalInvoiced)}}</p>
                     <p><strong>Fecha de Creación:</strong> {{facturaSeleccionada.orderDate}}</p>
                 </div>
             </div>
 
-            <!-- Información adicional -->
+            <!-- Información Adicional -->
             <ng-container *ngIf="facturaSeleccionada.state === 'ACEPTADO'">
                 <div class="information-columns">
+                    <!-- Primera Columna -->
                     <div class="information-column">
                         <p><strong>Fecha de Giro:</strong> {{facturaSeleccionada.orderDate}}</p>
                         <p><strong>Fecha de Descuento:</strong> {{facturaSeleccionada.discountDate}}</p>
-                        <p><strong>Valor Nominal:</strong> {{facturaSeleccionada.nominalValue}}</p>
+                        <p><strong>Valor Nominal:</strong> {{cambiarDivisaPrecio(facturaSeleccionada.nominalValue)}}</p>
                         <p><strong>Fecha de Vencimiento:</strong> {{facturaSeleccionada.paymentDate}}</p>
                         <p><strong>Días:</strong> {{facturaSeleccionada.days}}</p>
-                        <p><strong>Retención:</strong> {{facturaSeleccionada.retention}}</p>
+                        <p><strong>Retención:</strong> {{cambiarDivisaPrecio(facturaSeleccionada.retention)}}</p>
                         <p><strong>TE%:</strong> {{facturaSeleccionada.newEffectiveRate}}%</p>
                     </div>
+
+                    <!-- Segunda Columna -->
                     <div class="information-column">
                         <p><strong>d%:</strong> {{facturaSeleccionada.discountedRate}}</p>
-                        <p><strong>Descuento:</strong> {{facturaSeleccionada.discount}}</p>
-                        <p><strong>Costes Iniciales:</strong> {{facturaSeleccionada.initialCosts}}</p>
-                        <p><strong>Costes Finales:</strong> {{facturaSeleccionada.finalCosts}}</p>
-                        <p><strong>Valor Neto:</strong> {{facturaSeleccionada.netWorth}}</p>
-                        <p><strong>Valor Recibido:</strong> {{facturaSeleccionada.valueReceived}}</p>
-                        <p><strong>Valor Entregado:</strong> {{facturaSeleccionada.valueDelivered}}</p>
+                        <p><strong>Descuento:</strong> {{cambiarDivisaPrecio(facturaSeleccionada.discount)}}</p>
+                        <p><strong>Costes Iniciales:</strong> {{cambiarDivisaPrecio(facturaSeleccionada.initialCosts)}}</p>
+                        <p><strong>Costes Finales:</strong> {{cambiarDivisaPrecio(facturaSeleccionada.finalCosts)}}</p>
+                        <p><strong>Valor Neto:</strong> {{cambiarDivisaPrecio(facturaSeleccionada.netWorth)}}</p>
+                        <p><strong>Valor Recibido:</strong> {{cambiarDivisaPrecio(facturaSeleccionada.valueReceived)}}</p>
+                        <p><strong>Valor Entregado:</strong> {{cambiarDivisaPrecio(facturaSeleccionada.valueDelivered)}}</p>
                         <p><strong>TCEA:</strong> {{facturaSeleccionada.tcea}}%</p>
                     </div>
                 </div>
             </ng-container>
         </mat-card-content>
     </mat-card>
-    
+
+    <!-- Sección: Lista de Facturas -->
     <p class="factura-title">Facturas Válidas para la Cartera</p>
 
-    <!-- Lista de facturas -->
     <ng-container *ngFor="let factura of dsFacturas">
-        <mat-card class="factura-card" appearance="outlined" (click)="onCardClick(factura.id)" [ngClass]="{'selected': isFacturaSelected(factura.id)}">
+        <mat-card 
+            class="factura-card" 
+            appearance="outlined" 
+            (click)="onCardClick(factura.id)" 
+            [ngClass]="{'selected': isFacturaSelected(factura.id)}"
+        >
             <mat-card-content class="factura-panel">
                 <div class="factura-container">
+                    <!-- Icono -->
                     <div class="icon" [ngClass]="getStateClass(factura.state)"></div>
-                    
+
+                    <!-- Detalles de la Factura -->
                     <div class="factura-details">
                         <p><strong>Número de factura:</strong> N°{{factura.id}}</p>
                         <p><strong>Username:</strong> {{factura.username}}</p>
-                        <p><strong>Total Facturado:</strong> {{factura.totalInvoiced}}</p>
+                        <p><strong>Total Facturado:</strong> {{cambiarDivisaPrecio(factura.totalInvoiced)}}</p>
                         <p><strong>Fecha de Creación de Orden:</strong> {{factura.orderDate}}</p>
                     </div>
-                    
-                    <!-- Información adicional -->
-                    <ng-container *ngIf="factura.state === 'ACEPTADO'">
-                        <div class="information-columns">
-                            <div class="information-column">
-                                <p><strong>Fecha de Giro:</strong> {{factura.orderDate}}</p>
-                                <p><strong>Fecha de Descuento:</strong> {{factura.discountDate}}</p>
-                                <p><strong>Valor Nominal:</strong> {{factura.nominalValue}}</p>
-                                <p><strong>Fecha de Vencimiento:</strong> {{factura.paymentDate}}</p>
-                                <p><strong>Días:</strong> {{factura.days}}</p>
-                                <p><strong>Retención:</strong> {{factura.retention}}</p>
-                                <p><strong>TE%:</strong> {{factura.newEffectiveRate}}%</p>
-                            </div>
-                            <div class="information-column">
-                                <p><strong>d%:</strong> {{factura.discountedRate}}</p>
-                                <p><strong>Descuento:</strong> {{factura.discount}}</p>
-                                <p><strong>Costes Iniciales:</strong> {{factura.initialCosts}}</p>
-                                <p><strong>Costes Finales:</strong> {{factura.finalCosts}}</p>
-                                <p><strong>Valor Neto:</strong> {{factura.netWorth}}</p>
-                                <p><strong>Valor Recibido:</strong> {{factura.valueReceived}}</p>
-                                <p><strong>Valor Entregado:</strong> {{factura.valueDelivered}}</p>
-                                <p><strong>TCEA:</strong> {{factura.tcea}}%</p>
-                            </div>
-                        </div>
-                    </ng-container>
                 </div>
+
+                <!-- Información Adicional -->
+                <ng-container *ngIf="factura.state === 'ACEPTADO'">
+                    <div class="information-columns">
+                        <!-- Primera Columna -->
+                        <div class="information-column">
+                            <p><strong>Fecha de Giro:</strong> {{factura.orderDate}}</p>
+                            <p><strong>Fecha de Descuento:</strong> {{factura.discountDate}}</p>
+                            <p><strong>Valor Nominal:</strong> {{cambiarDivisaPrecio(factura.nominalValue)}}</p>
+                            <p><strong>Fecha de Vencimiento:</strong> {{factura.paymentDate}}</p>
+                            <p><strong>Días:</strong> {{factura.days}}</p>
+                            <p><strong>Retención:</strong> {{cambiarDivisaPrecio(factura.retention)}}</p>
+                            <p><strong>TE%:</strong> {{factura.newEffectiveRate}}%</p>
+                        </div>
+
+                        <!-- Segunda Columna -->
+                        <div class="information-column">
+                            <p><strong>d%:</strong> {{factura.discountedRate}}</p>
+                            <p><strong>Descuento:</strong> {{cambiarDivisaPrecio(factura.discount)}}</p>
+                            <p><strong>Costes Iniciales:</strong> {{cambiarDivisaPrecio(factura.initialCosts)}}</p>
+                            <p><strong>Costes Finales:</strong> {{cambiarDivisaPrecio(factura.finalCosts)}}</p>
+                            <p><strong>Valor Neto:</strong> {{cambiarDivisaPrecio(factura.netWorth)}}</p>
+                            <p><strong>Valor Recibido:</strong> {{cambiarDivisaPrecio(factura.valueReceived)}}</p>
+                            <p><strong>Valor Entregado:</strong> {{cambiarDivisaPrecio(factura.valueDelivered)}}</p>
+                            <p><strong>TCEA:</strong> {{factura.tcea}}%</p>
+                        </div>
+                    </div>
+                </ng-container>
             </mat-card-content>
         </mat-card>
     </ng-container>
-    <br>
 </div>

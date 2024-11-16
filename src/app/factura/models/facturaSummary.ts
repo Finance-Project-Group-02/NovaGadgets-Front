@@ -3,7 +3,7 @@ export interface FacturaSummary{
     state: String,
     username: String,
     discountDate: String,
-    orderDate: String,
+    orderDate: Date,
     nominalValue: number,
     totalInvoiced: number,
     paymentDate: String,

@@ -169,7 +169,7 @@
                       <h4>Gastos Iniciales Agregados</h4>
                       <ul>
                         <li *ngFor="let gasto of addedGastosIniciales">
-                          {{ gasto.gasto }} - {{ gasto.valorTipo }}: {{ gasto.valor }}
+                            [{{ gasto.type }}] - {{ gasto.name }} -> {{ gasto.value }}
                         </li>
                       </ul>
                   </div>
@@ -214,7 +214,7 @@
                       <h4>Gastos Finales Agregados</h4>
                       <ul>
                         <li *ngFor="let gasto of addedGastosFinales">
-                          {{ gasto.gasto }} - {{ gasto.valorTipo }}: {{ gasto.valor }}
+                            [{{ gasto.type }}] - {{ gasto.name }} -> {{ gasto.value }}
                         </li>
                       </ul>
                   </div>

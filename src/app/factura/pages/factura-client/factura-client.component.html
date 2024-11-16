@@ -30,7 +30,7 @@
       </mat-card-header>
       <mat-card-content>
         <p><strong>Total Facturado:</strong> {{ cambiarDivisaPrecio(factura.totalInvoiced)}}</p>
-        <p><strong>Valor Nominal:</strong> {{ cambiarDivisaPrecio(factura.nominalValue)}}</p>
+        <p><strong>Fecha de Emisión:</strong> {{ factura.orderDate | date:'dd/MM/yyyy' }}</p>
       </mat-card-content>
     </mat-card>
   </div>

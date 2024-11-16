@@ -14,6 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FacturaSummary } from '../../models/facturaSummary';
 import { FacturaService } from '../../services/factura/factura.service';
 import { LoginService } from '../../../user/services/login/login.service';
+import { CostDTO } from '../../models/costDTO';
 
 @Component({
   selector: 'app-factura-admin-inspection',
@@ -78,11 +79,8 @@ export class FacturaAdminInspectionComponent implements OnInit {
     { name: 'Otros gastos'}
   ]
 
-  addedGastosIniciales: any[] = [];
-  addedGastosFinales: any[] =[];
-
-  initialCosts: number[] = [];
-  finalCosts: number[] = [];
+  addedGastosIniciales: CostDTO[] = [];
+  addedGastosFinales: CostDTO[] =[];
 
   constructor(private formBuilder: FormBuilder, private facturaService: FacturaService, private router: Router,
     private activatedRoute: ActivatedRoute, private snackbar: MatSnackBar, private loginService: LoginService) { }
@@ -200,7 +198,9 @@ export class FacturaAdminInspectionComponent implements OnInit {
     const valorTipo = this.formDescuento.get("valorTipoInicial")?.value;
     const valor = this.formDescuento.get("valorInicial")?.value;
 
-    this.addedGastosIniciales.push({ gasto: gastoSeleccionado, valorTipo, valor });
+    this.addedGastosIniciales.push(
+      { id:0 , name: gastoSeleccionado, type: valorTipo, value: valor }
+    );
 
     this.formDescuento.get("gastoInicial")?.reset();
     this.formDescuento.get("valorTipoInicial")?.reset();
@@ -212,7 +212,9 @@ export class FacturaAdminInspectionComponent implements OnInit {
     const valorTipo = this.formDescuento.get("valorTipoFinal")?.value;
     const valor = this.formDescuento.get("valorFinal")?.value;
     
-    this.addedGastosFinales.push({ gasto: gastoSeleccionado, valorTipo, valor });
+    this.addedGastosFinales.push(
+      { id:0 , name: gastoSeleccionado, type: valorTipo, value: valor }
+    );
 
     this.formDescuento.get("gastoFinal")?.reset();
     this.formDescuento.get("valorTipoFinal")?.reset();
@@ -249,24 +251,6 @@ export class FacturaAdminInspectionComponent implements OnInit {
       selectedOptionNominal = this.options.find(option => option.value === rateTermNominal)?.value;
     }
 
-    let gastosInicialesTemporal = this.addedGastosIniciales.map(item => ({ ...item }));
-    let gastosFinalesTemporal = this.addedGastosFinales.map(item => ({ ...item }));
-    
-    gastosInicialesTemporal.forEach(item => {
-      if (item.valorTipo === 'P') {
-        item.valor = item.valor / 100 * this.facturaSummary.nominalValue;;
-      }
-    });
-    
-    gastosFinalesTemporal.forEach(item => {
-      if (item.valorTipo === 'P') {
-        item.valor = item.valor / 100 * this.facturaSummary.nominalValue;;
-      }
-    });
-    
-    const gastosIniciales = gastosInicialesTemporal.map(item => item.valor);
-    const gastosFinales = gastosFinalesTemporal.map(item => item.valor);
-
     let factura: FacturaRequestDTO | null = null;
 
     if (this.tasaValue == "E") {
@@ -281,8 +265,8 @@ export class FacturaAdminInspectionComponent implements OnInit {
         capitalization: 0,
         rateTerm: selectedValue,
         dayByYear: this.formDescuento.get("dayByYear")?.value,
-        initialCosts: gastosIniciales,
-        finalCosts: gastosFinales
+        initialCosts: this.addedGastosIniciales,
+        finalCosts: this.addedGastosFinales
       };
     } else if (this.tasaValue == "N") {
       factura = {
@@ -296,8 +280,8 @@ export class FacturaAdminInspectionComponent implements OnInit {
         capitalization: selectedOptionNominal,
         rateTerm: selectedValue,
         dayByYear: this.formDescuento.get("dayByYear")?.value,
-        initialCosts: gastosIniciales,
-        finalCosts: gastosFinales
+        initialCosts: this.addedGastosIniciales,
+        finalCosts: this.addedGastosFinales
       };
     }
 
@@ -339,25 +323,7 @@ export class FacturaAdminInspectionComponent implements OnInit {
     } else {
       selectedOptionNominal = this.options.find(option => option.value === rateTermNominal)?.value;
     }
-
-    let gastosInicialesTemporal = this.addedGastosIniciales.map(item => ({ ...item }));
-    let gastosFinalesTemporal = this.addedGastosFinales.map(item => ({ ...item }));
     
-    gastosInicialesTemporal.forEach(item => {
-      if (item.valorTipo === 'P') {
-        item.valor = item.valor / 100 * this.facturaSummary.nominalValue;
-      }
-    });
-    
-    gastosFinalesTemporal.forEach(item => {
-      if (item.valorTipo === 'P') {
-        item.valor = item.valor / 100 * this.facturaSummary.nominalValue;
-      }
-    });
-    
-    const gastosIniciales = gastosInicialesTemporal.map(item => item.valor);
-    const gastosFinales = gastosFinalesTemporal.map(item => item.valor);
-
     let factura: FacturaRequestDTO | null = null;
 
     if (this.tasaValue == "E") {
@@ -372,8 +338,8 @@ export class FacturaAdminInspectionComponent implements OnInit {
         capitalization: 0,
         rateTerm: selectedValue,
         dayByYear: this.formDescuento.get("dayByYear")?.value,
-        initialCosts: gastosIniciales,
-        finalCosts: gastosFinales
+        initialCosts: this.addedGastosIniciales,
+        finalCosts: this.addedGastosFinales
       };
     } else if (this.tasaValue == "N") {
       factura = {
@@ -387,8 +353,8 @@ export class FacturaAdminInspectionComponent implements OnInit {
         capitalization: selectedOptionNominal,
         rateTerm: selectedValue,
         dayByYear: this.formDescuento.get("dayByYear")?.value,
-        initialCosts: gastosIniciales,
-        finalCosts: gastosFinales
+        initialCosts: this.addedGastosIniciales,
+        finalCosts: this.addedGastosFinales
       };
     }
 

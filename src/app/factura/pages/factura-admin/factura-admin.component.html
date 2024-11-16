@@ -36,20 +36,20 @@
                 <div class="information-column">
                     <p><strong>Fecha de Giro:</strong> {{ factura.orderDate }}</p>
                     <p><strong>Fecha de Descuento:</strong> {{ factura.discountDate }}</p>
-                    <p><strong>Valor Nominal:</strong> {{ factura.nominalValue }}</p>
+                    <p><strong>Valor Nominal:</strong> {{ cambiarDivisaPrecio(factura.nominalValue) }}</p>
                     <p><strong>Fecha de Vencimiento:</strong> {{ factura.paymentDate }}</p>
                     <p><strong>Días:</strong> {{ factura.days }}</p>
-                    <p><strong>Retención:</strong> {{ factura.retention }}</p>
+                    <p><strong>Retención:</strong> {{ cambiarDivisaPrecio(factura.retention) }}</p>
                     <p><strong>TE%:</strong> {{ factura.newEffectiveRate }}%</p>
                 </div>
                 <div class="information-column">
                     <p><strong>d%:</strong> {{ factura.discountedRate }}</p>
-                    <p><strong>Descuento:</strong> {{ factura.discount }}</p>
-                    <p><strong>Costes Iniciales:</strong> {{ factura.initialCosts }}</p>
-                    <p><strong>Costes Finales:</strong> {{ factura.finalCosts }}</p>
-                    <p><strong>Valor Neto:</strong> {{ factura.netWorth }}</p>
-                    <p><strong>Valor Recibido:</strong> {{ factura.valueReceived }}</p>
-                    <p><strong>Valor Entregado:</strong> {{ factura.valueDelivered }}</p>
+                    <p><strong>Descuento:</strong> {{ cambiarDivisaPrecio(factura.discount) }}</p>
+                    <p><strong>Costes Iniciales:</strong> {{ cambiarDivisaPrecio(factura.initialCosts) }}</p>
+                    <p><strong>Costes Finales:</strong> {{ cambiarDivisaPrecio(factura.finalCosts) }}</p>
+                    <p><strong>Valor Neto:</strong> {{ cambiarDivisaPrecio(factura.netWorth) }}</p>
+                    <p><strong>Valor Recibido:</strong> {{ cambiarDivisaPrecio(factura.valueReceived) }}</p>
+                    <p><strong>Valor Entregado:</strong> {{ cambiarDivisaPrecio(factura.valueDelivered) }}</p>
                     <p><strong>TCEA:</strong> {{ factura.tcea }}%</p>
                 </div>
                 </div>
