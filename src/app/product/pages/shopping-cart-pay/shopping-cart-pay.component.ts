@@ -18,7 +18,8 @@ import { LoginService } from '../../../user/services/login/login.service';
 })
 export class ShoppingCartPayComponent implements OnInit {
   cartProducts: Product[] = [];
-  shippingCost: number = 50; // Costo de envío fijo, puedes ajustarlo según necesidad
+  shippingCost: number = 50;
+  districts:[] = [] // Costo de envío fijo, puedes ajustarlo según necesidad
   order = {
     address: '',
     paymentMethod: 'creditCard'
