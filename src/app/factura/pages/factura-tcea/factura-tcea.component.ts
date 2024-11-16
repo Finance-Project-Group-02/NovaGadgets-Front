@@ -6,6 +6,7 @@ import { MatIconModule} from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FacturaService } from '../../services/factura/factura.service';
+import { LoginService } from '../../../user/services/login/login.service';
 
 @Component({
   selector: 'app-factura-tcea',
@@ -18,7 +19,7 @@ export class FacturaTceaComponent {
   dsFacturas!: FacturaSummary[];
   selectFirst: boolean = false;
 
-  constructor(private facturaService: FacturaService) { }
+  constructor(private facturaService: FacturaService, private loginService: LoginService) { }
 
   ngOnInit() {
     this.cargarFacturas();
@@ -46,5 +47,9 @@ export class FacturaTceaComponent {
           default:
               return '';
     }
+  }
+
+  cambiarDivisaPrecio(monto: number) : String{
+    return this.loginService.cambiarDivisaPrecio(monto);
   }
 }

@@ -13,6 +13,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FacturaSummary } from '../../models/facturaSummary';
 import { FacturaService } from '../../services/factura/factura.service';
+import { LoginService } from '../../../user/services/login/login.service';
 
 @Component({
   selector: 'app-factura-admin-inspection',
@@ -84,7 +85,7 @@ export class FacturaAdminInspectionComponent implements OnInit {
   finalCosts: number[] = [];
 
   constructor(private formBuilder: FormBuilder, private facturaService: FacturaService, private router: Router,
-    private activatedRoute: ActivatedRoute, private snackbar: MatSnackBar) { }
+    private activatedRoute: ActivatedRoute, private snackbar: MatSnackBar, private loginService: LoginService) { }
 
   ngOnInit() {
     this.cargarFormulario();
@@ -120,7 +121,7 @@ export class FacturaAdminInspectionComponent implements OnInit {
       next: (data: FacturaSummary) => {
         this.facturaSummary = data;
 
-        let fechaDate: Date = new Date(data.startDate + 'T00:00:00');
+        let fechaDate: Date = new Date(data.orderDate + 'T00:00:00');
         this.formDescuento.get("startDate")?.setValue(fechaDate),
         this.formDescuento.get("totalInvoiced")?.setValue(data.nominalValue),
         this.formDescuento.get('startDate')?.disable(),
@@ -405,5 +406,9 @@ export class FacturaAdminInspectionComponent implements OnInit {
         }
       })
     }
+  }
+
+  cambiarDivisaPrecio(monto: number) : String{
+    return this.loginService.cambiarDivisaPrecio(monto);
   }
 }

@@ -1,109 +1,154 @@
+/* General container */
 .container {
-    color: black;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding: 0 1rem;
-    box-sizing: border-box;
-    margin: 0 auto;
-    gap: 10px;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
 }
 
-.title {
-    margin-top: 1.2rem;
-    text-align: center;
-    font-size: 3rem;
-}
-
-.factura-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-}
-
-.icon {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background-color: yellow;
-    color: white;
-    font-size: 12px;
+/* Título y resumen */
+.summary-section .title {
+    font-size: 1.8rem;
     font-weight: bold;
-    text-transform: uppercase;
+    color: #4CAF50;
+    margin-bottom: 15px;
 }
 
-.estado-aceptado {
-    background-color: green;
+.summary-section .summary {
+    font-size: 1.1rem;
+    margin: 8px 0;
+    color: #555;
 }
 
-.estado-pendiente {
-    background-color: yellow;
+/* Factura seleccionada */
+.selected-card {
+    border: 2px solid #4CAF50;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to bottom, #e8f5e9, #ffffff);
+    padding: 15px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.estado-rechazado {
-    background-color: red;
+.selected-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
-.factura-details {
+.selected-card .factura-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.selected-card .factura-details p {
+    font-size: 1rem;
+    margin: 5px 0;
+}
+
+.selected-card .information-columns {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.selected-card .information-column {
     flex: 1;
+    margin-right: 10px;
 }
 
-mat-card {
-    width: 100%;
-    max-width: 700px;
-    height: auto;
-    padding: 16px;
-    margin: 8px auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease-in-out;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
+.selected-card .information-column p {
+    font-size: 0.95rem;
+    margin: 4px 0;
+    color: #333;
 }
 
-.selected{
-    width: 100%;
-    max-width: 800px;
-    height: auto;
-    padding: 16px;
-    margin: 8px auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease-in-out;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* Lista de facturas */
+.factura-card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.options:hover {
-    background-color: skyblue;
-    transform: scale(1.05);
+.factura-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.factura-card.selected {
+    border: 2px solid #4CAF50;
+    background: #f1f8e9;
 }
 
 .factura-panel {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    width: 100%;
+    padding: 15px;
 }
 
-.selected {
-    background-color: skyblue;
+.factura-container {
+    display: flex;
+    align-items: flex-start;
 }
 
+.factura-details {
+    padding-left: 15px;
+    flex-grow: 1;
+    color: #555;
+}
 
-@media (min-width: 800px) {
-    mat-card {
-        max-width: 700px;
+.factura-details p {
+    margin: 5px 0;
+    font-size: 0.95rem;
+}
+
+/* Icon styles */
+.icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #ccc;
+}
+
+/* Información adicional */
+.information-columns {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.information-column {
+    flex: 1;
+    margin-right: 15px;
+}
+
+.information-column p {
+    font-size: 0.9rem;
+    margin: 5px 0;
+    color: #444;
+}
+
+/* Factura title */
+.factura-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin: 20px 0 10px;
+    color: #333;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .information-columns {
+        flex-direction: column;
     }
-}
 
-@media (min-width: 900px) {
-    mat-card {
-        max-width: 800px;
+    .information-column {
+        margin-right: 0;
+        margin-bottom: 10px;
     }
 }

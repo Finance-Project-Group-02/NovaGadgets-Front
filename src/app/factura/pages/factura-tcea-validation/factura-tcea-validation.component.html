@@ -1,81 +1,97 @@
 <div class="container">
-    <div>
+    <!-- Título y resumen -->
+    <section class="summary-section">
         <h4 class="title">Resultado</h4>
-        <p>(VR) Valor Total a Recibir por la cartera: {{tceaCartera.totalValueReceived}}</p>
-        <p>(TCEA) Tasa de Coste Efectiva Anual de la cartera: {{tceaCartera.tceaCartera}}%</p>
-    </div>
-    <mat-card class="selected" appearance="outlined">
-        <mat-card-content class="factura-panel">
-            <div class="factura-container">
-                <div class="icon" [ngClass]="getStateClass(facturaSeleccionada.state)"></div>
-                
-                <div class="factura-details">
-                  <p>Número de factura: N°{{facturaSeleccionada.id}}</p>
-                  <p>Username: {{ facturaSeleccionada.username }}</p>
-                  <p>Total Facturado: {{ facturaSeleccionada.totalInvoiced }}</p>
-                  <p>Fecha de Creacion de orden: {{ facturaSeleccionada.orderDate }}</p>
-                </div>
+        <p class="summary"><strong>(VR):</strong> Valor Total a Recibir por la cartera: {{tceaCartera.totalValueReceived}}</p>
+        <p class="summary"><strong>(TCEA):</strong> Tasa de Coste Efectiva Anual de la cartera: {{tceaCartera.tceaCartera}}%</p>
+    </section>
 
-                <div class="information-column" *ngIf="facturaSeleccionada.state =='ACEPTADO'">
-                    <p>Fecha de Giro: {{facturaSeleccionada.orderDate}}</p>
-                    <p>Fecha de Descuento: {{facturaSeleccionada.discountDate}}</p>
-                    <p>Valor Nominal: {{facturaSeleccionada.nominalValue}}</p>
-                    <p>Fecha de Vencimiento: {{facturaSeleccionada.paymentDate}}</p>
-                    <p>Dias: {{facturaSeleccionada.days}}</p>
-                    <p>Retencion: {{facturaSeleccionada.retention}}</p>
-                    <p>TE%: {{facturaSeleccionada.newEffectiveRate}}%</p>
-                </div>
-    
-                <div class="information-column" *ngIf="facturaSeleccionada.state =='ACEPTADO'">
-                    <p>d%: {{facturaSeleccionada.discountedRate}}%</p>
-                    <p>Descuento: {{facturaSeleccionada.discount}}</p>
-                    <p>Costes Iniciales: {{facturaSeleccionada.initialCosts}}</p>
-                    <p>Costes Finales: {{facturaSeleccionada.finalCosts}}</p>
-                    <p>Valor Neto: {{facturaSeleccionada.netWorth}}</p>
-                    <p>Valor Recibido: {{facturaSeleccionada.valueReceived}}</p>
-                    <p>Valor Entregado: {{facturaSeleccionada.valueDelivered}}</p>
-                    <p>tcea: {{facturaSeleccionada.tcea}}%</p>
-                </div>
-            </div>
-        </mat-card-content>
-    </mat-card>
-    
-    <p>Facturas Validas para la Cartera</p>
-    
-    <mat-card class="options" appearance="outlined" *ngFor="let factura of dsFacturas" (click)="onCardClick(factura.id)" [ngClass]="{'selected': isFacturaSelected(factura.id)}">
+    <!-- Factura seleccionada -->
+    <mat-card class="selected-card highlighted" appearance="outlined">
         <mat-card-content class="factura-panel">
             <div class="factura-container">
-                <div class="icon" [ngClass]="getStateClass(factura.state)"></div>
-                
+                <!-- Icono -->
+                <div class="icon" [ngClass]="getStateClass(facturaSeleccionada.state)"></div>
+
+                <!-- Detalles -->
                 <div class="factura-details">
-                    <p>Número de factura: N°{{factura.id}}</p>
-                    <p>Username: {{ factura.username }}</p>
-                    <p>Total Facturado: {{ factura.totalInvoiced }}</p>
-                    <p>Fecha de Creacion de orden: {{ factura.orderDate }}</p>
-                  </div>
-    
-                  <div class="information-column" *ngIf="factura.state =='ACEPTADO'">
-                    <p>Fecha de Giro: {{factura.orderDate}}</p>
-                    <p>Fecha de Descuento: {{factura.discountDate}}</p>
-                    <p>Valor Nominal: {{factura.nominalValue}}</p>
-                    <p>Fecha de Vencimiento: {{factura.paymentDate}}</p>
-                    <p>Dias: {{factura.days}}</p>
-                    <p>Retencion: {{factura.retention}}</p>
-                    <p>TE%: {{factura.newEffectiveRate}}%</p>
-                </div>
-    
-                <div class="information-column" *ngIf="factura.state =='ACEPTADO'">
-                    <p>d%: {{factura.discountedRate}}%</p>
-                    <p>Descuento: {{factura.discount}}</p>
-                    <p>Costes Iniciales: {{factura.initialCosts}}</p>
-                    <p>Costes Finales: {{factura.finalCosts}}</p>
-                    <p>Valor Neto: {{factura.netWorth}}</p>
-                    <p>Valor Recibido: {{factura.valueReceived}}</p>
-                    <p>Valor Entregado: {{factura.valueDelivered}}</p>
-                    <p>tcea: {{factura.tcea}}%</p>
+                    <p><strong>Número de factura:</strong> N°{{facturaSeleccionada.id}}</p>
+                    <p><strong>Username:</strong> {{facturaSeleccionada.username}}</p>
+                    <p><strong>Total Facturado:</strong> {{facturaSeleccionada.totalInvoiced}}</p>
+                    <p><strong>Fecha de Creación:</strong> {{facturaSeleccionada.orderDate}}</p>
                 </div>
             </div>
+
+            <!-- Información adicional -->
+            <ng-container *ngIf="facturaSeleccionada.state === 'ACEPTADO'">
+                <div class="information-columns">
+                    <div class="information-column">
+                        <p><strong>Fecha de Giro:</strong> {{facturaSeleccionada.orderDate}}</p>
+                        <p><strong>Fecha de Descuento:</strong> {{facturaSeleccionada.discountDate}}</p>
+                        <p><strong>Valor Nominal:</strong> {{facturaSeleccionada.nominalValue}}</p>
+                        <p><strong>Fecha de Vencimiento:</strong> {{facturaSeleccionada.paymentDate}}</p>
+                        <p><strong>Días:</strong> {{facturaSeleccionada.days}}</p>
+                        <p><strong>Retención:</strong> {{facturaSeleccionada.retention}}</p>
+                        <p><strong>TE%:</strong> {{facturaSeleccionada.newEffectiveRate}}%</p>
+                    </div>
+                    <div class="information-column">
+                        <p><strong>d%:</strong> {{facturaSeleccionada.discountedRate}}</p>
+                        <p><strong>Descuento:</strong> {{facturaSeleccionada.discount}}</p>
+                        <p><strong>Costes Iniciales:</strong> {{facturaSeleccionada.initialCosts}}</p>
+                        <p><strong>Costes Finales:</strong> {{facturaSeleccionada.finalCosts}}</p>
+                        <p><strong>Valor Neto:</strong> {{facturaSeleccionada.netWorth}}</p>
+                        <p><strong>Valor Recibido:</strong> {{facturaSeleccionada.valueReceived}}</p>
+                        <p><strong>Valor Entregado:</strong> {{facturaSeleccionada.valueDelivered}}</p>
+                        <p><strong>TCEA:</strong> {{facturaSeleccionada.tcea}}%</p>
+                    </div>
+                </div>
+            </ng-container>
         </mat-card-content>
     </mat-card>
+    
+    <p class="factura-title">Facturas Válidas para la Cartera</p>
+
+    <!-- Lista de facturas -->
+    <ng-container *ngFor="let factura of dsFacturas">
+        <mat-card class="factura-card" appearance="outlined" (click)="onCardClick(factura.id)" [ngClass]="{'selected': isFacturaSelected(factura.id)}">
+            <mat-card-content class="factura-panel">
+                <div class="factura-container">
+                    <div class="icon" [ngClass]="getStateClass(factura.state)"></div>
+                    
+                    <div class="factura-details">
+                        <p><strong>Número de factura:</strong> N°{{factura.id}}</p>
+                        <p><strong>Username:</strong> {{factura.username}}</p>
+                        <p><strong>Total Facturado:</strong> {{factura.totalInvoiced}}</p>
+                        <p><strong>Fecha de Creación de Orden:</strong> {{factura.orderDate}}</p>
+                    </div>
+                    
+                    <!-- Información adicional -->
+                    <ng-container *ngIf="factura.state === 'ACEPTADO'">
+                        <div class="information-columns">
+                            <div class="information-column">
+                                <p><strong>Fecha de Giro:</strong> {{factura.orderDate}}</p>
+                                <p><strong>Fecha de Descuento:</strong> {{factura.discountDate}}</p>
+                                <p><strong>Valor Nominal:</strong> {{factura.nominalValue}}</p>
+                                <p><strong>Fecha de Vencimiento:</strong> {{factura.paymentDate}}</p>
+                                <p><strong>Días:</strong> {{factura.days}}</p>
+                                <p><strong>Retención:</strong> {{factura.retention}}</p>
+                                <p><strong>TE%:</strong> {{factura.newEffectiveRate}}%</p>
+                            </div>
+                            <div class="information-column">
+                                <p><strong>d%:</strong> {{factura.discountedRate}}</p>
+                                <p><strong>Descuento:</strong> {{factura.discount}}</p>
+                                <p><strong>Costes Iniciales:</strong> {{factura.initialCosts}}</p>
+                                <p><strong>Costes Finales:</strong> {{factura.finalCosts}}</p>
+                                <p><strong>Valor Neto:</strong> {{factura.netWorth}}</p>
+                                <p><strong>Valor Recibido:</strong> {{factura.valueReceived}}</p>
+                                <p><strong>Valor Entregado:</strong> {{factura.valueDelivered}}</p>
+                                <p><strong>TCEA:</strong> {{factura.tcea}}%</p>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </ng-container>
     <br>
 </div>

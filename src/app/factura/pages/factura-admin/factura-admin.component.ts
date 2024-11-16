@@ -6,6 +6,7 @@ import { FacturaSummary } from '../../models/facturaSummary';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FacturaService } from '../../services/factura/factura.service';
+import { LoginService } from '../../../user/services/login/login.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ import { FacturaService } from '../../services/factura/factura.service';
 export class FacturaAdminComponent  {
   dsFacturas!: FacturaSummary[];
 
-  constructor(private facturaService: FacturaService) { }
+  constructor(private facturaService: FacturaService, private loginService: LoginService) { }
 
   ngOnInit() {
     this.cargarFacturas();
@@ -48,4 +49,7 @@ export class FacturaAdminComponent  {
     }
   }
 
+  cambiarDivisaPrecio(monto: number) : String{
+    return this.loginService.cambiarDivisaPrecio(monto);
+  }
 }

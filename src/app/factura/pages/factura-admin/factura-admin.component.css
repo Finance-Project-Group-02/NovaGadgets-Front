@@ -1,116 +1,218 @@
+/* Contenedor principal */
 .container {
-    color: black;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    padding: 0 1rem;
-    box-sizing: border-box;
+    max-width: 1200px;
+    padding: 20px;
     margin: 0 auto;
-    gap: 10px;
+    gap: 30px;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+/* Título */
 .title {
-    margin-top: 1rem;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
     text-align: center;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-.factura-container {
+/* Botón Generar TCEA */
+.button-container {
     display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.primary-button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.primary-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Contenedor de Facturas */
+.facturas-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 25px;
+    width: 65%;
+}
+
+/* Tarjeta de Factura */
+.factura-card {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.factura-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Contenedor de la Factura */
+.factura-container {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
     align-items: center;
-    justify-content: space-between;
     gap: 20px;
 }
 
+/* Icono del Estado */
 .icon {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    background-color: yellow;
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-.estado-aceptado {
-    background-color: green;
-}
-
-.estado-pendiente {
-    background-color: yellow;
-}
-
-.estado-rechazado {
-    background-color: red;
-}
-
-.factura-details {
-    flex: 1;
-}
-
-.button-inspection {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
-    padding: 8px 12px;
-    background-color: orange;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    font-size: 16px;
     font-weight: bold;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
-    text-transform: uppercase;
+    color: white;
 }
 
-.button-inspection:hover {
-    background-color: skyblue; 
+.icon.estado-aceptado {
+    background-color: #4caf50;
 }
 
-.button-inspection .name {
+.icon.estado-pendiente {
+    background-color: #ffc107;
+    color: black;
+}
+
+.icon.estado-rechazado {
+    background-color: #f44336;
+}
+
+/* Detalles de la Factura */
+.factura-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.factura-details p {
     margin: 0;
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.5;
 }
 
-.button-inspection mat-icon {
-    font-size: 20px;
-    vertical-align: middle;
-    display: inline-flex;
-    align-items: center;
+.factura-details p strong {
+    color: #333;
 }
 
-mat-card {
-    width: 100%;
-    max-width: 700px;
-    height: auto;
-    padding: 16px;
-    margin: 8px auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease-in-out;
+/* Botón Inspeccionar */
+.action-buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
 }
 
-.factura-panel {
+.btn-inspect {
+    background-color: #ffc107;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 100%;
+    gap: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
 
-@media (min-width: 800px) {
-    mat-card {
-        max-width: 700px;
-    }
+.btn-inspect:hover {
+    background-color: #ff9800;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
-@media (min-width: 900px) {
-    mat-card {
-        max-width: 800px;
+.btn-inspect mat-icon {
+    font-size: 18px;
+    margin-bottom: -5px;
+    margin-left: -5px;
+}
+
+/* Contenedor principal de la información aceptada */
+.accepted-info {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Contenedor de las columnas */
+  .information-columns {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas */
+    gap: 20px;
+  }
+  
+  /* Estilo para cada columna */
+  .information-column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  /* Texto en las columnas */
+  .information-column p {
+    margin: 0;
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.5;
+  }
+  
+  .information-column p strong {
+    color: #333;
+    font-weight: bold;
+  }
+  
+/* Responsividad */
+@media (max-width: 768px) {
+    .facturas-container {
+        grid-template-columns: 1fr;
     }
+
+    .factura-panel {
+        flex-direction: column;
+    }
+
+    .btn-inspect {
+        width: 100%;
+        justify-content: center;
+    }
+    .information-columns {
+        grid-template-columns: 1fr;
+      }
 }
