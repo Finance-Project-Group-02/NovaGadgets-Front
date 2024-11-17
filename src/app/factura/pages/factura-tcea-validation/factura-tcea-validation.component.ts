@@ -13,6 +13,7 @@ import { LoginService } from '../../../user/services/login/login.service';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { TDocumentDefinitions, Content, TableCell } from 'pdfmake/interfaces';
+import { MatButton } from '@angular/material/button';
 
 // Asignar las fuentes a pdfMake
 (pdfMake as any).vfs = pdfFonts.vfs;
@@ -20,7 +21,7 @@ import { TDocumentDefinitions, Content, TableCell } from 'pdfmake/interfaces';
 @Component({
   selector: 'app-factura-tcea-validation',
   standalone: true,
-  imports: [MatExpansionModule, MatCardModule, CommonModule],
+  imports: [MatExpansionModule, MatCardModule, CommonModule, MatButton],
   templateUrl: './factura-tcea-validation.component.html',
   styleUrl: './factura-tcea-validation.component.css'
 })
