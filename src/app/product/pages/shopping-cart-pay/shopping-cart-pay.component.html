@@ -43,12 +43,12 @@
           <option value="Magdalena">Magdalena</option>
           <option value="Lince">Lince</option>
           <option value="Jesús María">Jesús María</option>
-          <option value="Jesús María">otros...</option>
+          <option value="otros">otros...</option>
           
         </select>
         
-        <label for="references">Referencias*</label>
-        <input type="text" id="references" class="form-control"  name="references" required />
+        <label for="reference">Referencias*</label>
+        <input type="text" id="reference" class="form-control"  name="reference" required />
       </form>
     </div>
 
@@ -60,7 +60,7 @@
       <h3><span>Total:</span> <span>{{ cambiarMoneda(calculateTotalWithShipping()) }}</span></h3>
       
       <div class="policy">
-        <input type="checkbox" id="policy"  name="agree" />
+        <input type="checkbox" id="policy"  [(ngModel)]="policyAccepted" />
         <label for="policy">I have read and agree to the website privacy policy, terms and conditions and Return Policy*</label>
       </div>
 

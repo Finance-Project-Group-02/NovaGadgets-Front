@@ -24,6 +24,7 @@ export class ShoppingCartPayComponent implements OnInit {
     address: '',
     paymentMethod: 'creditCard'
   };
+  policyAccepted: boolean = false;
 
   constructor(
     private productStorageService: ProductStorageService,
@@ -48,6 +49,34 @@ export class ShoppingCartPayComponent implements OnInit {
   }
 
   placeOrder(): void {
+    const addressInput = (document.getElementById('address') as HTMLInputElement)?.value;
+    const districtSelect = (document.getElementById('district') as HTMLSelectElement)?.value;
+    const referenceInput = (document.getElementById('reference') as HTMLInputElement)?.value;
+
+    if (!addressInput || !districtSelect || !referenceInput) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Campos obligatorios',
+        text: 'Por favor, complete todos los campos obligatorios: Dirección, Distrito y Referencias.',
+        showConfirmButton: true,
+        confirmButtonText: 'Aceptar'
+      });
+      return;
+    }
+
+    // Validar aceptación de términos
+  if (!this.policyAccepted) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Términos no aceptados',
+      text: 'Debe aceptar los términos y condiciones para continuar.',
+      showConfirmButton: true,
+      confirmButtonText: 'Aceptar'
+    });
+    return;
+  }
+
+
     this.loginService.getUser().subscribe({
       next: (user) => {
         if (user) {

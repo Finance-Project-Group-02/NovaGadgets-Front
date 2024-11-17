@@ -7,16 +7,16 @@
 
     <label for="district">Distrito*</label>
     <select id="district">
-        <option value="San Isidro">San Isidro</option>
-        <option value="Miraflores">Miraflores</option>
-        <option value="Barranco">Barranco</option>
-        <option value="Surco">Surco</option>
-        <option value="San Borja">San Borja</option>
-        <option value="Pueblo Libre">Pueblo Libre</option>
-        <option value="La Molina">La Molina</option>
-        <option value="Magdalena">Magdalena</option>
-        <option value="Lince">Lince</option>
-        <option value="Jesús María">Jesús María</option>
+      <option value="San Isidro">San Isidro</option>
+      <option value="Miraflores">Miraflores</option>
+      <option value="Barranco">Barranco</option>
+      <option value="Surco">Surco</option>
+      <option value="San Borja">San Borja</option>
+      <option value="Pueblo Libre">Pueblo Libre</option>
+      <option value="La Molina">La Molina</option>
+      <option value="Magdalena">Magdalena</option>
+      <option value="Lince">Lince</option>
+      <option value="Jesús María">Jesús María</option>
     </select>
 
     <label for="reference">Referencias*</label>
@@ -39,10 +39,22 @@
           </tr>
         </thead>
         <tbody>
-          <tr >
+          <tr>
             <td><img class="product-image" [src]="selectedProduct?.image" alt="{{ selectedProduct?.name }}" /></td>
             <td>{{ selectedProduct?.name }}</td>
-            <td>{{ selectedProduct?.quantity }}</td>
+            <td>
+              <!-- Controles de cantidad -->
+              <div class="quantity-controls">
+                <button class="quantity-btn" (click)="decreaseQuantity()">-</button>
+                <input
+                  type="number"
+                  class="quantity-input"
+                  [value]="selectedProduct?.quantity || 1"
+                  readonly
+                />
+                <button class="quantity-btn" (click)="increaseQuantity()">+</button>
+              </div>
+            </td>
             <td>{{ cambiarMoneda(selectedProduct!.price) }}</td>
             <td>{{ cambiarMoneda(selectedProduct!.price * selectedProduct!.quantity) }}</td>
           </tr>
@@ -54,29 +66,17 @@
     <div class="right-section">
       <h2>Your Order</h2>
       <ul>
-        <li><span>Subtotal</span><span>{{ cambiarMoneda(totalPrice)  }}</span></li>
-        <li><span>Envío</span><span>Currier: {{ cambiarMoneda(curriermoney)  }}</span></li>
+        <li><span>Subtotal</span><span>{{ cambiarMoneda(totalPrice) }}</span></li>
+        <li><span>Envío</span><span>Currier: {{ cambiarMoneda(curriermoney) }}</span></li>
         <li class="total"><span>Total</span><span>{{ cambiarMoneda(totalPrice + curriermoney) }}</span></li>
       </ul>
 
-      <div class="invoice-option">
-        
-        <label for="invoice">Compra con factura</label>
-        <p class="invoice-info">Al generar una factura mediante este medio, el usuario acepta los términos y condiciones tributarios asociados a dicha factura.</p>
-      </div>
-
       <div class="policy">
-        <input type="checkbox" id="policy">
-        <label for="policy">I have read and agree to the website privacy policy, terms and conditions and Return Policy*</label>
+        <input type="checkbox" id="policy" [(ngModel)]="policyAccepted">
+        <label for="policy">Acepto las políticas de privacidad, términos y condiciones, y política de devoluciones*</label>
       </div>
 
-      <!-- Botón para generar la orden -->
       <button class="submit-btn" (click)="createOrder()">GENERAR FACTURA DE COMPRA</button>
     </div>
   </div>
-
-  <ng-template #emptyCart>
-    <p>El carrito está vacío.</p>
-  </ng-template>
 </div>
-
