@@ -8,6 +8,11 @@
         <p class="summary">
             <strong>(TCEA):</strong> Tasa de Coste Efectiva Anual de la cartera: {{tceaCartera.tceaCartera}}%
         </p>
+        
+        <!-- Botón para generar el PDF -->
+        <button mat-raised-button color="primary" (click)="generatePDF()" [disabled]="!datosCargados">
+            Generar PDF
+        </button>
     </section>
 
     <!-- Sección: Factura Seleccionada -->
@@ -63,7 +68,7 @@
         <mat-card 
             class="factura-card" 
             appearance="outlined" 
-            (click)="onCardClick(factura.id)" 
+            (click)="onCardClick(factura)" 
             [ngClass]="{'selected': isFacturaSelected(factura.id)}"
         >
             <mat-card-content class="factura-panel">
