@@ -4,11 +4,13 @@ import { ProductStorageService } from '../../../shopping_cart/services/product-s
 import { Router, RouterLink } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
 import { LoginService } from '../../../user/services/login/login.service';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-shopping-product-cart',
   standalone: true,
-  imports: [NgFor, NgIf, RouterLink],
+  imports: [NgFor, NgIf, RouterLink , MatCardModule, MatButtonModule],
   templateUrl: './shopping-product-cart.component.html',
   styleUrl: './shopping-product-cart.component.css'
 })

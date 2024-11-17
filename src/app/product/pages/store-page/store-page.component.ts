@@ -6,6 +6,7 @@ import { ProductService } from '../../services/product/product.service';
 import { RouterLink } from '@angular/router';
 import { ProductStorageService } from '../../../shopping_cart/services/product-storage/product-storage.service';
 import { LoginService } from '../../../user/services/login/login.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-store-page',
@@ -24,7 +25,8 @@ export class StorePageComponent implements OnInit, AfterViewInit {
     private prS: ProductService,
     private cdr: ChangeDetectorRef,
     private productStorage: ProductStorageService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private toastr: ToastrService
   ) {}
   
   ngOnInit(): void {    
@@ -74,6 +76,7 @@ export class StorePageComponent implements OnInit, AfterViewInit {
     // Actualiza los totales
     this.updateTotals();
   
+    this.toastr.success(`Producto añadido al carrito de compras`, `¡${product.name} añadido!`);
     console.log('Product added to shopping cart');
     console.log(this.productStorage.getProducts());
   }  
@@ -87,60 +90,4 @@ export class StorePageComponent implements OnInit, AfterViewInit {
   cambiarMoneda(money: number): string {
     return this.loginService.cambiarDivisaPrecio(money);
   }
-
-
-/*
-  
-  dataSourcePr: MatTableDataSource<Product> = new MatTableDataSource();
-
-  constructor(private prS: ProductService, private cdr: ChangeDetectorRef, private productStorage: ProductStorageService) {}
-  
-  ngOnInit(): void {    
-    this.prS.list().subscribe(data => {
-      this.dataSourcePr.data = data;
-    });
-    
-    this.prS.getList().subscribe(data => {
-      this.dataSourcePr.data = data;
-    });
-
-  }
-  
-  
-
-  ngAfterViewInit(): void {}
-
-  scrollLeft(): void {
-    const container = document.querySelector('.card-container') as HTMLElement;
-    container.scrollBy({ left: -200, behavior: 'smooth' });
-  }
-
-  scrollRight(): void {
-    const container = document.querySelector('.card-container') as HTMLElement;
-    container.scrollBy({ left: 200, behavior: 'smooth' });
-  }
-
-  addProductShoppingCart(product: Product): void {
-    // Obtén los productos existentes en el carrito
-    const existingProducts = this.productStorage.getProducts();
-  
-    // Verifica si el producto ya está en el carrito
-    const existingProduct = existingProducts.find(p => p.id === product.id);
-  
-    if (existingProduct) {
-      // Si el producto ya está en el carrito, incrementa su cantidad
-      existingProduct.quantity += 1;
-    } else {
-      // Si no está en el carrito, establece la cantidad inicial a 1 y agrégalo
-      product.quantity = 1;
-      existingProducts.push(product);
-    }
-  
-    // Guarda el carrito actualizado en el almacenamiento local
-    this.productStorage.saveProducts(existingProducts);
-  
-    console.log('Product added to shopping cart');
-    console.log(this.productStorage.getProducts());
-  }  */
-
 }

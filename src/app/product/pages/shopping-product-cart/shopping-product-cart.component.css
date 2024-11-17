@@ -3,6 +3,9 @@
   max-width: 1000px;
   margin: auto;
   font-family: 'Roboto', sans-serif;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .titulo {
@@ -107,6 +110,41 @@
   text-align: right;
   font-size: 20px;
   color: #333;
+}
+
+.empty-cart-card {
+  max-width: 500px;
+  margin: 50px auto;
+  text-align: center;
+  padding: 20px;
+}
+
+.empty-cart-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.empty-cart-message i.material-icons {
+  font-size: 80px;
+  color: #ccc;
+  margin-bottom: 20px;
+}
+
+.empty-cart-message h3 {
+  font-size: 2em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.empty-cart-message p {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+  color: #555;
+}
+
+.empty-cart-message button {
+  font-size: 1em;
 }
 
 @media (max-width: 768px) {

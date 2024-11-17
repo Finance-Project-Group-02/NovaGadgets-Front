@@ -5,6 +5,7 @@ import { Product } from '../../models/Product';
 import { ProductStorageService } from '../../../shopping_cart/services/product-storage/product-storage.service';
 import { CommonModule } from '@angular/common'; // Importar CommonModule
 import { LoginService } from '../../../user/services/login/login.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-detail',
@@ -21,7 +22,8 @@ export class ProductDetailComponent implements OnInit {
     private psS: ProductService,
     private router: Router,
     private productStorage: ProductStorageService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -48,6 +50,7 @@ export class ProductDetailComponent implements OnInit {
 
     this.productStorage.saveProducts(existingProducts);
 
+    this.toastr.success(`Producto añadido al carrito de compras`, `¡${product.name} añadido!`);
     console.log('Product added to shopping cart');
     console.log(this.productStorage.getProducts());
   }

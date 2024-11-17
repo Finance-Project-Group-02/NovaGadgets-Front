@@ -40,15 +40,23 @@
 
   <!-- Mensaje cuando el carrito está vacío -->
   <ng-template #emptyCart>
-    <p>El carrito está vacío.</p>
+    <mat-card class="empty-cart-card">
+      <mat-card-content>
+        <div class="empty-cart-message">
+          <i class="material-icons">shopping_cart</i>
+          <h3>Tu carrito está vacío</h3>
+          <p>Explora nuestros productos y agrega tus favoritos al carrito.</p>
+          <button mat-raised-button color="primary" [routerLink]="['/store-page']">Ir a Productos</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
   </ng-template>
-
   <div class="back-button">
-    <button class="btn btn-primary" [routerLink]="['/carrito-compra']">Pagar los productos Seleccionados</button>
+    <button class="btn btn-primary" [routerLink]="['/carrito-compra']" [disabled]="!(cartProducts.length > 0)" >Pagar los productos Seleccionados</button>
   </div>
 
   <!-- Botón para regresar a la lista de productos -->
-  <div class="back-button">
+  <div class="back-button" *ngIf="cartProducts.length > 0">
     <button class="btn btn-primary" [routerLink]="['/store-page']">Regresar a Lista de Productos</button>
   </div>
 </div>
