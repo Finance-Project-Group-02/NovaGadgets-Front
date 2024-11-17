@@ -49,6 +49,27 @@
     padding-top: 1rem;
 }
 
+
+.register-link {
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.register-link:hover {
+  color: #0056b3;
+  text-decoration: underline;
+  transform: scale(1.05);
+}
+
+.register-link:active {
+  color: #003865;
+}
+
 @media (max-width: 768px) {
     .login-form {
       width: 80%;

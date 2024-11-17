@@ -22,12 +22,12 @@
           name="email"
           #email="ngModel"
           class="form-control"
-          placeholder="Usuario"
+          placeholder="Correo"
           required
         />
         <!-- Mensaje de error para el campo 'email' -->
         <div *ngIf="email.invalid && (email.touched || loginForm.submitted)" class="error-message">
-          Usuario es requerido.
+          Correo es requerido.
         </div>
       </div>
     
@@ -48,6 +48,8 @@
       </div>
     
       <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+      
+      <a routerLink="/register" class="register-link mt-2">Registrarse</a>
     </form>
     
   </div>

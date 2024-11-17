@@ -7,6 +7,8 @@ import { MatSelectModule} from '@angular/material/select';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
@@ -41,6 +43,15 @@ export class PerfilComponent implements OnInit {
        console.log('Moneda:', this.selectedCurrency);
        console.log('Moneda Usuario:', this.user.currencyType);
        console.log('Usuario Login:', this.loginService.getUser());
+
+       Swal.fire({
+        icon: 'success',
+        title: '¡Tipo de Moneda Actualizado!',
+        text: 'Ahora podras visualizar el sistema con su divisa elegida.',
+        showConfirmButton: true,
+        confirmButtonText: 'Aceptar'
+      })
+
     }
   }
 }

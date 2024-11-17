@@ -8,7 +8,7 @@ import {FormsModule} from '@angular/forms';
 import { User, UserModel } from '../../models/user.model';
 import { CommonModule } from '@angular/common';
 import { RegisterService } from '../../services/register/register.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
   standalone: true,
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
-  imports: [MatSelectModule, FormsModule, MatInputModule, MatFormFieldModule, CommonModule]
+  imports: [MatSelectModule, FormsModule, MatInputModule, MatFormFieldModule, CommonModule, RouterLink]
 })
 export class RegisterComponent{
   user: UserModel = new UserModel();

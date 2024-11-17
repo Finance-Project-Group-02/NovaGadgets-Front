@@ -1,258 +1,318 @@
 <div class="container">
-  <div class="form-container" *ngIf="!evaular">
-      <form class="form" [formGroup]="formDescuento">
-        <div class="type">
-            <div class="form-field">
-                <label>Tipo</label>
-                <mat-form-field appearance="outline">
-                <mat-label>Selecciona el tipo de tasa</mat-label>
-                    <mat-select formControlName="type" class="form-control" (selectionChange)="actualizarTipo($event)">
-                        <mat-option value="E">Efectiva</mat-option>
-                        <mat-option value="N">Nominal</mat-option>
-                    </mat-select>
-                <mat-error app-field-error-messages controlName="type">El tipo de tasa es <strong>requerido</strong></mat-error>
-                </mat-form-field>
-            </div>
+  <!-- Sección principal del formulario -->
+  <div class="form-container" *ngIf="!evaluar">
+    <form class="form" [formGroup]="formDescuento">
+      <!-- Selección del tipo de tasa -->
+      <div class="type">
+        <div class="form-field">
+          <label>Tipo</label>
+          <mat-form-field appearance="outline">
+            <mat-label>Selecciona el tipo de tasa</mat-label>
+            <mat-select formControlName="type" class="form-control" (selectionChange)="actualizarTipo($event)">
+              <mat-option value="E">Efectiva</mat-option>
+              <mat-option value="N">Nominal</mat-option>
+            </mat-select>
+            <mat-error *ngIf="formDescuento.get('type')?.invalid">
+              El tipo de tasa es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
         </div>
-          <div class="row">
-              <div class="data-factura">
-                  <h4>Datos de la Factura</h4>
-                  <div class="form-field">
-                      <label>(FE) Fecha de Emisión</label>
-                      <mat-form-field appearance="outline">
-                          <input matInput [matDatepicker]="pickerEmision" formControlName="startDate" placeholder="dd/mm/aaaa" class="form-control">
-                          <mat-datepicker-toggle matSuffix [for]="pickerEmision"></mat-datepicker-toggle>
-                          <mat-datepicker #pickerEmision></mat-datepicker>
-                          <mat-error app-field-error-messages controlName="startDate">La fecha de emisión es <strong>requerida</strong></mat-error>
-                      </mat-form-field>
-                  </div>
-                  
-                  <div class="form-field">
-                      <label>(FE) Fecha de Pago</label>
-                      <mat-form-field appearance="outline">
-                          <input matInput [matDatepicker]="pickerPago" formControlName="paymentDate" placeholder="dd/mm/aaaa" class="form-control" (dateChange)="convertirFechaVencimientoToString($event)">
-                          <mat-datepicker-toggle matSuffix [for]="pickerPago"></mat-datepicker-toggle>
-                          <mat-datepicker #pickerPago></mat-datepicker>
-                          <mat-error app-field-error-messages controlName="paymentDate">La fecha de vencimiento es <strong>requerida</strong></mat-error>
-                      </mat-form-field>
-                  </div>
-
-                  <div class="form-field">
-                      <label>Valor Nominal</label>
-                      <mat-form-field appearance="outline">
-                      <input type="number" matInput formControlName="totalInvoiced" placeholder="Ingresa el total facturado" class="form-control">
-                      <mat-error app-field-error-messages controlName="totalInvoiced">El total facturado es <strong>requerido</strong></mat-error>
-                      </mat-form-field>
-                  </div>
-
-                  <div class="form-field">
-                      <label>Retencion</label>
-                      <mat-form-field appearance="outline">
-                      <input type="number" matInput formControlName="retention" placeholder="Ingresa la retencion" class="form-control">
-                      </mat-form-field>
-                  </div>
-              </div>
-
-              <div class="rates-factura">
-                  <h4>Tasa y Plazo</h4>
-                  <div class="form-field">
-                      <label>(DA) Dias por año</label>
-                      <mat-form-field appearance="outline">
-                      <mat-label>Selecciona un opcion</mat-label>
-                          <mat-select formControlName="dayByYear" class="form-control">
-                              <mat-option value="360">360</mat-option>
-                              <mat-option value="365">365</mat-option>
-                          </mat-select>
-                      <mat-error app-field-error-messages controlName="dayByYear">Los Dias por año es <strong>requerido</strong></mat-error>
-                      </mat-form-field>
-                  </div>
-
-                  <div class="form-field">
-                      <label>(PD) Plazo de Tasa</label>
-                      <mat-form-field appearance="outline">
-                          <mat-label>Selecciona una opción</mat-label>
-                          <mat-select formControlName="rateTerm" class="form-control" (selectionChange)="selectionChange($event)">
-                          <mat-option *ngFor="let option of options" [value]="option.value">{{ option.label }}</mat-option>
-                          </mat-select>
-                          <mat-error app-field-error-messages controlName="rateTerm">El Plazo de tasa <strong>requerido</strong></mat-error>
-                      </mat-form-field>
-                      
-
-                      <mat-form-field appearance="outline" *ngIf="selectedOption === 'especial'">
-                          <mat-label>Especificar valor</mat-label>
-                          <input matInput formControlName="especialRate" [readonly]="selectedOption !== 'especial'" placeholder="Valor especial">
-                      </mat-form-field>
-                  </div>
-
-                  <div class="form-field" *ngIf="tasaValue == 'E'">
-                      <label>(TE) Tasa Efectiva</label>
-                      <mat-form-field appearance="outline">
-                          <input type="number" matInput formControlName="effectiveRate" placeholder="Ingresa el tasa" class="form-control">
-                          <mat-error app-field-error-messages controlName="effectiveRate">La tasa es <strong>requerida</strong></mat-error>
-                      </mat-form-field>
-                  </div>
-
-                  <div class="form-field" *ngIf="tasaValue == 'N'">
-                        <label>(TN) Tasa Nominal</label>
-                        <mat-form-field appearance="outline">
-                            <input type="number" matInput formControlName="effectiveRate" placeholder="Ingresa el tasa" class="form-control">
-                            <mat-error app-field-error-messages controlName="effectiveRate">La tasa es <strong>requerida</strong></mat-error>
-                        </mat-form-field>
-                  </div>
-
-                  <div class="form-field" *ngIf="tasaValue == 'N'">
-                    <label>(PC) Periodo de Capitalizacion</label>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Selecciona una opción</mat-label>
-                        <mat-select formControlName="capitalization" class="form-control" (selectionChange)="selectionChangeNominal($event)">
-                        <mat-option *ngFor="let option of options" [value]="option.value">{{ option.label }}</mat-option>
-                        </mat-select>
-                        <mat-error app-field-error-messages controlName="capitalization">La capitalizacion es <strong>requerida</strong></mat-error>
-                    </mat-form-field>
-                    
-
-                    <mat-form-field appearance="outline" *ngIf="selectedOptionNominal === 'especial'">
-                        <mat-label>Especificar valor</mat-label>
-                        <input matInput formControlName="especialRateCapitalization" [readonly]="selectedOptionNominal !== 'especial'" placeholder="Valor especial">
-                    </mat-form-field>
-                  </div>
-
-                  <div class="form-field">
-                      <label>(FE) Fecha de Descuento</label>
-                      <mat-form-field appearance="outline">
-                      <input matInput [matDatepicker]="pickerDescuento" formControlName="discountDate" placeholder="dd/mm/aaaa" class="form-control" (dateChange)="convertirFechaDescuentoToString($event)">
-                      <mat-datepicker-toggle matSuffix [for]="pickerDescuento"></mat-datepicker-toggle>
-                      <mat-datepicker #pickerDescuento></mat-datepicker>
-                      <mat-error app-field-error-messages controlName="discountDate">La fecha de descuento es <strong>requerida</strong></mat-error>
-                      </mat-form-field>
-                  </div>                  
-              </div>
-          </div>
-
-          <div class="row">
-              <div class="cost-factura">
-                  <h4>Costes / Gastos Iniciales</h4>
-  
-                  <div class="form-field">
-                  <label>Motivo</label>
-                  <mat-form-field appearance="outline">
-                      <mat-label>Seleccionar gasto</mat-label>
-                      <mat-select formControlName="gastoInicial">
-                      <mat-option *ngFor="let gasto of gastosIniciales" [value]="gasto.name">
-                          {{ gasto.name }}
-                      </mat-option>
-                      </mat-select>
-                  </mat-form-field>
-                  </div>
-                  
-                  <div class="form-field">
-                  <label>Valor expresado</label>
-                  <div class="value-container">
-                      <mat-form-field appearance="outline">
-                      <mat-label>Seleccione tipo</mat-label>
-                      <mat-select formControlName="valorTipoInicial">
-                          <mat-option value="E">En efectivo</mat-option>
-                          <mat-option value="P">Porcentaje</mat-option>
-                      </mat-select>
-                      </mat-form-field>
-                      
-                      <!-- Campo para ingresar el valor numérico -->
-                      <mat-form-field appearance="outline">
-                      <input matInput formControlName="valorInicial" type="number" placeholder="Valor" />
-                      </mat-form-field>
-                  </div>
-                  </div>
-
-                  <button (click)="agregarGastoInicial()">Agregar Gasto</button>
-
-                  <div class="added-gastos">
-                      <h4>Gastos Iniciales Agregados</h4>
-                      <ul>
-                        <li *ngFor="let gasto of addedGastosIniciales">
-                            [{{ gasto.type }}] - {{ gasto.name }} -> {{ gasto.value }}
-                        </li>
-                      </ul>
-                  </div>
-              </div>
-
-              <div class="cost-factura">
-                  <h4>Costes / Gastos Finales</h4>
-  
-                  <div class="form-field">
-                      <label>Motivo</label>
-                      <mat-form-field appearance="outline">
-                          <mat-label>Seleccionar gasto</mat-label>
-                              <mat-select formControlName="gastoFinal">
-                                  <mat-option *ngFor="let gasto of gastosFinales" [value]="gasto.name">
-                                      {{ gasto.name }}
-                                  </mat-option>
-                              </mat-select>
-                      </mat-form-field>
-                  </div>
-                  
-                  <div class="form-field">
-                  <label>Valor expresado</label>
-                  <div class="value-container">
-
-                      <mat-form-field appearance="outline">
-                          <mat-label>Seleccione tipo</mat-label>
-                          <mat-select formControlName="valorTipoFinal">
-                              <mat-option value="E">En efectivo</mat-option>
-                              <mat-option value="P">Porcentaje</mat-option>
-                          </mat-select>
-                      </mat-form-field>
-
-                      <mat-form-field appearance="outline">
-                      <input matInput formControlName="valorFinal" type="number" placeholder="Valor" />
-                      </mat-form-field>
-                  </div>
-                  </div>
-
-                  <button (click)="agregarGastoFinal()">Agregar Gasto</button>
-
-                  <div class="added-gastos">
-                      <h4>Gastos Finales Agregados</h4>
-                      <ul>
-                        <li *ngFor="let gasto of addedGastosFinales">
-                            [{{ gasto.type }}] - {{ gasto.name }} -> {{ gasto.value }}
-                        </li>
-                      </ul>
-                  </div>
-              </div>
-          </div>
-      </form>
-      <div class="simular">
-          <button (click)="evaluarFactura()">Evaluar factura</button>
       </div>
+
+      <!-- Primera fila: Datos de la Factura y Tasa y Plazo -->
+      <div class="row">
+        <!-- Datos relacionados a la factura -->
+        <div class="data-factura">
+          <h4 class="section-title">Datos de la Factura</h4>
+
+          <!-- Campo: Fecha de Emisión -->
+          <div class="form-field">
+            <label>(FE) Fecha de Emisión</label>
+            <mat-form-field appearance="outline">
+              <input matInput [matDatepicker]="pickerEmision" formControlName="startDate" placeholder="dd/mm/aaaa" class="form-control">
+              <mat-datepicker-toggle matSuffix [for]="pickerEmision"></mat-datepicker-toggle>
+              <mat-datepicker #pickerEmision></mat-datepicker>
+              <mat-error *ngIf="formDescuento.get('startDate')?.invalid">
+                La fecha de emisión es <strong>requerida</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- Campo: Fecha de Pago -->
+          <div class="form-field">
+            <label>(FP) Fecha de Pago</label>
+            <mat-form-field appearance="outline">
+              <input matInput [matDatepicker]="pickerPago" formControlName="paymentDate" placeholder="dd/mm/aaaa" class="form-control">
+              <mat-datepicker-toggle matSuffix [for]="pickerPago"></mat-datepicker-toggle>
+              <mat-datepicker #pickerPago></mat-datepicker>
+              <mat-error *ngIf="formDescuento.get('paymentDate')?.invalid">
+                La fecha de pago es <strong>requerida</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- Campo: Valor Nominal -->
+          <div class="form-field">
+            <label>Valor Nominal</label>
+            <mat-form-field appearance="outline">
+              <input type="number" matInput formControlName="totalInvoiced" placeholder="Ingresa el total facturado" class="form-control">
+              <mat-error *ngIf="formDescuento.get('totalInvoiced')?.invalid">
+                El total facturado es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- Campo: Retención -->
+          <div class="form-field">
+            <label>Retención</label>
+            <mat-form-field appearance="outline">
+              <input type="number" matInput formControlName="retention" placeholder="Ingresa la retención" class="form-control">
+              <mat-error *ngIf="formDescuento.get('retention')?.invalid">
+                La retención debe ser un número válido
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- Información sobre tasas y plazos -->
+        <div class="rates-factura">
+          <h4 class="section-title">Tasa y Plazo</h4>
+
+          <!-- Selección: Días por Año -->
+          <div class="form-field">
+            <label>(DA) Días por Año</label>
+            <mat-form-field appearance="outline">
+              <mat-label>Selecciona una opción</mat-label>
+              <mat-select formControlName="dayByYear" class="form-control">
+                <mat-option value="360">360</mat-option>
+                <mat-option value="365">365</mat-option>
+              </mat-select>
+              <mat-error *ngIf="formDescuento.get('dayByYear')?.invalid">
+                Los días por año son <strong>requeridos</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- Selección: Plazo de Tasa -->
+          <div class="form-field">
+            <label>(PD) Plazo de Tasa</label>
+            <mat-form-field appearance="outline">
+              <mat-label>Selecciona una opción</mat-label>
+              <mat-select formControlName="rateTerm" class="form-control" (selectionChange)="selectionChange($event)">
+                <mat-option *ngFor="let option of options" [value]="option.value">{{ option.label }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="formDescuento.get('rateTerm')?.invalid">
+                El plazo de tasa es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Campo adicional: Especificar valor en caso especial -->
+            <mat-form-field appearance="outline" *ngIf="selectedOption === 'especial'">
+              <mat-label>Especificar valor</mat-label>
+              <input matInput formControlName="especialRate" placeholder="Valor especial">
+              <mat-error *ngIf="formDescuento.get('especialRate')?.invalid">
+                El valor especial es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- Campo: Tasa Efectiva -->
+          <div class="form-field" *ngIf="tasaValue === 'E'">
+            <label>(TE) Tasa Efectiva</label>
+            <mat-form-field appearance="outline">
+              <input type="number" matInput formControlName="effectiveRate" placeholder="Ingresa la tasa" class="form-control">
+              <mat-error *ngIf="formDescuento.get('effectiveRate')?.invalid">
+                La tasa efectiva es <strong>requerida</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- Campo: Tasa Nominal -->
+          <div class="form-field" *ngIf="tasaValue === 'N'">
+            <label>(TN) Tasa Nominal</label>
+            <mat-form-field appearance="outline">
+              <input type="number" matInput formControlName="nominalRate" placeholder="Ingresa la tasa" class="form-control">
+              <mat-error *ngIf="formDescuento.get('nominalRate')?.invalid">
+                La tasa nominal es <strong>requerida</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- Campo: Periodo de Capitalización -->
+          <div class="form-field" *ngIf="tasaValue === 'N'">
+            <label>(PC) Periodo de Capitalización</label>
+            <mat-form-field appearance="outline">
+              <mat-label>Selecciona una opción</mat-label>
+              <mat-select formControlName="capitalization" class="form-control" (selectionChange)="selectionChangeNominal($event)">
+                <mat-option *ngFor="let option of options" [value]="option.value">{{ option.label }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="formDescuento.get('capitalization')?.invalid">
+                La capitalización es <strong>requerida</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Campo adicional: Especificar valor en caso especial -->
+            <mat-form-field appearance="outline" *ngIf="selectedOptionNominal === 'especial'">
+              <mat-label>Especificar valor</mat-label>
+              <input matInput formControlName="especialRateCapitalization" placeholder="Valor especial">
+              <mat-error *ngIf="formDescuento.get('especialRateCapitalization')?.invalid">
+                El valor especial es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- Campo: Fecha de Descuento -->
+          <div class="form-field">
+            <label>(FD) Fecha de Descuento</label>
+            <mat-form-field appearance="outline">
+              <input matInput [matDatepicker]="pickerDescuento" formControlName="discountDate" placeholder="dd/mm/aaaa" class="form-control">
+              <mat-datepicker-toggle matSuffix [for]="pickerDescuento"></mat-datepicker-toggle>
+              <mat-datepicker #pickerDescuento></mat-datepicker>
+              <mat-error *ngIf="formDescuento.get('discountDate')?.invalid">
+                La fecha de descuento es <strong>requerida</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <!-- Segunda fila: Costes / Gastos Iniciales y Finales -->
+      <div class="row">
+        <!-- Costos Iniciales -->
+        <div class="cost-factura">
+          <h4 class="section-title">Costes / Gastos Iniciales</h4>
+          <div class="form-field">
+            <label>Motivo</label>
+            <mat-form-field appearance="outline">
+              <mat-label>Seleccionar gasto</mat-label>
+              <mat-select formControlName="gastoInicial">
+                <mat-option *ngFor="let gasto of gastosIniciales" [value]="gasto.name">{{ gasto.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="form-field">
+            <label>Valor Expresado</label>
+            <mat-form-field appearance="outline">
+              <mat-label>Seleccione tipo</mat-label>
+              <mat-select formControlName="valorTipoInicial">
+                <mat-option value="E">En efectivo</mat-option>
+                <mat-option value="P">Porcentaje</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <input matInput formControlName="valorInicial" type="number" placeholder="Valor">
+            </mat-form-field>
+          </div>
+          <button mat-raised-button color="primary" (click)="agregarGastoInicial()" [disabled]="!canAddGastoInicial()">Agregar Gasto</button>
+          <div class="added-gastos">
+            <h4>Gastos Iniciales Agregados</h4>
+            <ul>
+              <li *ngFor="let gasto of addedGastosIniciales; let i = index">
+                [{{ gasto.type }}] - {{ gasto.name }} -> {{ gasto.value }}
+                <button mat-icon-button color="warn" (click)="eliminarGastoInicial(i)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Costos Finales -->
+        <div class="cost-factura">
+          <h4 class="section-title">Costes / Gastos Finales</h4>
+          <div class="form-field">
+            <label>Motivo</label>
+            <mat-form-field appearance="outline">
+              <mat-label>Seleccionar gasto</mat-label>
+              <mat-select formControlName="gastoFinal">
+                <mat-option *ngFor="let gasto of gastosFinales" [value]="gasto.name">{{ gasto.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="form-field">
+            <label>Valor Expresado</label>
+            <mat-form-field appearance="outline">
+              <mat-label>Seleccione tipo</mat-label>
+              <mat-select formControlName="valorTipoFinal">
+                <mat-option value="E">En efectivo</mat-option>
+                <mat-option value="P">Porcentaje</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <input matInput formControlName="valorFinal" type="number" placeholder="Valor">
+            </mat-form-field>
+          </div>
+          <button mat-raised-button color="primary" (click)="agregarGastoFinal()" [disabled]="!canAddGastoFinal()">
+            Agregar Gasto
+          </button>
+          <div class="added-gastos">
+            <h4>Gastos Finales Agregados</h4>
+            <ul>
+              <li *ngFor="let gasto of addedGastosFinales; let i = index">
+                [{{ gasto.type }}] - {{ gasto.name }} -> {{ gasto.value }}
+                <button mat-icon-button color="warn" (click)="eliminarGastoFinal(i)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- Botón para evaluar la factura -->
+    <div class="simular">
+      <button mat-raised-button color="accent" (click)="evaluarFactura()" [disabled]="formDescuento.invalid">Evaluar factura</button>
+    </div>
   </div>
 
-  <div *ngIf="evaular">
-    <div class="opciones">
-        <button (click)="EmitirFactura()">Emitir Factura</button>
-        <button (click)="Regresar()">Regresar</button>
-    </div>
+<!-- Detalles de la factura evaluada -->
+<div *ngIf="evaluar">
+  <div class="button-group">
+    <button mat-raised-button color="primary" (click)="EmitirFactura()" [disabled]="!evaluacionValida">
+      Emitir Factura
+    </button>
+    <button mat-raised-button color="warn" (click)="Regresar()">Regresar</button>
+  </div>
+
+  <!-- Mostrar contenido según evaluacionValida -->
+  <div *ngIf="evaluacionValida; else errorTemplate">
+    <!-- Título de la sección -->
+    <h2 class="generated-title">Factura Evaluada</h2>
 
     <div class="factura-details">
-        <div class="information-column">
-            <p>Fecha de Giro: {{facturaResponse.startDate}}</p>
-            <p>Total Facturado: {{facturaResponse.totalInvoiced}}</p>
-            <p>Valor Nominal: {{facturaResponse.nominalValue}}</p>
-            <p>Fecha de Vencimiento: {{facturaResponse.paymentDate}}</p>
-            <p>Dias: {{facturaResponse.days}}</p>
-            <p>Retencion: {{facturaResponse.retention}}</p>
-            <p>TE%: {{facturaResponse.newEffectiveRate}}%</p>
-        </div>
-    
-        <div class="information-column">
-            <p>d%: {{facturaResponse.discountedRate}}%</p>
-            <p>Descuento: {{facturaResponse.discount}}</p>
-            <p>Costes Iniciales: {{facturaResponse.initialCosts}}</p>
-            <p>Costes Finales: {{facturaResponse.finalCosts}}</p>
-            <p>Valor Neto: {{facturaResponse.netWorth}}</p>
-            <p>Valor Recibido: {{facturaResponse.valueReceived}}</p>
-            <p>Valor Entregado: {{facturaResponse.valueDelivered}}</p>
-            <p>tcea: {{facturaResponse.tcea}}%</p>
-        </div>
+      <div class="information-column">
+        <h4>Datos Generales</h4>
+        <p><strong>Fecha de Giro:</strong> {{ facturaResponse.startDate }}</p>
+        <p><strong>Total Facturado:</strong> {{ facturaResponse.totalInvoiced }}</p>
+        <p><strong>Valor Nominal:</strong> {{ facturaResponse.nominalValue }}</p>
+        <p><strong>Fecha de Vencimiento:</strong> {{ facturaResponse.paymentDate  }}</p>
+        <p><strong>Días:</strong> {{ facturaResponse.days }}</p>
+        <p><strong>Retención:</strong> {{ facturaResponse.retention}}</p>
+        <p><strong>TE%:</strong> {{ facturaResponse.newEffectiveRate }}%</p>
+      </div>
+      <div class="information-column">
+        <h4>Resultados de la Evaluación</h4>
+        <p><strong>d%:</strong> {{ facturaResponse.discountedRate }}%</p>
+        <p><strong>Descuento:</strong> {{ facturaResponse.discount }}</p>
+        <p><strong>Costes Iniciales:</strong> {{ facturaResponse.initialCosts}}</p>
+        <p><strong>Costes Finales:</strong> {{ facturaResponse.finalCosts}}</p>
+        <p><strong>Valor Neto:</strong> {{ facturaResponse.netWorth}}</p>
+        <p><strong>Valor Recibido:</strong> {{ facturaResponse.valueReceived}}</p>
+        <p><strong>Valor Entregado:</strong> {{ facturaResponse.valueDelivered}}</p>
+        <p><strong>TCEA:</strong> {{ facturaResponse.tcea }}%</p>
+      </div>
     </div>
- </div>
+  </div>
+
+  <!-- Plantilla para el mensaje de error -->
+  <ng-template #errorTemplate>
+    <div class="error-message">
+      <i class="fas fa-exclamation-circle"></i>
+      <h3>Evaluación Fallida</h3>
+      <p>Ha ocurrido un error durante la evaluación de la factura. Por favor, verifica los datos ingresados e inténtalo nuevamente.</p>
+    </div>
+  </ng-template>
+</div>
+
 </div>

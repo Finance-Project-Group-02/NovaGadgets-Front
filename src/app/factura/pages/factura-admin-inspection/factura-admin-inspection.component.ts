@@ -5,8 +5,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+
+
 import { FacturaResponseDTO } from '../../models/facturaResponseDTO';
 import { FacturaRequestDTO } from '../../models/facturaRequestDTO';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -15,19 +18,22 @@ import { FacturaSummary } from '../../models/facturaSummary';
 import { FacturaService } from '../../services/factura/factura.service';
 import { LoginService } from '../../../user/services/login/login.service';
 import { CostDTO } from '../../models/costDTO';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-factura-admin-inspection',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule, 
+    FormsModule,
     ReactiveFormsModule,
-    MatFormFieldModule, 
+    MatFormFieldModule,
     MatInputModule,
     MatNativeDateModule,
     MatDatepickerModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule,
+    MatButtonModule
   ],
   templateUrl: './factura-admin-inspection.component.html',
   styleUrls: ['./factura-admin-inspection.component.css']
@@ -36,14 +42,15 @@ export class FacturaAdminInspectionComponent implements OnInit {
   formDescuento!: FormGroup;
   facturaResponse!: FacturaResponseDTO;
   facturaSummary!: FacturaSummary;
-  evaular = false;
-  tasaValue: String = "E";
+  evaluar = false;
+  evaluacionValida = false;
+  tasaValue: string = "E";
   facturaId: number = 0;
 
-  //Fechas
-  fechaEmision!: String
-  fechaDescuento!: String
-  fechaVencimiento!: String
+  // Fechas
+  fechaEmision!: string;
+  fechaDescuento!: string;
+  fechaVencimiento!: string;
 
   selectedOption!: string;
   selectedOptionNominal!: string;
@@ -76,62 +83,88 @@ export class FacturaAdminInspectionComponent implements OnInit {
   gastosFinales = [
     { name: 'Portes' },
     { name: 'Gastos Administrativos' },
-    { name: 'Otros gastos'}
-  ]
+    { name: 'Otros gastos' }
+  ];
 
   addedGastosIniciales: CostDTO[] = [];
-  addedGastosFinales: CostDTO[] =[];
+  addedGastosFinales: CostDTO[] = [];
 
-  constructor(private formBuilder: FormBuilder, private facturaService: FacturaService, private router: Router,
-    private activatedRoute: ActivatedRoute, private snackbar: MatSnackBar, private loginService: LoginService) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private facturaService: FacturaService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private snackbar: MatSnackBar,
+    private loginService: LoginService
+  ) { }
 
   ngOnInit() {
     this.cargarFormulario();
   }
 
-  cargarFormulario(){
+  cargarFormulario() {
     this.facturaId = this.activatedRoute.snapshot.params["id"];
     this.formDescuento = this.formBuilder.group({
-      type:["E", [Validators.required]],
-      startDate:[[Validators.required]],
-      paymentDate:["", [Validators.required]],
-      totalInvoiced:["", [Validators.required]],
-      retention:[""],
+      type: ["E", [Validators.required]],
+      startDate: ["", [Validators.required]],
+      paymentDate: ["", [Validators.required]],
+      totalInvoiced: ["", [Validators.required]],
+      retention: ["", [Validators.required, Validators.min(0)]],
 
-      dayByYear:["", [Validators.required]],
-      rateTerm:["", [Validators.required]],
-      effectiveRate:["", [Validators.required]],
-      discountDate:["", [Validators.required]],
-      especialRate:["", [Validators.required]],
-      capitalization:[""],
-      especialRateCapitalization:[""],
+      dayByYear: ["", [Validators.required]],
+      rateTerm: ["", [Validators.required]],
+      effectiveRate: ["", [Validators.required]],
+      nominalRate: ["", [Validators.required]],
+      discountDate: ["", [Validators.required]],
+      especialRate: [""],
+      capitalization: [""],
+      especialRateCapitalization: [""],
 
-      gastoInicial:[""],
-      valorTipoInicial:[""],
-      valorInicial:[""],
+      gastoInicial: [""],
+      valorTipoInicial: [""],
+      valorInicial: [""],
 
-      gastoFinal:[""],
-      valorTipoFinal:[""],
-      valorFinal:[""],
+      gastoFinal: [""],
+      valorTipoFinal: [""],
+      valorFinal: [""],
     });
+
+    // Deshabilitamos los campos de tasa nominal por defecto
+    this.formDescuento.get('nominalRate')?.disable();
+    this.formDescuento.get('capitalization')?.disable();
 
     this.facturaService.getFacturaById(this.facturaId).subscribe({
       next: (data: FacturaSummary) => {
         this.facturaSummary = data;
 
         let fechaDate: Date = new Date(data.orderDate + 'T00:00:00');
-        this.formDescuento.get("startDate")?.setValue(fechaDate),
-        this.formDescuento.get("totalInvoiced")?.setValue(data.nominalValue),
-        this.formDescuento.get('startDate')?.disable(),
-        this.formDescuento.get('totalInvoiced')?.disable()
+        this.formDescuento.get("startDate")?.setValue(fechaDate);
+        this.formDescuento.get("totalInvoiced")?.setValue(data.nominalValue);
+        this.formDescuento.get('startDate')?.disable();
+        this.formDescuento.get('totalInvoiced')?.disable();
       },
-      error: (err)=>{
+      error: (err) => {
         console.log(err);
       }
-    })
+    });
 
-
-    //Gastos Iniciales
+    // Gastos Iniciales
+    this.facturaService.getFacturaById(this.facturaId).subscribe({
+      next: (data: FacturaSummary) => {
+        this.facturaSummary = data;
+    
+        let fechaDate: Date = new Date(data.orderDate + 'T00:00:00');
+        this.formDescuento.get("startDate")?.setValue(fechaDate);
+        this.formDescuento.get("totalInvoiced")?.setValue(data.nominalValue);
+        this.formDescuento.get('startDate')?.disable();
+        this.formDescuento.get('totalInvoiced')?.disable();
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+    
+    // Gastos Iniciales
     this.formDescuento.get("gastoInicial")?.valueChanges.subscribe(gasto => {
       if (gasto) {
         this.formDescuento.get('valorTipoInicial')?.enable();
@@ -143,8 +176,8 @@ export class FacturaAdminInspectionComponent implements OnInit {
     });
     this.formDescuento.get('valorTipoInicial')?.disable();
     this.formDescuento.get('valorInicial')?.disable();
-
-    //Gastos Finales
+    
+    // Gastos Finales
     this.formDescuento.get("gastoFinal")?.valueChanges.subscribe(gasto => {
       if (gasto) {
         this.formDescuento.get('valorTipoFinal')?.enable();
@@ -156,40 +189,149 @@ export class FacturaAdminInspectionComponent implements OnInit {
     });
     this.formDescuento.get('valorTipoFinal')?.disable();
     this.formDescuento.get('valorFinal')?.disable();
+    
+    // Control de validación para campos especiales
+    this.formDescuento.get('rateTerm')?.valueChanges.subscribe(value => {
+      if (value === 'especial') {
+        this.formDescuento.get('especialRate')?.setValidators([Validators.required]);
+      } else {
+        this.formDescuento.get('especialRate')?.clearValidators();
+        this.formDescuento.get('especialRate')?.setValue('');
+      }
+      this.formDescuento.get('especialRate')?.updateValueAndValidity();
+    });
+    
+    this.formDescuento.get('capitalization')?.valueChanges.subscribe(value => {
+      if (value === 'especial') {
+        this.formDescuento.get('especialRateCapitalization')?.setValidators([Validators.required]);
+      } else {
+        this.formDescuento.get('especialRateCapitalization')?.clearValidators();
+        this.formDescuento.get('especialRateCapitalization')?.setValue('');
+      }
+      this.formDescuento.get('especialRateCapitalization')?.updateValueAndValidity();
+    });
+    
+    // Control de tipo de tasa
+    this.formDescuento.get('type')?.valueChanges.subscribe(value => {
+      if (value === 'N') {
+        this.tasaValue = 'N';
+    
+        // Habilitar y establecer validadores
+        this.formDescuento.get('nominalRate')?.enable();
+        this.formDescuento.get('capitalization')?.enable();
+        this.formDescuento.get('nominalRate')?.setValidators([Validators.required]);
+        this.formDescuento.get('capitalization')?.setValidators([Validators.required]);
+    
+        // Deshabilitar y limpiar validadores
+        this.formDescuento.get('effectiveRate')?.disable();
+        this.formDescuento.get('effectiveRate')?.clearValidators();
+        this.formDescuento.get('effectiveRate')?.setValue('');
+    
+        // Actualizar el estado de validación
+        this.formDescuento.get('nominalRate')?.updateValueAndValidity();
+        this.formDescuento.get('capitalization')?.updateValueAndValidity();
+        this.formDescuento.get('effectiveRate')?.updateValueAndValidity();
+      } else {
+        this.tasaValue = 'E';
+    
+        // Deshabilitar y limpiar validadores
+        this.formDescuento.get('nominalRate')?.disable();
+        this.formDescuento.get('capitalization')?.disable();
+        this.formDescuento.get('nominalRate')?.clearValidators();
+        this.formDescuento.get('capitalization')?.clearValidators();
+        this.formDescuento.get('nominalRate')?.setValue('');
+        this.formDescuento.get('capitalization')?.setValue('');
+        this.formDescuento.get('especialRateCapitalization')?.setValue('');
+    
+        // Habilitar y establecer validadores
+        this.formDescuento.get('effectiveRate')?.enable();
+        this.formDescuento.get('effectiveRate')?.setValidators([Validators.required]);
+    
+        // Actualizar el estado de validación
+        this.formDescuento.get('nominalRate')?.updateValueAndValidity();
+        this.formDescuento.get('capitalization')?.updateValueAndValidity();
+        this.formDescuento.get('effectiveRate')?.updateValueAndValidity();
+      }
+    });
+
+    this.formDescuento.get('valorTipoInicial')?.disable();
+    this.formDescuento.get('valorInicial')?.disable();
+
+    // Gastos Finales
+    this.formDescuento.get("gastoFinal")?.valueChanges.subscribe(gasto => {
+      if (gasto) {
+        this.formDescuento.get('valorTipoFinal')?.enable();
+        this.formDescuento.get('valorFinal')?.enable();
+      } else {
+        this.formDescuento.get('valorTipoFinal')?.disable();
+        this.formDescuento.get('valorFinal')?.disable();
+      }
+    });
+    this.formDescuento.get('valorTipoFinal')?.disable();
+    this.formDescuento.get('valorFinal')?.disable();
+
+    // Control de validación para campos especiales
+    this.formDescuento.get('rateTerm')?.valueChanges.subscribe(value => {
+      if (value === 'especial') {
+        this.formDescuento.get('especialRate')?.setValidators([Validators.required]);
+      } else {
+        this.formDescuento.get('especialRate')?.clearValidators();
+        this.formDescuento.get('especialRate')?.setValue('');
+      }
+      this.formDescuento.get('especialRate')?.updateValueAndValidity();
+    });
+
+    this.formDescuento.get('capitalization')?.valueChanges.subscribe(value => {
+      if (value === 'especial') {
+        this.formDescuento.get('especialRateCapitalization')?.setValidators([Validators.required]);
+      } else {
+        this.formDescuento.get('especialRateCapitalization')?.clearValidators();
+        this.formDescuento.get('especialRateCapitalization')?.setValue('');
+      }
+      this.formDescuento.get('especialRateCapitalization')?.updateValueAndValidity();
+    });
+
+    // Control de tipo de tasa
+    this.formDescuento.get('type')?.valueChanges.subscribe(value => {
+      if (value === 'N') {
+        this.formDescuento.get('nominalRate')?.enable();
+        this.formDescuento.get('capitalization')?.enable();
+        this.formDescuento.get('effectiveRate')?.disable();
+        this.formDescuento.get('effectiveRate')?.clearValidators();
+        this.formDescuento.get('effectiveRate')?.setValue('');
+        this.formDescuento.get('effectiveRate')?.updateValueAndValidity();
+      } else {
+        this.formDescuento.get('nominalRate')?.disable();
+        this.formDescuento.get('capitalization')?.disable();
+        this.formDescuento.get('nominalRate')?.setValue('');
+        this.formDescuento.get('capitalization')?.setValue('');
+        this.formDescuento.get('especialRateCapitalization')?.setValue('');
+        this.formDescuento.get('nominalRate')?.clearValidators();
+        this.formDescuento.get('nominalRate')?.updateValueAndValidity();
+        this.formDescuento.get('capitalization')?.updateValueAndValidity();
+        this.formDescuento.get('effectiveRate')?.enable();
+        this.formDescuento.get('effectiveRate')?.setValidators([Validators.required]);
+        this.formDescuento.get('effectiveRate')?.updateValueAndValidity();
+      }
+    });
   }
 
-  actualizarTipo(event: any){
+  actualizarTipo(event: any) {
     this.tasaValue = event.value;
   }
 
-  convertirDateToString(fechaDate: Date): String {
+  convertirDateToString(fechaDate: Date): string {
     const year = fechaDate.getFullYear();
     const month = (fechaDate.getMonth() + 1).toString().padStart(2, '0');
     const day = fechaDate.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
 
-  convertirFechaDescuentoToString(event: any){
-    let fechaDate:Date=event.value;
-    const year = fechaDate.getFullYear();
-    const month = (fechaDate.getMonth() + 1).toString().padStart(2, '0');
-    const day = fechaDate.getDate().toString().padStart(2, '0');
-    this.fechaDescuento = `${year}-${month}-${day}`;
-  }
-
-  convertirFechaVencimientoToString(event: any){
-    let fechaDate:Date=event.value;
-    const year = fechaDate.getFullYear();
-    const month = (fechaDate.getMonth() + 1).toString().padStart(2, '0');
-    const day = fechaDate.getDate().toString().padStart(2, '0');
-    this.fechaVencimiento = `${year}-${month}-${day}`;
-  }
-
-  selectionChange(event: any){
+  selectionChange(event: any) {
     this.selectedOption = event.value;
   }
 
-  selectionChangeNominal(event: any){
+  selectionChangeNominal(event: any) {
     this.selectedOptionNominal = event.value;
   }
 
@@ -198,62 +340,102 @@ export class FacturaAdminInspectionComponent implements OnInit {
     const valorTipo = this.formDescuento.get("valorTipoInicial")?.value;
     const valor = this.formDescuento.get("valorInicial")?.value;
 
-    this.addedGastosIniciales.push(
-      { id:0 , name: gastoSeleccionado, type: valorTipo, value: valor }
-    );
+    if (gastoSeleccionado && valorTipo && valor) {
+      this.addedGastosIniciales.push(
+        { id: 0, name: gastoSeleccionado, type: valorTipo, value: valor }
+      );
 
-    this.formDescuento.get("gastoInicial")?.reset();
-    this.formDescuento.get("valorTipoInicial")?.reset();
-    this.formDescuento.get("valorInicial")?.reset();
+      this.formDescuento.get("gastoInicial")?.reset();
+      this.formDescuento.get("valorTipoInicial")?.reset();
+      this.formDescuento.get("valorInicial")?.reset();
+      this.formDescuento.get('valorTipoInicial')?.disable();
+      this.formDescuento.get('valorInicial')?.disable();
+    } else {
+      this.snackbar.open("Complete todos los campos del gasto inicial", "OK", { duration: 2000 });
+    }
+  }
+
+  eliminarGastoInicial(index: number) {
+    this.addedGastosIniciales.splice(index, 1);
   }
 
   agregarGastoFinal() {
     const gastoSeleccionado = this.formDescuento.get("gastoFinal")?.value;
     const valorTipo = this.formDescuento.get("valorTipoFinal")?.value;
     const valor = this.formDescuento.get("valorFinal")?.value;
-    
-    this.addedGastosFinales.push(
-      { id:0 , name: gastoSeleccionado, type: valorTipo, value: valor }
-    );
 
-    this.formDescuento.get("gastoFinal")?.reset();
-    this.formDescuento.get("valorTipoFinal")?.reset();
-    this.formDescuento.get("valorFinal")?.reset();
-  }
- 
-  Regresar(){
-    this.evaular=false;
-    console.log(this.facturaId);
+    if (gastoSeleccionado && valorTipo && valor) {
+      this.addedGastosFinales.push(
+        { id: 0, name: gastoSeleccionado, type: valorTipo, value: valor }
+      );
+
+      this.formDescuento.get("gastoFinal")?.reset();
+      this.formDescuento.get("valorTipoFinal")?.reset();
+      this.formDescuento.get("valorFinal")?.reset();
+      this.formDescuento.get('valorTipoFinal')?.disable();
+      this.formDescuento.get('valorFinal')?.disable();
+    } else {
+      this.snackbar.open("Complete todos los campos del gasto final", "OK", { duration: 2000 });
+    }
   }
 
-  evaluarFactura(){
-    console.log(this.fechaEmision);
-    this.evaular=true;
+  eliminarGastoFinal(index: number) {
+    this.addedGastosFinales.splice(index, 1);
+  }
+
+  canAddGastoInicial(): boolean {
+    return (this.formDescuento.get('gastoInicial')?.valid ?? false) &&
+           (this.formDescuento.get('valorTipoInicial')?.valid ?? false) &&
+           (this.formDescuento.get('valorInicial')?.valid ?? false);
+  }
+  
+  canAddGastoFinal(): boolean {
+    return (this.formDescuento.get('gastoFinal')?.valid ?? false) &&
+           (this.formDescuento.get('valorTipoFinal')?.valid ?? false) &&
+           (this.formDescuento.get('valorFinal')?.valid ?? false);
+  }
+
+  Regresar() {
+    this.evaluar = false;
+    this.evaluacionValida = false;
+  }
+
+  evaluarFactura() {
+    if (this.formDescuento.invalid) {
+      this.snackbar.open("Complete todos los campos requeridos", "OK", { duration: 2000 });
+      return;
+    }
+
+    this.evaluar = true;
 
     let selectedValue;
     let selectedOptionNominal;
 
     let fechaEmision = this.formDescuento.get("startDate")?.value;
+    let fechaPago = this.formDescuento.get("paymentDate")?.value;
+    let fechaDescuento = this.formDescuento.get("discountDate")?.value;
 
     this.fechaEmision = this.convertirDateToString(fechaEmision);
+    this.fechaVencimiento = this.convertirDateToString(fechaPago);
+    this.fechaDescuento = this.convertirDateToString(fechaDescuento);
 
     const rateTermValue = this.formDescuento.get("rateTerm")?.value;
     if (rateTermValue === 'especial') {
       selectedValue = this.formDescuento.get("especialRate")?.value;
     } else {
-      selectedValue = this.options.find(option => option.value === rateTermValue)?.value;
+      selectedValue = rateTermValue;
     }
 
     const rateTermNominal = this.formDescuento.get("capitalization")?.value;
     if (rateTermNominal === 'especial') {
       selectedOptionNominal = this.formDescuento.get("especialRateCapitalization")?.value;
     } else {
-      selectedOptionNominal = this.options.find(option => option.value === rateTermNominal)?.value;
+      selectedOptionNominal = rateTermNominal;
     }
 
     let factura: FacturaRequestDTO | null = null;
 
-    if (this.tasaValue == "E") {
+    if (this.tasaValue === "E") {
       factura = {
         state: "PENDIENTE",
         startDate: this.fechaEmision,
@@ -268,7 +450,7 @@ export class FacturaAdminInspectionComponent implements OnInit {
         initialCosts: this.addedGastosIniciales,
         finalCosts: this.addedGastosFinales
       };
-    } else if (this.tasaValue == "N") {
+    } else if (this.tasaValue === "N") {
       factura = {
         state: "PENDIENTE",
         startDate: this.fechaEmision,
@@ -276,7 +458,7 @@ export class FacturaAdminInspectionComponent implements OnInit {
         discountDate: this.fechaDescuento,
         retention: this.formDescuento.get("retention")?.value,
         type: this.tasaValue,
-        effectiveRate: this.formDescuento.get("effectiveRate")?.value,
+        effectiveRate: this.formDescuento.get("nominalRate")?.value,
         capitalization: selectedOptionNominal,
         rateTerm: selectedValue,
         dayByYear: this.formDescuento.get("dayByYear")?.value,
@@ -285,21 +467,19 @@ export class FacturaAdminInspectionComponent implements OnInit {
       };
     }
 
-    if(factura){
-      this.facturaService.getSimularFactura(factura,this.facturaId).subscribe({
-        next: (data: FacturaResponseDTO)=>{
+    if (factura) {
+      this.facturaService.getSimularFactura(factura, this.facturaId).subscribe({
+        next: (data: FacturaResponseDTO) => {
           this.facturaResponse = data;
-          console.log(this.facturaResponse);
-          this.snackbar.open("Simulacion completa","OK",{duration:2000})
+          this.evaluacionValida = true;
+          this.snackbar.open("Simulación completa", "OK", { duration: 2000 });
         },
-        error: (err)=>{
+        error: (err) => {
           console.log(err);
-          console.log(factura);
-          this.snackbar.open("Simulacion fallida","OK",{duration:2000})
+          this.snackbar.open("Simulación fallida", "OK", { duration: 2000 });
         }
-      })
+      });
     }
-
   }
 
   EmitirFactura(){

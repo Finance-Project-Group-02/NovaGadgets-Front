@@ -56,6 +56,27 @@
     border-top: 5px solid #01034e;
     padding-top: 1rem;
   }
+
+  .back-to-login-link {
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #17a2b8;
+    text-decoration: none;
+    margin-top: 15px;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .back-to-login-link:hover {
+    color: #138496;
+    transform: scale(1.05);
+    text-decoration: underline;
+  }
+  
+  .back-to-login-link:active {
+    color: #0f6674;
+  }
   
   #carouselContainer {
     background-color: #e1e2e3;

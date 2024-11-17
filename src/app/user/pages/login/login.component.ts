@@ -15,7 +15,7 @@ import { User } from '../../models/user.model';
   standalone: true,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule, RouterLink]
 })
 export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   login: Login = {
