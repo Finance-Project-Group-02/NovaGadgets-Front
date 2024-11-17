@@ -20,7 +20,7 @@ import { FacturaTceaValidationComponent } from './factura/pages/factura-tcea-val
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },//TODOS
     { path: 'login', component: LoginComponent, canActivate: [loginGuard] },//TODOS
-    { path: 'register', component: RegisterComponent, canActivate: [authGuard] },//TODOS
+    { path: 'register', component: RegisterComponent, canActivate: [loginGuard] },//TODOS
     { path: 'home', component: HomeComponent, canActivate: [authGuard] }, //TODOS
     { path: 'perfil', component: PerfilComponent, canActivate: [authGuard] },//TODOS
     { path: "factura-admin", component: FacturaAdminComponent, canActivate: [authGuard], data: { role: 'ADMIN' } },//ADMIN

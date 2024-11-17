@@ -75,7 +75,14 @@
               <div *ngIf="telefono.errors?.['pattern']">Teléfono debe tener 9 dígitos.</div>
             </div>
           </div>
-      
+
+          <!-- Dirección -->
+          <div class="col-md-6 mb-3">
+            <input type="text" [(ngModel)]="user.address" name="address" #address="ngModel" class="form-control" placeholder="Dirección" required>
+            <div *ngIf="address.invalid && (address.touched || registerForm.submitted)" class="error-message">
+              Dirección es requerida.
+            </div>
+          </div>
           <!-- DNI -->
           <div class="col-md-6 mb-3">
             <input type="text" [(ngModel)]="user.dni" name="dni" #dni="ngModel" class="form-control" placeholder="DNI" required pattern="^[0-9]{8}$">
