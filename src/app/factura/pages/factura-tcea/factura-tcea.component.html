@@ -1,4 +1,7 @@
 <div class="container" style="margin-top: 45px;">
+    <button mat-mini-fab color="primary" class="icon-button" (click)="generarMensaje()">
+        <mat-icon>question_mark</mat-icon>
+    </button>
     <!-- Message to Select a Factura -->
     <div class="message" *ngIf="!selectFirst">
         <p>Selecciona una factura</p>

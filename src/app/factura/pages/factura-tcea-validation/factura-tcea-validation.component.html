@@ -1,7 +1,11 @@
 <div class="container" style="margin-top: 55px;">
+    <button mat-mini-fab color="primary" class="icon-button" (click)="generarMensaje()">
+        <mat-icon>question_mark</mat-icon>
+    </button>
     <!-- Sección: Título y Resumen -->
     <section class="summary-section">
         <h4 class="title">Resultado</h4>
+        
         <p class="summary">
             <strong>(VR):</strong> Valor Total a Recibir por la cartera: {{tceaCartera.totalValueReceived}}
         </p>
@@ -13,6 +17,7 @@
         <button mat-raised-button color="primary" (click)="generatePDF()" [disabled]="!datosCargados">
             Generar PDF
         </button>
+
     </section>
 
     <!-- Sección: Factura Seleccionada -->

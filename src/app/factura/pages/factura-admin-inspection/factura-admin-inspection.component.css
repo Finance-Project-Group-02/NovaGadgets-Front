@@ -15,6 +15,13 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
+/*Boton*/
+.icon-button {
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
 .type {
   margin-bottom: 40px;
 }
@@ -87,7 +94,7 @@
   font-size: 1.1em;
 }
 
-button {
+.simular button {
   min-width: 140px;
 }
 
@@ -125,6 +132,10 @@ h4 {
   font-size: 1.5em;
   text-align: center;
   color: #0d47a1;
+}
+
+h4 button{
+  margin: 0 0 0 20px;
 }
 
 .factura-details {
@@ -210,6 +221,7 @@ h4 {
   color: #d32f2f;
   margin-bottom: 20px;
 }
+
 
 @media (max-width: 768px) {
   .row {

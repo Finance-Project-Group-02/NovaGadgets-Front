@@ -14,6 +14,9 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { TDocumentDefinitions, Content, TableCell } from 'pdfmake/interfaces';
 import { MatButton } from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import Swal from 'sweetalert2'; // Importar SweetAlert2
 
 // Asignar las fuentes a pdfMake
 (pdfMake as any).vfs = pdfFonts.vfs;
@@ -21,7 +24,7 @@ import { MatButton } from '@angular/material/button';
 @Component({
   selector: 'app-factura-tcea-validation',
   standalone: true,
-  imports: [MatExpansionModule, MatCardModule, CommonModule, MatButton],
+  imports: [MatExpansionModule, MatCardModule, CommonModule, MatButton, MatIconModule, MatButtonModule],
   templateUrl: './factura-tcea-validation.component.html',
   styleUrl: './factura-tcea-validation.component.css'
 })
@@ -93,6 +96,15 @@ export class FacturaTceaValidationComponent {
     })
   }
 
+  generarMensaje(){
+    Swal.fire({
+      icon: 'question',
+      text: 'Seleccione las facturas que desea incluir en la cartera para que el sistema calcule los resultados automáticamente. Además, podrá generar y descargar un archivo PDF con los detalles.',
+      showConfirmButton: true,
+      confirmButtonText: 'Aceptar'
+    });
+  }
+
   onCardClick(factura: FacturaSummary){
     const index = this.facturasArray.indexOf(factura.id);   
     if (index === -1) {
@@ -115,7 +127,7 @@ export class FacturaTceaValidationComponent {
   }
 
   verificarDatosCargados() {
-    if (this.tceaCartera && this.facturaSeleccionada && this.dsFacturas.length > 0) {
+    if (this.tceaCartera && this.facturaSeleccionada) {
       this.datosCargados = true;
     }
   }

@@ -19,6 +19,7 @@ import { FacturaService } from '../../services/factura/factura.service';
 import { LoginService } from '../../../user/services/login/login.service';
 import { CostDTO } from '../../models/costDTO';
 import { MatButtonModule } from '@angular/material/button';
+import Swal from 'sweetalert2'; // Importar SweetAlert2
 
 @Component({
   selector: 'app-factura-admin-inspection',
@@ -100,6 +101,48 @@ export class FacturaAdminInspectionComponent implements OnInit {
 
   ngOnInit() {
     this.cargarFormulario();
+  }
+
+  //Mensajes
+  generarMensajePrincipal(){
+    Swal.fire({
+      icon: 'question',
+      text: 'En esta sección podrá simular el descuento de la factura. Si está conforme con la simulación, deberá emitir la factura para cambiar su estado a "Aceptado". Es importante tener en cuenta que, al trabajar con una factura, se utiliza el Valor Nominal, es decir, el monto total menos el IGV (18%)',
+      showConfirmButton: true,
+      confirmButtonText: 'Aceptar'
+    });
+  }
+  generarMensajeCosteIniciales(){
+    Swal.fire({
+      icon: 'question',
+      text: 'Estos corresponden a los costos o gastos que deben pagarse al acreedor para realizar la operación, y que se agregarán al Valor Neto (la diferencia entre el Valor Nominal y el Descuento). Puede elegir ingresar estos montos como un porcentaje o como un valor efectivo. Estos gastos afectarán el cálculo de la Tasa de Costo Efectivo Anual (TCEA).',
+      showConfirmButton: true,
+      confirmButtonText: 'Aceptar'
+    });
+  }
+  generarMensajeCosteFinales(){
+    Swal.fire({
+      icon: 'question',
+      text: 'Estos corresponden a los costos o gastos que deben pagarse al acreedor al finalizar la operación y que se agregarán al Valor Nominal. Puede elegir entre ingresar el monto en forma de porcentaje o como valor efectivo. Estos montos afectarán el cálculo de la Tasa de Costo Efectivo Anual (TCEA)',
+      showConfirmButton: true,
+      confirmButtonText: 'Aceptar'
+    });
+  }
+  generarMensajeTasaPlazo(){
+    Swal.fire({
+      icon: 'question',
+      text: 'En esta sección podrá seleccionar el número de días por año, el plazo o período de la tasa, el valor de la tasa de interés con la que se compensará al acreedor, y la fecha de descuento, que es el día en que se descontará el instrumento financiero',
+      showConfirmButton: true,
+      confirmButtonText: 'Aceptar'
+    });
+  }
+  generarMensajeDatosFactura(){
+    Swal.fire({
+      icon: 'question',
+      text: 'En esta sección podrá seleccionar la Fecha de Pago, que corresponde al vencimiento del compromiso originado por la factura, así como el valor retenido por el acreedor. Es importante señalar que la Fecha de Emisión es la misma que la de creación de la factura, y el Valor Nominal es el monto total menos el IGV (18%). Ambos valores no podrán ser modificados.',
+      showConfirmButton: true,
+      confirmButtonText: 'Aceptar'
+    });
   }
 
   cargarFormulario() {

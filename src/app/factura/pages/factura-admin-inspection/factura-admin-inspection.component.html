@@ -2,6 +2,9 @@
   <!-- Sección principal del formulario -->
   <div class="form-container" *ngIf="!evaluar">
     <form class="form" [formGroup]="formDescuento">
+      <button mat-mini-fab color="primary" class="icon-button" (click)="generarMensajePrincipal()">
+          <mat-icon>question_mark</mat-icon>
+      </button>
       <!-- Selección del tipo de tasa -->
       <div class="type">
         <div class="form-field">
@@ -23,7 +26,12 @@
       <div class="row">
         <!-- Datos relacionados a la factura -->
         <div class="data-factura">
-          <h4 class="section-title">Datos de la Factura</h4>
+          <h4 class="section-title">Datos de la Factura
+            <button mat-mini-fab color="primary" class="icon-button" (click)="generarMensajeDatosFactura()">
+              <mat-icon>question_mark</mat-icon>
+            </button>
+
+          </h4>
 
           <!-- Campo: Fecha de Emisión -->
           <div class="form-field">
@@ -76,7 +84,12 @@
 
         <!-- Información sobre tasas y plazos -->
         <div class="rates-factura">
-          <h4 class="section-title">Tasa y Plazo</h4>
+          <h4 class="section-title">Tasa y Plazo
+            <button mat-mini-fab color="primary" class="icon-button" (click)="generarMensajeTasaPlazo()">
+              <mat-icon>question_mark</mat-icon>
+            </button>
+
+          </h4>
 
           <!-- Selección: Días por Año -->
           <div class="form-field">
@@ -180,7 +193,12 @@
       <div class="row">
         <!-- Costos Iniciales -->
         <div class="cost-factura">
-          <h4 class="section-title">Costes / Gastos Iniciales</h4>
+          <h4 class="section-title">Costes / Gastos Iniciales
+            <button mat-mini-fab color="primary" class="icon-button" (click)="generarMensajeCosteIniciales()">
+              <mat-icon>question_mark</mat-icon>
+            </button>
+            
+          </h4>
           <div class="form-field">
             <label>Motivo</label>
             <mat-form-field appearance="outline">
@@ -219,7 +237,11 @@
 
         <!-- Costos Finales -->
         <div class="cost-factura">
-          <h4 class="section-title">Costes / Gastos Finales</h4>
+          <h4 class="section-title">Costes / Gastos Finales
+            <button mat-mini-fab color="primary" class="icon-button" (click)="generarMensajeCosteFinales()">
+              <mat-icon>question_mark</mat-icon>
+            </button>
+          </h4>
           <div class="form-field">
             <label>Motivo</label>
             <mat-form-field appearance="outline">
