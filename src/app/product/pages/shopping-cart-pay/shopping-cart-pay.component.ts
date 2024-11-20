@@ -8,11 +8,12 @@ import { Router } from '@angular/router'; // Importar Router
 import { forkJoin } from 'rxjs'; // Importar forkJoin
 import Swal from 'sweetalert2'; // Importar SweetAlert2
 import { LoginService } from '../../../user/services/login/login.service';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-shopping-cart-pay',
   standalone: true,
-  imports: [NgIf, FormsModule, NgFor],
+  imports: [NgIf, FormsModule, NgFor, MatIcon],
   templateUrl: './shopping-cart-pay.component.html',
   styleUrl: './shopping-cart-pay.component.css'
 })
@@ -186,6 +187,15 @@ export class ShoppingCartPayComponent implements OnInit {
 
   cambiarMoneda(money: number): string {
     return this.loginService.cambiarDivisaPrecio(money);
+  }
+
+  generarMensaje(){
+    Swal.fire({
+      icon: 'question',
+      text: 'Para poder realizar toda la compra correctamente, usted tiene que llenar el apartado de Direccion, Distrito y Referencias, además de aceptar los términos y condiciones de la compra.',
+      showConfirmButton: true,
+      confirmButtonText: 'Aceptar'
+    });
   }
 
 }

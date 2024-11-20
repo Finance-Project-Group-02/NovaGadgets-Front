@@ -6,11 +6,13 @@ import { NgFor, NgIf } from '@angular/common';
 import { LoginService } from '../../../user/services/login/login.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import Swal from 'sweetalert2';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-shopping-product-cart',
   standalone: true,
-  imports: [NgFor, NgIf, RouterLink , MatCardModule, MatButtonModule],
+  imports: [NgFor, NgIf, RouterLink , MatCardModule, MatButtonModule, MatIcon],
   templateUrl: './shopping-product-cart.component.html',
   styleUrl: './shopping-product-cart.component.css'
 })
@@ -54,5 +56,13 @@ export class ShoppingProductCartComponent implements OnInit {
     return this.loginService.cambiarDivisaPrecio(money);
   }
 
+  generarMensaje(){
+    Swal.fire({
+      icon: 'question',
+      text: 'Dentro del carrito, ustedes puede añadir la cantidad total de productos que va a querer comprar. Si desea eliminar un producto, puede hacerlo con el botón de eliminar. Si desea aumentar o disminuir la cantidad de un producto, puede hacerlo con los botones de + y - respectivamente.',
+      showConfirmButton: true,
+      confirmButtonText: 'Aceptar'
+    });
+  }
   
 }

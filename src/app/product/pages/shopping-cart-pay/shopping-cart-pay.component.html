@@ -1,5 +1,11 @@
 <div class="container" style="margin-top: 25px;">
+  <br>
+  
   <h1>Resumen de Compra</h1>
+  <button mat-mini-fab color="primary" class="icon-button" (click)="generarMensaje()">
+    <mat-icon>question_mark</mat-icon>
+  </button>
+
   
   <div *ngIf="cartProducts.length > 0; else emptyCart">
     <!-- Tabla de productos en el carrito -->
