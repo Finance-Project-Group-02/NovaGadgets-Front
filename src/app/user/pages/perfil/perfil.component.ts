@@ -54,4 +54,14 @@ export class PerfilComponent implements OnInit {
 
     }
   }
+
+  generarMensaje(){
+    Swal.fire({
+      icon: 'question',
+      text: 'Dentro del apartado del perfil usted puede visualizar todos sus datos que ha registrado en el sistema, ademas de poder cambiar el tipo de moneda con la que desea visualizar el sistema.',
+      showConfirmButton: true,
+      confirmButtonText: 'Aceptar'
+    });
+  }
+
 }
