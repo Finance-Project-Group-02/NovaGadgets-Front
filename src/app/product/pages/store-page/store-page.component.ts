@@ -7,11 +7,13 @@ import { RouterLink } from '@angular/router';
 import { ProductStorageService } from '../../../shopping_cart/services/product-storage/product-storage.service';
 import { LoginService } from '../../../user/services/login/login.service';
 import { ToastrService } from 'ngx-toastr';
+import { MatIcon } from '@angular/material/icon';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-store-page',
   standalone: true,
-  imports: [NgFor, RouterLink],
+  imports: [NgFor, RouterLink, MatIcon],
   templateUrl: './store-page.component.html',
   styleUrl: './store-page.component.css'
 })
@@ -90,4 +92,14 @@ export class StorePageComponent implements OnInit, AfterViewInit {
   cambiarMoneda(money: number): string {
     return this.loginService.cambiarDivisaPrecio(money);
   }
+
+  generarMensaje(){
+    Swal.fire({
+      icon: 'question',
+      text: 'Dentro de este apartado se podrán visualizar todos los productos disponibles que tenemos dentro de nuestra tienda, además de poder agregarlos al carrito de compras y visualizar el total de productos y el total a pagar.',
+      showConfirmButton: true,
+      confirmButtonText: 'Aceptar'
+    });
+  }
+
 }

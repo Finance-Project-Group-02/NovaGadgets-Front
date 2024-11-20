@@ -6,11 +6,13 @@ import { ProductStorageService } from '../../../shopping_cart/services/product-s
 import { CommonModule } from '@angular/common'; // Importar CommonModule
 import { LoginService } from '../../../user/services/login/login.service';
 import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink], // Agregar CommonModule a los imports
+  imports: [CommonModule, RouterLink, MatIcon], // Agregar CommonModule a los imports
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css']
 })
@@ -58,5 +60,16 @@ export class ProductDetailComponent implements OnInit {
   cambiarMoneda(money: number): string {
     return this.loginService.cambiarDivisaPrecio(money);
   }
+
+  generarMensaje(){
+    Swal.fire({
+      icon: 'question',
+      text: 'Como se puede visualizar en este apartado, observamos todo el detalle del producto. En la parte inferior se encuentra el botón "Añadir al carrito" que permite agregar el producto al carrito de compras. Además, se puede observar el precio del producto en la moneda seleccionada por el usuario. Y si usted presiona el boton de realizar pedido, automaticamente procede al apartado de comprar el producto',
+      showConfirmButton: true,
+      confirmButtonText: 'Aceptar'
+    });
+  }
+
+
 }
 

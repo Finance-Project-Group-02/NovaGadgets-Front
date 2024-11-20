@@ -155,4 +155,13 @@ export class ProductOrderComponent implements OnInit {
   cambiarMoneda(money: number): string {
     return this.loginService.cambiarDivisaPrecio(money);
   }
+
+  generarMensaje(){
+    Swal.fire({
+      icon: 'question',
+      text: 'Para poder realizar toda la compra correctamente, usted tiene que llenar el apartado de Direccion, Distrito y Referencias, además de aceptar los términos y condiciones de la compra.',
+      showConfirmButton: true,
+      confirmButtonText: 'Aceptar'
+    });
+  }
 }

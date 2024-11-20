@@ -1,5 +1,6 @@
 /* Contenedor principal */
 .product-detail-container {
+  position: relative; /* Esto permite que el botón se posicione dentro de este contenedor */
   max-width: 1000px;
   margin: 5vh auto;
   padding: 30px;
@@ -13,6 +14,23 @@
   gap: 30px;
 }
 
+/* Botón de pregunta */
+.icon-button {
+  position: absolute; /* Posición absoluta dentro del contenedor principal */
+  top: 10px; /* Ajusta la distancia desde la parte superior del card */
+  left: 10px; /* Ajusta la distancia desde la parte izquierda del card */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #3498db; /* Azul para visibilidad */
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  z-index: 10; /* Asegura que esté por encima del contenido del card */
+}
 /* Título */
 .page-title {
   font-size: 2.2rem;

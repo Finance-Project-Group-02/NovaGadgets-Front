@@ -1,7 +1,11 @@
 <div class="product-detail-container" style="margin-top: 10px;">
+  
   <h1 class="page-title">Detalle del Producto</h1>
 
   <div class="product-content">
+    <button mat-mini-fab color="primary" class="icon-button" (click)="generarMensaje()">
+      <mat-icon>question_mark</mat-icon>
+    </button>
     <!-- Imagen del producto -->
     <div class="product-image-container">
       <img class="product-image" [src]="product.image" alt="{{ product.name }}">

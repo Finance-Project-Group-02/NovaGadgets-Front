@@ -1,6 +1,13 @@
+
 <div class="container" style="margin-top: 45px;">
+
+  
   <!-- Detalles de Facturación -->
   <div class="billing-details">
+    <button mat-mini-fab color="primary" class="icon-button" (click)="generarMensaje()">
+      <mat-icon>question_mark</mat-icon>
+    </button>
+
     <h2>Billing Details</h2>
     <label for="address">Dirección*</label>
     <input type="text" id="address" placeholder="Dirección">
@@ -66,8 +73,8 @@
     <div class="right-section">
       <h2>Your Order</h2>
       <ul>
-        <li><span>Subtotal</span><span>{{ cambiarMoneda(totalPrice) }}</span></li>
-        <li><span>Envío</span><span>Currier: {{ cambiarMoneda(curriermoney) }}</span></li>
+        <li><span>Subtotal               </span><span>{{ cambiarMoneda(totalPrice) }}</span></li>
+        <li><span>Envío                  </span><span>Currier: {{ cambiarMoneda(curriermoney) }}</span></li>
         <li class="total"><span>Total</span><span>{{ cambiarMoneda(totalPrice + curriermoney) }}</span></li>
       </ul>
 
