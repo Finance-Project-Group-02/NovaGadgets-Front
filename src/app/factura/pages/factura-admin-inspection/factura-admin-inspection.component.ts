@@ -45,7 +45,7 @@ export class FacturaAdminInspectionComponent implements OnInit {
   facturaSummary!: FacturaSummary;
   evaluar = false;
   evaluacionValida = false;
-  tasaValue: string = "E";
+  tasaValue: string = 'E';
   facturaId: number = 0;
 
   // Fechas
@@ -145,7 +145,9 @@ export class FacturaAdminInspectionComponent implements OnInit {
     });
   }
 
+
   cargarFormulario() {
+    console.log(this.tasaValue)
     this.facturaId = this.activatedRoute.snapshot.params["id"];
     this.formDescuento = this.formBuilder.group({
       type: ["E", [Validators.required]],
@@ -157,11 +159,11 @@ export class FacturaAdminInspectionComponent implements OnInit {
       dayByYear: ["", [Validators.required]],
       rateTerm: ["", [Validators.required]],
       effectiveRate: ["", [Validators.required, Validators.min(0)]],
-      nominalRate: ["", [Validators.min(0)]],
+      nominalRate: [""],
       discountDate: ["", [Validators.required]],
-      especialRate: ["",[Validators.min(0)]],
+      especialRate: [""],
       capitalization: [""],
-      especialRateCapitalization: ["",[Validators.min(0)]],
+      especialRateCapitalization: [""],
 
       gastoInicial: [""],
       valorTipoInicial: [""],
@@ -190,7 +192,6 @@ export class FacturaAdminInspectionComponent implements OnInit {
         console.log(err);
       }
     });
-
     // Gastos Iniciales
     this.facturaService.getFacturaById(this.facturaId).subscribe({
       next: (data: FacturaSummary) => {
@@ -236,7 +237,7 @@ export class FacturaAdminInspectionComponent implements OnInit {
     // Control de validación para campos especiales
     this.formDescuento.get('rateTerm')?.valueChanges.subscribe(value => {
       if (value === 'especial') {
-        this.formDescuento.get('especialRate')?.setValidators([Validators.required]);
+        this.formDescuento.get('especialRate')?.setValidators([Validators.required,Validators.min(0)]);
       } else {
         this.formDescuento.get('especialRate')?.clearValidators();
         this.formDescuento.get('especialRate')?.setValue('');
@@ -246,7 +247,7 @@ export class FacturaAdminInspectionComponent implements OnInit {
     
     this.formDescuento.get('capitalization')?.valueChanges.subscribe(value => {
       if (value === 'especial') {
-        this.formDescuento.get('especialRateCapitalization')?.setValidators([Validators.required]);
+        this.formDescuento.get('especialRateCapitalization')?.setValidators([Validators.required,Validators.min(0)]);
       } else {
         this.formDescuento.get('especialRateCapitalization')?.clearValidators();
         this.formDescuento.get('especialRateCapitalization')?.setValue('');
@@ -262,7 +263,7 @@ export class FacturaAdminInspectionComponent implements OnInit {
         // Habilitar y establecer validadores
         this.formDescuento.get('nominalRate')?.enable();
         this.formDescuento.get('capitalization')?.enable();
-        this.formDescuento.get('nominalRate')?.setValidators([Validators.required]);
+        this.formDescuento.get('nominalRate')?.setValidators([Validators.required,Validators.min(0)]);
         this.formDescuento.get('capitalization')?.setValidators([Validators.required]);
     
         // Deshabilitar y limpiar validadores
@@ -288,7 +289,7 @@ export class FacturaAdminInspectionComponent implements OnInit {
     
         // Habilitar y establecer validadores
         this.formDescuento.get('effectiveRate')?.enable();
-        this.formDescuento.get('effectiveRate')?.setValidators([Validators.required]);
+        this.formDescuento.get('effectiveRate')?.setValidators([Validators.required, Validators.min(0)]);
     
         // Actualizar el estado de validación
         this.formDescuento.get('nominalRate')?.updateValueAndValidity();
@@ -316,7 +317,7 @@ export class FacturaAdminInspectionComponent implements OnInit {
     // Control de validación para campos especiales
     this.formDescuento.get('rateTerm')?.valueChanges.subscribe(value => {
       if (value === 'especial') {
-        this.formDescuento.get('especialRate')?.setValidators([Validators.required]);
+        this.formDescuento.get('especialRate')?.setValidators([Validators.required,Validators.min(0)]);
       } else {
         this.formDescuento.get('especialRate')?.clearValidators();
         this.formDescuento.get('especialRate')?.setValue('');
@@ -326,7 +327,7 @@ export class FacturaAdminInspectionComponent implements OnInit {
 
     this.formDescuento.get('capitalization')?.valueChanges.subscribe(value => {
       if (value === 'especial') {
-        this.formDescuento.get('especialRateCapitalization')?.setValidators([Validators.required]);
+        this.formDescuento.get('especialRateCapitalization')?.setValidators([Validators.required,Validators.min(0)]);
       } else {
         this.formDescuento.get('especialRateCapitalization')?.clearValidators();
         this.formDescuento.get('especialRateCapitalization')?.setValue('');
@@ -353,7 +354,7 @@ export class FacturaAdminInspectionComponent implements OnInit {
         this.formDescuento.get('nominalRate')?.updateValueAndValidity();
         this.formDescuento.get('capitalization')?.updateValueAndValidity();
         this.formDescuento.get('effectiveRate')?.enable();
-        this.formDescuento.get('effectiveRate')?.setValidators([Validators.required]);
+        this.formDescuento.get('effectiveRate')?.setValidators([Validators.required,Validators.min(0)]);
         this.formDescuento.get('effectiveRate')?.updateValueAndValidity();
       }
     });
