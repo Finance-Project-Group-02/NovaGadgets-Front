@@ -122,9 +122,9 @@
             <!-- Campo adicional: Especificar valor en caso especial -->
             <mat-form-field appearance="outline" *ngIf="selectedOption === 'especial'">
               <mat-label>Especificar valor</mat-label>
-              <input matInput formControlName="especialRate" placeholder="Valor especial">
+              <input type="number" matInput formControlName="especialRate" placeholder="Valor especial">
               <mat-error *ngIf="formDescuento.get('especialRate')?.invalid">
-                El valor especial es <strong>requerido</strong>
+                El valor especial debe ser un número válido
               </mat-error>
             </mat-form-field>
           </div>
@@ -135,7 +135,7 @@
             <mat-form-field appearance="outline">
               <input type="number" matInput formControlName="effectiveRate" placeholder="Ingresa la tasa" class="form-control">
               <mat-error *ngIf="formDescuento.get('effectiveRate')?.invalid">
-                La tasa efectiva es <strong>requerida</strong>
+                La tasa efectiva debe ser un número válido
               </mat-error>
             </mat-form-field>
           </div>
@@ -146,7 +146,7 @@
             <mat-form-field appearance="outline">
               <input type="number" matInput formControlName="nominalRate" placeholder="Ingresa la tasa" class="form-control">
               <mat-error *ngIf="formDescuento.get('nominalRate')?.invalid">
-                La tasa nominal es <strong>requerida</strong>
+                La tasa nominal debe ser un número válido
               </mat-error>
             </mat-form-field>
           </div>
@@ -167,9 +167,9 @@
             <!-- Campo adicional: Especificar valor en caso especial -->
             <mat-form-field appearance="outline" *ngIf="selectedOptionNominal === 'especial'">
               <mat-label>Especificar valor</mat-label>
-              <input matInput formControlName="especialRateCapitalization" placeholder="Valor especial">
+              <input type="number" matInput formControlName="especialRateCapitalization" placeholder="Valor especial">
               <mat-error *ngIf="formDescuento.get('especialRateCapitalization')?.invalid">
-                El valor especial es <strong>requerido</strong>
+                El valor especial debe ser un número válido
               </mat-error>
             </mat-form-field>
           </div>
@@ -219,6 +219,9 @@
             </mat-form-field>
             <mat-form-field appearance="outline">
               <input matInput formControlName="valorInicial" type="number" placeholder="Valor">
+              <mat-error *ngIf="formDescuento.get('valorInicial')?.invalid">
+                El valor inicial debe ser un número válido
+              </mat-error>
             </mat-form-field>
           </div>
           <button mat-raised-button color="primary" (click)="agregarGastoInicial()" [disabled]="!canAddGastoInicial()">Agregar Gasto</button>
@@ -262,6 +265,9 @@
             </mat-form-field>
             <mat-form-field appearance="outline">
               <input matInput formControlName="valorFinal" type="number" placeholder="Valor">
+              <mat-error *ngIf="formDescuento.get('valorFinal')?.invalid">
+                El valor final debe ser un número válido
+              </mat-error>
             </mat-form-field>
           </div>
           <button mat-raised-button color="primary" (click)="agregarGastoFinal()" [disabled]="!canAddGastoFinal()">

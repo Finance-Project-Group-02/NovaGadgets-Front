@@ -156,20 +156,20 @@ export class FacturaAdminInspectionComponent implements OnInit {
 
       dayByYear: ["", [Validators.required]],
       rateTerm: ["", [Validators.required]],
-      effectiveRate: ["", [Validators.required]],
-      nominalRate: ["", [Validators.required]],
+      effectiveRate: ["", [Validators.required, Validators.min(0)]],
+      nominalRate: ["", [Validators.min(0)]],
       discountDate: ["", [Validators.required]],
-      especialRate: [""],
+      especialRate: ["",[Validators.min(0)]],
       capitalization: [""],
-      especialRateCapitalization: [""],
+      especialRateCapitalization: ["",[Validators.min(0)]],
 
       gastoInicial: [""],
       valorTipoInicial: [""],
-      valorInicial: [""],
+      valorInicial: ["",[Validators.min(0)]],
 
       gastoFinal: [""],
       valorTipoFinal: [""],
-      valorFinal: [""],
+      valorFinal: ["",[Validators.min(0)]],
     });
 
     // Deshabilitamos los campos de tasa nominal por defecto

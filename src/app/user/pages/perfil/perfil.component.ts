@@ -58,7 +58,7 @@ export class PerfilComponent implements OnInit {
   generarMensaje(){
     Swal.fire({
       icon: 'question',
-      text: 'Dentro del apartado del perfil usted puede visualizar todos sus datos que ha registrado en el sistema, ademas de poder cambiar el tipo de moneda con la que desea visualizar el sistema.',
+      html: 'Dentro del apartado del perfil, usted puede visualizar todos los datos registrados en el sistema y, además, tiene la opción de cambiar el tipo de moneda con la que desea visualizar la información del sistema. Al realizar este cambio, los valores monetarios se convertirán automáticamente según la tasa definida, que en este caso es <b>3.81</b>.',
       showConfirmButton: true,
       confirmButtonText: 'Aceptar'
     });
